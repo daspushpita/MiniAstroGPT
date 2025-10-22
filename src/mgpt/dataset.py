@@ -4,6 +4,11 @@ from torch.utils.data import Dataset, DataLoader
 import tiktoken
 
 class AstroDataset(Dataset):
+    """Dataset class for the AstroGPT model.
+
+    Args:
+        Dataset (_type_): _description_
+    """
     def __init__(self, txt_data, 
                  tokenizer_name='gpt2', 
                  max_length=32,
@@ -40,6 +45,11 @@ class AstroDataset(Dataset):
                                 shuffle=shuffle, drop_last=drop_last,
                                 num_workers=num_workers)
         return dataloader
-        
+    
+    def data_decoder(self, token_ids):
+        """Decodes token ids back to text words.
+        """
+        decoded_texts = self.tokenizer.decode(token_ids)
+        return decoded_texts
 
     

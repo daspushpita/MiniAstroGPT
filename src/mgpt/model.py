@@ -3,6 +3,11 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 class GenerateEmbeddings(nn.Module):
+    """Generates token and positional embeddings.
+
+    Args:
+        nn (Module): PyTorch neural network module.
+    """
     def __init__(self, vocab_size, embed_dim, max_seq_len, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.token_embedding = nn.Embedding(vocab_size, embed_dim)
@@ -17,6 +22,11 @@ class GenerateEmbeddings(nn.Module):
     
 
 class CausalAttention(nn.Module):
+    """Casual Attention Mechanism
+
+    Args:
+        nn (Module): PyTorch neural network module.
+    """
     
     def __init__(self, embed_dim, context_length, dropout, qkv_bias=False, *args, **kwargs):
         super(CausalAttention, self).__init__(*args, **kwargs)
@@ -46,6 +56,11 @@ class CausalAttention(nn.Module):
     
 
 class MultiHeadAttention(nn.Module):
+    """Multi-Head Attention Mechanism
+
+    Args:
+        nn (Module): PyTorch neural network module.
+    """
     def __init__(self, embed_dim, context_length, num_heads, dropout, qkv_bias=False, *args, **kwargs):
         super().__init__(*args, **kwargs)
         assert embed_dim % num_heads == 0, "embed_dim must be divisible by num_heads"
@@ -95,6 +110,11 @@ class MultiHeadAttention(nn.Module):
     
 
 class FeedForward(nn.Module):
+    """Feed Forward Neural Network
+
+    Args:
+        nn (_type_): PyTorch neural network module.
+    """
     def __init__(self, embed_dim, *args, **kwargs):
         super().__init__()
         self.embed_dim = embed_dim
@@ -108,6 +128,11 @@ class FeedForward(nn.Module):
         return self.neural_net(x)
     
 class LayerNorm(nn.Module):
+    """Layer Normalization
+
+    Args:
+        nn (Module): PyTorch neural network module.
+    """
     def __init__(self, embed_dim, eps=1.e-5):
         super().__init__()
         self.embed_dim = embed_dim
@@ -122,6 +147,11 @@ class LayerNorm(nn.Module):
         return self.gamma * x_norm + self.beta
 
 class TransformerBlock(nn.Module):
+    """Transformer Block consisting of Multi-Head Attention and Feed Forward Network
+
+    Args:
+        nn (Module): PyTorch neural network module.
+    """
     def __init__(self, params_dict):
         super().__init__()
         self.attention = MultiHeadAttention(params_dict["embed_dim"], params_dict["context_dim"], params_dict["num_heads"], params_dict["dropout"])
@@ -145,6 +175,11 @@ class TransformerBlock(nn.Module):
         return x
     
 class Mini_AstroGPT_Model(nn.Module):
+    """Mini AstroGPT Model
+
+    Args:
+        nn (Module): PyTorch neural network module.
+    """
     def __init__(self, params_dict):
         super().__init__()
         self.embed_layer = GenerateEmbeddings(params_dict["vocab_size"], params_dict["embed_dim"], params_dict["context_dim"])
