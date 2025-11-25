@@ -1,7 +1,9 @@
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import tiktoken
+from mgpt.gpt_download import download_and_load_gpt2
 
 class train_model:
     """Class to handle training and evaluation of the Mini AstroGPT model
@@ -137,3 +139,67 @@ class train_model:
     
     def save_model_weights(self, filepath):
         torch.save(self.model.state_dict(), filepath)
+        
+        
+        
+        
+class loading_gpt_weights:
+    """Class to load pretrainned gpt2 weights with an 
+       aim to finetune the model later
+    """
+
+    def __init__(self, model, *args, **kwargs):
+        super(loading_gpt_weights, self).__init__(*args, **kwargs)
+        self.settings, self.params = download_and_load_gpt2(model_size="124M", 
+                                                models_dir="gpt2")
+        
+        self.model = model
+        self.model_configs = {
+            "gpt2-small (124M)": {"emb_dim": 768, "n_layers": 12, "n_heads": 12},
+            "gpt2-medium (355M)": {"emb_dim": 1024, "n_layers": 24, "n_heads": 16},
+            "gpt2-large (774M)": {"emb_dim": 1280, "n_layers": 36, "n_heads": 20},
+            "gpt2-xl (1558M)": {"emb_dim": 1600, "n_layers": 48, "n_heads": 25},
+            }
+        
+    def assign(self, left, right):
+        if left.shape != right.shape:
+            raise ValueError(f"Shape mismatch. Left: {left.shape}, "
+                            f"Right: {right.shape}"
+            )
+        return torch.nn.Parameter(torch.tensor(right))
+    
+    def load_weights_into_astro_gpt(self):
+        self.model.embed_layer.position_embedding.weight = self.assign(self.model.embed_layer.position_embedding.weight, self.params['wpe'])
+        self.model.embed_layer.token_embedding.weight = self.assign(self.model.embed_layer.token_embedding.weight, self.params['wte'])
+        
+        for b in range(len(self.params["blocks"])):
+            q_w, k_w, v_w = np.split((self.params["blocks"][b]["attn"]["c_attn"])["w"], 3, axis=-1)
+            self.model.transformer_blocks[b].attention.W_query.weight = self.assign(self.model.transformer_blocks[b].attention.W_query.weight, q_w.T)
+            self.model.transformer_blocks[b].attention.W_key.weight = self.assign(self.model.transformer_blocks[b].attention.W_key.weight, k_w.T)
+            self.model.transformer_blocks[b].attention.W_value.weight = self.assign(self.model.transformer_blocks[b].attention.W_value.weight, v_w.T)
+            
+            q_b, k_b, v_b = np.split((self.params["blocks"][b]["attn"]["c_attn"])["b"], 3, axis=-1)
+            self.model.transformer_blocks[b].attention.W_query.bias = self.assign(self.model.transformer_blocks[b].attention.W_query.bias, q_b)
+            self.model.transformer_blocks[b].attention.W_key.bias = self.assign(self.model.transformer_blocks[b].attention.W_key.bias, k_b)
+            self.model.transformer_blocks[b].attention.W_value.bias = self.assign(self.model.transformer_blocks[b].attention.W_value.bias, v_b)
+            self.model.transformer_blocks[b].attention.out_proj.weight = self.assign(self.model.transformer_blocks[b].attention.out_proj.weight,self.params["blocks"][b]["attn"]["c_proj"]["w"].T)
+
+            self.model.transformer_blocks[b].attention.out_proj.bias = self.assign(self.model.transformer_blocks[b].attention.out_proj.bias,self.params["blocks"][b]["attn"]["c_proj"]["b"])
+            
+            
+            mlp = self.model.transformer_blocks[b].ffn.neural_net
+            mlp[0].weight = self.assign(mlp[0].weight, self.params["blocks"][b]["mlp"]["c_fc"]["w"].T)
+            mlp[0].bias = self.assign(mlp[0].bias, self.params["blocks"][b]["mlp"]["c_fc"]["b"])
+            mlp[2].weight = self.assign(mlp[2].weight, self.params["blocks"][b]["mlp"]["c_proj"]["w"].T)
+            mlp[2].bias = self.assign(mlp[2].bias, self.params["blocks"][b]["mlp"]["c_proj"]["b"])
+
+            layer_norm_1 = self.model.transformer_blocks[b].layernorm1
+            layer_norm_1.gamma = self.assign(layer_norm_1.gamma,self.params["blocks"][b]["ln_1"]["g"])
+            layer_norm_1.beta = self.assign(layer_norm_1.beta,self.params["blocks"][b]["ln_1"]["b"])
+            layer_norm_2 = self.model.transformer_blocks[b].layernorm2
+            layer_norm_2.gamma = self.assign(layer_norm_2.gamma,self.params["blocks"][b]["ln_2"]["g"])
+            layer_norm_2.beta = self.assign(layer_norm_2.beta,self.params["blocks"][b]["ln_2"]["b"])
+            
+        self.model.final_norm.gamma = self.assign(self.model.final_norm.gamma, self.params["g"])
+        self.model.final_norm.beta = self.assign(self.model.final_norm.beta, self.params["b"])
+        self.model.out_head.weight = self.assign(self.model.out_head.weight, self.params["wte"])

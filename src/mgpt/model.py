@@ -28,7 +28,7 @@ class CausalAttention(nn.Module):
         nn (Module): PyTorch neural network module.
     """
     
-    def __init__(self, embed_dim, context_length, dropout, qkv_bias=False, *args, **kwargs):
+    def __init__(self, embed_dim, context_length, dropout, qkv_bias, *args, **kwargs):
         super(CausalAttention, self).__init__(*args, **kwargs)
         self.dropout = nn.Dropout(dropout)
         self.embed_dim = embed_dim
@@ -61,7 +61,7 @@ class MultiHeadAttention(nn.Module):
     Args:
         nn (Module): PyTorch neural network module.
     """
-    def __init__(self, embed_dim, context_length, num_heads, dropout, qkv_bias=False, *args, **kwargs):
+    def __init__(self, embed_dim, context_length, num_heads, dropout, qkv_bias, *args, **kwargs):
         super().__init__(*args, **kwargs)
         assert embed_dim % num_heads == 0, "embed_dim must be divisible by num_heads"
         self.embed_dim = embed_dim
@@ -154,7 +154,7 @@ class TransformerBlock(nn.Module):
     """
     def __init__(self, params_dict):
         super().__init__()
-        self.attention = MultiHeadAttention(params_dict["embed_dim"], params_dict["context_dim"], params_dict["num_heads"], params_dict["dropout"])
+        self.attention = MultiHeadAttention(params_dict["embed_dim"], params_dict["context_len"], params_dict["num_heads"], params_dict["dropout"], params_dict["qkv_bias"])
         self.layernorm1 = LayerNorm(params_dict["embed_dim"])
         self.ffn = FeedForward(params_dict["embed_dim"])
         self.layernorm2 = LayerNorm(params_dict["embed_dim"])
@@ -182,7 +182,7 @@ class Mini_AstroGPT_Model(nn.Module):
     """
     def __init__(self, params_dict):
         super().__init__()
-        self.embed_layer = GenerateEmbeddings(params_dict["vocab_size"], params_dict["embed_dim"], params_dict["context_dim"])
+        self.embed_layer = GenerateEmbeddings(params_dict["vocab_size"], params_dict["embed_dim"], params_dict["context_len"])
         self.transformer_blocks = nn.Sequential(*[TransformerBlock(params_dict) for _ in range(params_dict["num_layers"])])
         self.final_norm = LayerNorm(params_dict["embed_dim"])
         self.out_head = nn.Linear(params_dict["embed_dim"], params_dict["vocab_size"], bias=False)

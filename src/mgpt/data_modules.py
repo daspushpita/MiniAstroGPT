@@ -16,11 +16,11 @@ class ArxivDownloader:
         self.CAT_QUERY = "(" + " OR ".join(f"cat:{c}" for c in self.ASTRO_CATS) + ")"
 
 
-        self.date_from = "202501010000"  # 1 Jan 2025 00:00 UTC
+        self.date_from = "201501010000"  # 1 Jan 2015 00:00 UTC
         self.date_to   = "202510172359"  # 17 Oct 2025 23:59 UTC
         self.max_results = 200  # per request
         self.total_expected = 20000       # for info
-        self.outfile = "astro_abstracts_2025.jsonl"
+        self.outfile = "astro_abstracts_last10_years.jsonl"
 
         # ---------------------------
         # MAIN LOOP
