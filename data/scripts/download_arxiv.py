@@ -146,7 +146,7 @@ def main(*args, **kwargs):
             if len(entries) < max_results:
                 break
             start += max_results
-            time.sleep(3)  # be polite to arXiv's servers
+            time.sleep(30)  # be polite to arXiv's servers
             
     print(f"Downloaded {count} abstracts to {outfile}.")
     
