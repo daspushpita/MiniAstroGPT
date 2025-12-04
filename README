@@ -1,44 +1,44 @@
 AstroGPT: A GenAI Model for Simplifying Astrophysics Research
+-------------------------------------------------------------
 
-AstroGPT is a GenAI system fine-tuned from GPT-2 that rewrites complex astrophysics research abstracts—sourced directly from arXiv—into clear, engaging explanations for a general audience.
-The project includes automated data ingestion, teacher-prompt generation, simplification pipelines, and model fine-tuning, all built to operate end-to-end from Python.
+AstroGPT is a GenAI system fine-tuned from GPT-2 that rewrites complex astrophysics research abstracts—sourced directly from arXiv—into clear, accessible explanations for the general public. The pipeline includes automated data ingestion, teacher prompting, dataset creation, and model fine-tuning.
 
-⸻
+-------------------------------------------------------------
+FEATURES
+- Automated arXiv ingestion for astro-ph abstracts
+- Teacher-prompt generation for high-quality explanations
+- GPT-2 fine-tuning pipeline built entirely in Python
+- Clean class-based architecture (data, prompts, model, inference)
+- Simple API for generating layperson-friendly explanations
+- Easily extendable for larger models or RLHF in future versions
 
-🚀 Features
-	•	Automated arXiv ingestion
-Fetches and parses astrophysics abstracts from the arXiv API.
-	•	Teacher prompting & dataset generation
-Uses custom expert-style prompts to generate high-quality “teacher” explanations.
-	•	GPT-2 fine-tuning pipeline
-Loads pretrained GPT-2 weights and fine-tunes on hundreds of (abstract → explanation) pairs.
-	•	Reusable Python class architecture
-Clean abstraction for data loading, prompt generation, training, and inference.
-	•	Simple inference API
-Pass an abstract, receive a public-friendly explanation.
-	•	Extensible for future versions
-Designed for plug-and-play improvements (LLM upgrades, RLHF, multi-task training, etc.).
-
-📂 Project Structure
+-------------------------------------------------------------
+PROJECT STRUCTURE
 
 AstroGPT/
-├── data/                     # raw abstracts, processed JSONL datasets
-├── notebooks/                # EDA and model development
-├── src/
-│   ├── data_loader.py        # arXiv ingestion
-│   ├── teacher_prompts.py    # teacher prompt generation logic
-│   ├── model.py              # GPT-2 fine-tuning class
-│   └── inference.py          # pipeline to run AstroGPT
-│
-├── scripts/
-│   ├── build_dataset.py      # automated dataset generation
-│   ├── train.py              # training script
-│   └── explain.py            # inference CLI tool
-│
-└── README.md                # project overview and instructions
+  data/                      - Raw abstracts and processed JSONL datasets
+  notebooks/                 - Exploration and development notebooks
+  src/
+    data_loader.py           - arXiv ingestion utilities
+    teacher_prompts.py       - Teacher prompt generation logic
+    model.py                 - GPT-2 fine-tuning class
+    inference.py             - Inference pipeline
+  scripts/
+    build_dataset.py         - Automated dataset construction
+    train.py                 - Training script
+    explain.py               - CLI tool for running AstroGPT
+  README.txt
 
-📈 Model
-	•	Base model: GPT-2 (small)
-	•	Training pairs (v1): ~300 abstract → explanation examples
-	•	Teacher model: GPT-4.1 / GPT-4.1-mini
-	•	Objective: Rewrite technical abstracts into clear, structured explanations without academic phrasing.
+-------------------------------------------------------------
+INSTALLATION
+.. Coming Soon ..
+
+-------------------------------------------------------------
+USAGE
+
+.. Coming Soon ..
+
+-------------------------------------------------------------
+AUTHOR
+Pushpita Das
+Astrophysicist | ML Researcher | GenAI Developer
