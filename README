@@ -21,8 +21,7 @@ Designed for plug-and-play improvements (LLM upgrades, RLHF, multi-task training
 
 📂 Project Structure
 
-```AstroGPT/
-│
+AstroGPT/
 ├── data/                     # raw abstracts, processed JSONL datasets
 ├── notebooks/                # EDA and model development
 ├── src/
@@ -36,7 +35,7 @@ Designed for plug-and-play improvements (LLM upgrades, RLHF, multi-task training
 │   ├── train.py              # training script
 │   └── explain.py            # inference CLI tool
 │
-└── README.md                # project overview and instructions```
+└── README.md                # project overview and instructions
 
 📈 Model
 	•	Base model: GPT-2 (small)
