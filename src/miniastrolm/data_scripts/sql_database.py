@@ -2,7 +2,7 @@ import sqlite3
 import json
 import os
 
-jason_file_path = '../processed/all_clean.jsonl'
+jason_file_path = '../data/processed/all_clean.jsonl'
 
 DB_PATH = os.path.join(os.path.dirname(jason_file_path), 'mini_astrolm.db')
 #connect to a database (or create it if it doesn't exist)

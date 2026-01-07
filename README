@@ -42,3 +42,39 @@ USAGE
 AUTHOR
 Pushpita Das
 Astrophysicist | ML Researcher | GenAI Developer
+
+
+-------------------------------------------------------------
+DETAILED PROJECT STRUCTURE
+src/
+  miniastrolm/
+    data/
+      arxiv_fetcher.py        # (1) ingest
+      db.py                   # sqlite connect + schema helpers (2)
+      dataset_builder.py      # (3,5) batches + jsonl creation
+
+    llm/
+      teacher.py              # (4) load teacher + generate_text()
+      student.py              # (6) load student / inference
+      prompts.py              # teacher prompt templates + style rules
+
+    training/
+      finetune_gpt2.py        # (6) training entrypoint
+      collate.py              # tokenization / formatting
+
+    eval/
+      eval_rules.py           # (7) banned phrases, structure checks
+      sample_compare.py       # before/after comparisons
+
+data/
+  raw/                        # downloaded metadata / dumps
+  processed/
+    mini_astrolm.db           # sqlite DB (2)
+    batches/                  # batch_### files (3)
+    teacher_outputs/          # teacher JSON outputs (4)
+    train.jsonl               # final training set (5)
+outputs/
+  checkpoints/                # student weights (6)
+  reports/                    # eval outputs (7)
+notebooks/
+  debug_*.ipynb               # your experiments / debugging

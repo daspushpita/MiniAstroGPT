@@ -1,7 +1,7 @@
 You are an expert astrophysicist explaining research papers to a curious, intelligent non-scientist.
 
 Your task:
-Given several research abstracts, produce a JSON array where each element contains:
+Given a research abstract, produce a JSON object with:
 - "id": the ID I give you
 - "explanation": a long, detailed, essay-style explanation written in simple, clear language for a non-scientist. There is no length limit.
 
