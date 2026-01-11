@@ -1,80 +1,98 @@
-AstroGPT: A GenAI Model for Simplifying Astrophysics Research
--------------------------------------------------------------
+# AstroGPT
 
-AstroGPT is a GenAI system fine-tuned from GPT-2 that rewrites complex astrophysics research abstracts—sourced directly from arXiv—into clear, accessible explanations for the general public. The pipeline includes automated data ingestion, teacher prompting, dataset creation, and model fine-tuning.
+A GenAI System for Simplifying Astrophysics Research
 
--------------------------------------------------------------
-FEATURES
-- Automated arXiv ingestion for astro-ph abstracts
-- Teacher-prompt generation for high-quality explanations
-- GPT-2 fine-tuning pipeline built entirely in Python
-- Clean class-based architecture (data, prompts, model, inference)
-- Simple API for generating layperson-friendly explanations
-- Easily extendable for larger models or RLHF in future versions
+AstroGPT is a domain-specific generative AI system fine-tuned from GPT-2 to translate technical astrophysics research abstracts—sourced directly from arXiv—into clear, accessible explanations for non-experts.
 
--------------------------------------------------------------
-PROJECT STRUCTURE
+The project implements an end-to-end teacher–student pipeline, including automated data ingestion, structured prompt generation, dataset construction, and language-model fine-tuning.
+
+⸻
+
+## Key Features
+	•	Automated arXiv ingestion for astro-ph research abstracts
+	•	Teacher-prompt framework for generating high-quality, human-readable explanations
+	•	End-to-end GPT-2 fine-tuning pipeline, built entirely in Python
+	•	SQLite-backed dataset management for scalable preprocessing
+	•	Modular, class-based architecture (data → prompts → models → evaluation)
+	•	CLI-based inference for generating public-friendly explanations
+	•	Designed to be easily extensible to larger models, instruction tuning, or RLHF
+
+⸻
+
+## High-Level Pipeline
+
+arXiv abstracts
+      ↓
+SQLite database
+      ↓
+Teacher prompt generation
+      ↓
+Teacher explanations (JSON)
+      ↓
+Training dataset (JSONL)
+      ↓
+Fine-tuned GPT-2 student model
+      ↓
+Layperson-friendly explanations
+
+⸻
+
+## Project Structure
 
 AstroGPT/
-  data/                      - Raw abstracts and processed JSONL datasets
-  notebooks/                 - Exploration and development notebooks
-  src/
-    data_loader.py           - arXiv ingestion utilities
-    teacher_prompts.py       - Teacher prompt generation logic
-    model.py                 - GPT-2 fine-tuning class
-    inference.py             - Inference pipeline
-  scripts/
-    build_dataset.py         - Automated dataset construction
-    train.py                 - Training script
-    explain.py               - CLI tool for running AstroGPT
-  README.txt
+├── data/
+│   ├── raw/                     # Downloaded arXiv metadata
+│   └── processed/
+│       ├── mini_astrolm.db      # SQLite database
+│       ├── batches/             # Abstract batches
+│       ├── teacher_outputs/     # Teacher model outputs
+│       └── train.jsonl          # Final training dataset
+│
+├── src/
+│   └── miniastrolm/
+│       ├── data/
+│       │   ├── arxiv_fetcher.py     # arXiv ingestion
+│       │   ├── db.py                # SQLite schema & helpers
+│       │   └── dataset_builder.py   # Batch + JSONL creation
+│       │
+│       ├── llm/
+│       │   ├── teacher.py           # Teacher model loading & generation
+│       │   ├── student.py           # Student model inference
+│       │   └── prompts.py           # Prompt templates & style rules
+│       │
+│       ├── training/
+│       │   ├── finetune_gpt2.py     # Fine-tuning entry point
+│       │   └── collate.py           # Tokenization & formatting
+│       │
+│       └── eval/
+│           ├── eval_rules.py        # Structural & style checks
+│           └── sample_compare.py    # Before/after comparisons
+│
+├── scripts/
+│   ├── build_dataset.py             # Dataset construction
+│   ├── train.py                     # Model training
+│   └── explain.py                   # CLI inference tool
+│
+├── notebooks/
+│   └── debug_*.ipynb                # Experiments & debugging
+│
+└── README.md
 
--------------------------------------------------------------
-INSTALLATION
-.. Coming Soon ..
+## Installation
 
--------------------------------------------------------------
-USAGE
+Coming soon.
+(Planned support for local inference via Hugging Face transformers.)
 
-.. Coming Soon ..
+⸻
 
--------------------------------------------------------------
-AUTHOR
+## Usage
+
+Coming soon.
+(The CLI will support generating explanations from raw arXiv abstracts or IDs.)
+
+## Author
+
 Pushpita Das
-Astrophysicist | ML Researcher | GenAI Developer
+Astrophysicist · Machine Learning Researcher · GenAI Developer
 
-
--------------------------------------------------------------
-DETAILED PROJECT STRUCTURE
-src/
-  miniastrolm/
-    data/
-      arxiv_fetcher.py        # (1) ingest
-      db.py                   # sqlite connect + schema helpers (2)
-      dataset_builder.py      # (3,5) batches + jsonl creation
-
-    llm/
-      teacher.py              # (4) load teacher + generate_text()
-      student.py              # (6) load student / inference
-      prompts.py              # teacher prompt templates + style rules
-
-    training/
-      finetune_gpt2.py        # (6) training entrypoint
-      collate.py              # tokenization / formatting
-
-    eval/
-      eval_rules.py           # (7) banned phrases, structure checks
-      sample_compare.py       # before/after comparisons
-
-data/
-  raw/                        # downloaded metadata / dumps
-  processed/
-    mini_astrolm.db           # sqlite DB (2)
-    batches/                  # batch_### files (3)
-    teacher_outputs/          # teacher JSON outputs (4)
-    train.jsonl               # final training set (5)
-outputs/
-  checkpoints/                # student weights (6)
-  reports/                    # eval outputs (7)
-notebooks/
-  debug_*.ipynb               # your experiments / debugging
+⸻
