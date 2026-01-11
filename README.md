@@ -36,7 +36,7 @@ The project also serves as a **research-grade example** of how to build and eval
 
 ## System Overview
 
-Raw arXiv abstracts
+```Raw arXiv abstracts
 		↓
 Structured SQLite database
 		↓
@@ -49,6 +49,7 @@ Filtered training dataset (JSONL)
 Fine-tuned GPT-2 student model
 		↓
 Clear, layperson-friendly explanations
+```
 
 ⸻
 
@@ -59,7 +60,7 @@ This architecture mirrors real-world GenAI workflows:
 
 ## Repository Structure
 
-AstroGPT/
+```AstroGPT/
 ├── data/
 │   ├── raw/                         # Downloaded arXiv metadata
 │   └── processed/
@@ -97,6 +98,7 @@ AstroGPT/
 │   └── debug_*.ipynb                # Experiments & debugging
 │
 └── README.md
+```
 ---
 
 ## Design Philosophy
