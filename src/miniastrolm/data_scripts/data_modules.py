@@ -300,8 +300,8 @@ class split_data_class:
 
 class jason_to_txt:
     
-    def __init__(self, jason_file, output_txt_file):
-        self.jason_file = jason_file
+    def __init__(self, input_jason_file, output_txt_file):
+        self.jason_file = input_jason_file
         self.output_txt_file = output_txt_file
         
     def convert(self):
@@ -314,62 +314,39 @@ class jason_to_txt:
                 fout.write(abstract + "\n\n<eos>\n\n")  # separate samples
         print(f"Saved abstracts to {self.output_txt_file}")
         return self.output_txt_file
-
-
-
-    # def download_abstracts(self):
+    
+class convert_sqlite_to_jasonl:
+    
+    def __init__(self, limit, offset, input_data_path, output_jason_file,*args, **kwargs):
+        self.limit = limit
+        self.offset = offset
+        self.input_data_path = input_data_path
+        self.conn = sqlite3.connect(self.input_data_path)
+        self.output_jason_file = output_jason_file
         
-    #     start_dt = pd.to_datetime(self.date_from, format="%Y%m%d%H%M")
-    #     end_dt   = pd.to_datetime(self.date_to, format="%Y%m%d%H%M")
-    #     months = pd.date_range(start_dt, end_dt, freq="MS").to_pydatetime().tolist() + [end_dt.to_pydatetime()]
+    def fetch_data(self):
+        cur = self.conn.cursor()
+        cur.execute(""" SELECT id, title_clean, abstract_clean
+                    FROM papers
+                    WHERE trim(abstract_clean) != '' AND trim(title_clean) != ''
+                    ORDER BY id
+                    LIMIT ? OFFSET ? """, (self.limit, self.offset))
         
-    #     with open(self.outfile, "w", encoding="utf-8") as fout:
-    #         for i in range(len(months) - 1):   
-    #             d1 = months[i].strftime("%Y%m%d%H%M")
-    #             d2 = months[i + 1].strftime("%Y%m%d%H%M")
-    #             print(f"\n {d1} to {d2}")
-    #             self.start = 0  
-    #             while True:
-    #                 print(f"Fetching results {self.start} to {self.start + self.max_results}...")
-    #                 params = {
-    #                     "search_query": f"{self.CAT_QUERY} AND submittedDate:[{d1} TO {d2}]",
-    #                     "start": self.start,
-    #                     "max_results": self.max_results,
-    #                     "sortBy": "submittedDate",
-    #                     "sortOrder": "ascending"
-    #                 }
-    #                 # Send the request to arXiv’s server.
-    #                 # This line actually "asks" arXiv for the data.
-    #                 print(f"Fetching {self.start}-{self.start+self.max_results}...")
-    #                 response = requests.get(self.base_url, params=params)
-    #                 print("URL sent:", response.url)
-    #                 # Parse the XML response
-    #                 root = ET.fromstring(response.text)
-    #                 ns = {"atom": "http://www.w3.org/2005/Atom"}
-    #                 entries = root.findall("atom:entry", ns)
-    #                 print("entries on this page:", len(entries))
-
-    #                 if not entries:
-    #                     print("No more entries.")
-    #                     break        
-    #                 for e in entries:
-    #                     title = e.find("atom:title", ns).text.strip().replace("\n", " ")
-    #                     summary = e.find("atom:summary", ns).text.strip().replace("\n", " ")
-    #                     paper_id = e.find("atom:id", ns).text.strip()
-    #                     published = e.find("atom:published", ns).text.strip()
-    #                     cats = [c.attrib.get("term", "") for c in e.findall("atom:category", ns)]
-                        
-    #                     record = {"id": paper_id,
-    #                                 "title": title,
-    #                                 "abstract": summary,
-    #                                 "published": published,
-    #                                 "categories": cats}
-                        
-    #                     fout.write(json.dumps(record, ensure_ascii=False) + "\n")
-    #                     self.count += 1
-    #                 if len(entries) < self.max_results:
-    #                     break
-    #                 self.start += self.max_results
-    #                 time.sleep(3)  # be polite to arXiv's servers
-    #     print(f"Downloaded {self.count} abstracts to {self.outfile}.")
-    #     return self.count, self.outfile
+        return cur.fetchall()
+    
+    def save_to_jsonl(self):
+        rows = self.fetch_data()
+        self.output_jason_file.parent.mkdir(parents=True, exist_ok=True)
+        with self.output_jason_file.open("w", encoding ="utf-8") as fout:
+            for row in rows:
+                pid, title_clean, abstract_clean = row
+                record = {
+                    "id": pid,
+                    "title_clean": title_clean,
+                    "abstract_clean": abstract_clean
+                }
+                fout.write(json.dumps(record, ensure_ascii=False) + "\n")
+        print(f"Saved {len(rows)} records to {self.output_jason_file}")
+        self.conn.close()
+        return self.output_jason_file
+    

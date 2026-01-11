@@ -1,7 +1,7 @@
 from pathlib import Path
 import sqlite3
 
-DB = Path("../test_data/mini_astrolm/mini_astrolm.db")
+DB = Path("/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/data/processed/mini_astrolm.db")
 
 def q(cur, sql):
     cur.execute(sql)

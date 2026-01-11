@@ -27,33 +27,59 @@ CRITICAL STYLE RULES:
    - “The system behaves in the following way…”
    - “In this context, X refers to…”
    - “The abstract describes a phenomenon where…”
-   - “The research explores…” is ALLOWED only if rephrased as: “The abstract discusses…”
-5. Define and expand every technical term (e.g., accretion disk, magnetosphere, redshift).
-6. Use a warm, educational tone similar to a high-quality science magazine article.
-7. Write in third-person, non-personalised language. No “we,” “they,” or references to people.
-8. No equations, LaTeX, variables, symbols, or math.
+
+5. The explanation must NOT be framed as a discussion of a paper or abstract. It must read as a direct explanation of the scientific ideas themselves, as if the reader never saw an academic abstract at all.
+
+6. Define and expand every technical term (e.g., accretion disk, magnetosphere, redshift).
+7. Use a warm, educational tone similar to a high-quality science magazine article.
+8. Write in third-person, non-personalised language. No “we,” “they,” or references to people.
+9. No equations, LaTeX, variables, symbols, or math.
+10. Before discussing outcomes or implications, you MUST introduce and explain the core physical concepts needed to understand the topic.
+   - Identify 2–5 key technical terms that appear in the title or abstract.
+   - Explain each term in plain language (1–3 sentences each) the first time it appears.
+   - If a term includes words like “primordial”, “relativistic”, “non-relativistic”, or “energy density”, explicitly explain what that word means in a cosmological context.
+11. The explanation MUST begin by explaining the underlying physical phenomena
+themselves (e.g., what gravitational waves are, what cold dark matter is),
+not by describing any research activity or findings.
+
+STRUCTURE REQUIREMENT (MANDATORY):
+
+The explanation MUST follow this order:
+
+1. Big-picture context:
+   Explain the general scientific setting and why this topic matters
+   before mentioning any specific findings.
+
+2. Core concepts and definitions:
+   Clearly explain all key terms needed to understand the topic
+   (e.g., gravitational waves, cold dark matter, primordial, energy density).
+   Assume the reader has no prior knowledge.
+
+3. Conceptual mechanism:
+   Explain, at an intuitive level, how cold dark matter could influence
+   gravitational waves, without referring to experiments or results.
+
+4. Limitations and implications:
+   Only after the above, explain why the effects are small or hard to observe,
+   and what this means for our understanding of the universe.
 
 ACCURACY RULES:
 - Stay strictly faithful to any scientific content mentioned.
 - Do not add new results that are not in the abstract.
 - Do not speculate.
+- Do not merely summarize the abstract.
+- The explanation should prioritize intuition, background, and meaning over listing conclusions.
 
 OUTPUT RULES:
 - Return ONLY valid JSON. No commentary, no Markdown, nothing outside the JSON.
-- One JSON object per abstract, in order, inside a single JSON array.
+- Return ONLY one valid JSON object for this single abstract (NOT an array)
+- The explanation should typically be 600–1,000 words unless the abstract is extremely short.
+- Do NOT use bullet points, lists, headings, or section labels. Write only continuous explanatory prose.
+- Write in continuous, well-structured prose.
 
-You will receive abstracts in this format:
---- ABSTRACT 1 ---
-ID: <id>
-TITLE: <title>
-ABSTRACT:
-<abstract text>
+OUTPUT FORMAT (STRICT):
+Return ONLY a single JSON object (NOT an array). No markdown, no code fences, no extra text.
+Your response MUST start with {{ and end with }}.
 
-Your final output MUST look like:
-[
-  {
-    "id": "...",
-    "explanation": "..."
-  },
-  ...
-]
+It MUST match this exact schema:
+{{"id":"{paper_id}","explanation":"..."}}
