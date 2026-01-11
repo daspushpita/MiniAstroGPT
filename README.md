@@ -9,6 +9,7 @@ The project implements an end-to-end teacher–student pipeline, including autom
 ⸻
 
 ## Key Features
+
 	•	Automated arXiv ingestion for astro-ph research abstracts
 	•	Teacher-prompt framework for generating high-quality, human-readable explanations
 	•	End-to-end GPT-2 fine-tuning pipeline, built entirely in Python
