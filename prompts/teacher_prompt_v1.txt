@@ -55,16 +55,27 @@ The explanation MUST follow this order:
    (e.g., gravitational waves, cold dark matter, primordial, energy density).
    Assume the reader has no prior knowledge.
 
-3. Conceptual mechanism:
-   Explain, at an intuitive level, how cold dark matter could influence
-   gravitational waves, without referring to experiments or results.
+3. Each core concept must be explained in enough detail for a non-expert, but only for concepts explicitly mentioned in the abstract.
 
-4. Limitations and implications:
+
+4. Conceptual mechanism:
+   Explain, at an intuitive level, the physical mechanism or reasoning described in the abstract.
+   Focus on how the key concepts interact or influence one another, without referring to experiments, data collection, or research activity.
+
+4.5. Abstract-specific claims (MANDATORY):
+   After explaining the conceptual mechanism, clearly and explicitly state the specific scientific claims made in this abstract.
+   This section must describe what is being claimed or concluded in this particular case, in plain language, and must represent the central takeaway of the explanation.
+
+5. Limitations and implications:
    Only after the above, explain why the effects are small or hard to observe,
    and what this means for our understanding of the universe.
 
 ACCURACY RULES:
+- The explanation must be strictly anchored to the scientific claims described in the abstract.
+- Background information may be introduced only if it directly helps explain a concept or statement present in the abstract.
+- Do not introduce physical processes, historical context, or cosmological facts that are not implied by the abstract.
 - Stay strictly faithful to any scientific content mentioned.
+- Do not introduce specific theories, scenarios, or named entities (e.g., particle candidates, missions, telescopes, early-universe scenarios) unless they are explicitly mentioned in the abstract. Conceptual background and general physical explanations are always allowed.
 - Do not add new results that are not in the abstract.
 - Do not speculate.
 - Do not merely summarize the abstract.
@@ -80,6 +91,8 @@ OUTPUT RULES:
 OUTPUT FORMAT (STRICT):
 Return ONLY a single JSON object (NOT an array). No markdown, no code fences, no extra text.
 Your response MUST start with {{ and end with }}.
+
+Do not use line breaks. Write the explanation as a single paragraph.
 
 It MUST match this exact schema:
 {{"id":"{paper_id}","explanation":"..."}}

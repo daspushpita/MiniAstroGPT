@@ -13,10 +13,15 @@ def test_llm_teacher_init():
 #     response = my_teacher.generate_response(prompt="""{"id": "http://arxiv.org/abs/1801.00386v1", "title_clean": "Gravitational Waves in Cold Dark Matter", "abstract_clean": "We study the effects of cold dark matter on the propagation of gravitational waves of astrophysical and primordial origin. We show that the dominant effect of cold dark matter on gravitational waves from astrophysical sources is a small frequency dependent modification of the propagation speed of gravitational waves. However, the magnitude of the effect is too small to be detected in the near future. We furthermore show that the spectrum of primordial gravitational waves in principle contains detailed information about the properties of dark matter. However, depending on the wavelength, the effects are either suppressed because the dark matter is highly non-relativistic or because it contributes a small fraction of the energy density of the universe. As a consequence, the effects of cold dark matter on primordial gravitational waves in practice also appear too small to be detectable."}
 # """)
     
+    context_checker_client = my_teacher
+
     validator = Validation_Regeneration(
-        teacher_model=my_teacher,   # your existing Llama_Teacher instance
+        teacher_model=my_teacher,
         max_attempts=3,
         prompt_path=Path("/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/prompts/teacher_prompt_v1.txt"),
+        raise_on_fail=True,
+        context_check_mode="off",
+        judge_model=None,
     )
     
     output = validator.generate_item(
@@ -24,9 +29,6 @@ def test_llm_teacher_init():
         abstract = "We study the effects of cold dark matter on the propagation of gravitational waves of astrophysical and primordial origin. We show that the dominant effect of cold dark matter on gravitational waves from astrophysical sources is a small frequency dependent modification of the propagation speed of gravitational waves. However, the magnitude of the effect is too small to be detected in the near future. We furthermore show that the spectrum of primordial gravitational waves in principle contains detailed information about the properties of dark matter. However, depending on the wavelength, the effects are either suppressed because the dark matter is highly non-relativistic or because it contributes a small fraction of the energy density of the universe. As a consequence, the effects of cold dark matter on primordial gravitational waves in practice also appear too small to be detectable."
     )
 
-    print(output["id"])
-    print(len(output["explanation"]))
-    print(output["explanation"][:500])
     assert my_teacher.model is not None, "Model not initialized."
     assert my_teacher.tokenizer is not None, "Tokenizer not initialized."
     assert my_teacher.device in ["cpu", "mps"], "Device should be either 'cpu' or 'mps'."
