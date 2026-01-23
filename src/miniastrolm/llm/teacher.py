@@ -4,9 +4,12 @@ import json
 from pathlib import Path
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
-import re
+import re, sqlite3
 from collections import Counter
 from typing import Dict, List, Tuple, Any
+from pathlib import Path
+from datetime import datetime, timezone
+from tqdm import tqdm
 
 # DEFAULT_MODEL_NAME = "meta-llama/Llama-3.1-8B"
 DEFAULT_MODEL_ID = "meta-llama/Meta-Llama-3.1-8B-Instruct"
@@ -687,3 +690,280 @@ PREVIOUS EXPLANATION (do not copy wording):
         else:
             return failure_obj
         
+        
+class Teacher_Data_Pipeline:
+    def __init__(self, database_path, output_path, prompt_path, 
+                batch_size = 100, max_attempts = 3,
+                raise_on_fail = False,
+                log_skips=False,        
+                print_every=1,):
+        
+        self.database_path = database_path
+        self.output_path = output_path
+        self.prompt_path = prompt_path
+        self.batch_size = batch_size
+        self.max_attempts = max_attempts
+        self.raise_on_fail = raise_on_fail
+        self.log_skips = log_skips
+        self.print_every = print_every
+        
+        self.output_path.mkdir(parents=True, exist_ok=True)
+
+        self.train_path = self.output_path / "train.jsonl"
+        self.fail_path = self.output_path / "failures.jsonl"
+        self.processed_ids_path = self.output_path / "processed_ids.txt"
+        self.cursor_path = self.output_path / "cursor_last_id.txt"
+
+        self.run_log_path = self.output_path / "run_log.jsonl"
+        self.run_summary_path = self.output_path / "run_summary.json"
+        
+        self._processed = set()
+        self._last_id = None
+        self._total_eligible = None
+
+    def setup(self):
+        self._processed = self._load_processed_ids(self.processed_ids_path)
+        self._last_id = self._load_last_id(self.cursor_path)
+        self.teacher = Llama_Teacher()
+        self.validator = Validation_Regeneration(
+                    teacher_model=self.teacher,
+                    max_attempts=self.max_attempts,
+                    prompt_path=self.prompt_path,
+                    raise_on_fail=self.raise_on_fail,
+                    context_check_mode="off",
+                    judge_model=None,
+                )
+        
+    def _load_processed_ids(self, path):
+        if not Path(path).exists():
+            return set()
+        ids = set()
+        with Path(path).open("r", encoding="utf-8") as f:
+            for line in f:
+                s = line.strip()
+                if s:
+                    ids.add(s)
+        return ids
+        
+    def _load_last_id(self, path):
+        if not Path(path).exists():
+            return None
+        s = Path(path).read_text(encoding="utf-8").strip()
+        return s or None
+    
+    # ----------------------------
+    # NEW: Progress tracking helpers
+    # ----------------------------
+
+    def _now_iso(self) -> str:
+        return datetime.now(timezone.utc).isoformat()
+
+    def _write_summary(self, summary: dict) -> None:
+        # overwrite summary each time (cheap + convenient)
+        self.run_summary_path.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    def _log_event(self, *, status: str, paper_id: str, **extra) -> None:
+        event = {
+            "ts": self._now_iso(),
+            "status": status,       # "ok" | "fail" | "skip"
+            "id": paper_id,
+            "last_id": self._last_id,
+            **extra,
+        }
+        self._append_jsonl(self.run_log_path, event)
+
+    def _count_total_eligible(self, conn) -> int:
+        cur = conn.cursor()
+        cur.execute("SELECT COUNT(*) FROM papers WHERE abstract_clean IS NOT NULL")
+        total = int(cur.fetchone()[0])
+        cur.close()
+        return total
+    
+    def process_one(self, paper_id, title, abstract):
+        
+        try:
+            output = self.validator.generate_item(
+                                    paper_id= paper_id,
+                                    abstract = abstract)
+            payload = {
+                "id": paper_id,
+                "title": title,
+                "input": abstract,
+                "output": output,  # obj should already be structured dict
+                "meta": {
+                    "teacher_model": getattr(self.teacher, "model_id", None),
+                    "max_attempts": self.max_attempts,
+                },
+            }
+            return True, payload
+        except Exception as e:
+            fail = {
+                "id": paper_id,
+                "title": title,
+                "input": abstract,
+                "error": repr(e),
+            }
+            return False, fail        
+
+    def fetch_batch(self, conn):
+
+        cursor = conn.cursor()
+        if self._last_id is None:
+            cursor.execute("""SELECT id, title_clean, abstract_clean FROM papers
+                        WHERE abstract_clean IS NOT NULL
+                        ORDER BY id
+                        LIMIT ?""", (self.batch_size,))
+        else:
+            cursor.execute(
+                """
+                SELECT id, title_clean, abstract_clean
+                FROM papers
+                WHERE abstract_clean IS NOT NULL
+                  AND id > ?
+                ORDER BY id
+                LIMIT ?
+                """,
+                (self._last_id, self.batch_size),)
+        rows = cursor.fetchall()
+        cursor.close()
+        return rows
+
+    def mark_processed(self, paper_id: str):
+        with self.processed_ids_path.open("a", encoding="utf-8") as f:
+            f.write(f"{paper_id}\n")
+        self._processed.add(paper_id)
+        
+        self._last_id = paper_id
+        self.cursor_path.write_text(paper_id, encoding="utf-8")
+        
+    def _append_jsonl(self, path, payload):
+        with Path(path).open("a", encoding="utf-8") as f:
+            f.write(json.dumps(payload, ensure_ascii=False) + "\n")
+        
+    def run(self):
+        self.setup()
+        assert self.teacher is not None and self.validator is not None
+
+        processed_count = 0
+        success_count = 0
+        fail_count = 0
+        
+        skip_count = 0
+
+        conn = sqlite3.connect(self.database_path)
+        
+        try:
+            self._total_eligible = self._count_total_eligible(conn)
+
+            # Write initial summary
+            self._write_summary(
+                {
+                    "started_ts": self._now_iso(),
+                    "total_eligible": self._total_eligible,
+                    "processed": processed_count,
+                    "success": success_count,
+                    "fail": fail_count,
+                    "skipped": skip_count,
+                    "last_id": self._last_id,
+                }
+            )
+            while True:
+                rows = self.fetch_batch(conn)
+                if not rows:
+                    break
+                for paper_id, title_clean, abstract_clean in tqdm(
+                    rows,
+                    desc="Teacher pipeline",
+                    unit="paper",
+                    leave=False,
+                ):
+                    if not abstract_clean or not str(abstract_clean).strip():
+                        fail_payload = {
+                            "id": paper_id,
+                            "title": title_clean,
+                            "input": abstract_clean,
+                            "error": "Empty abstract_clean",
+                        }
+                        self._append_jsonl(self.fail_path, fail_payload)
+                        fail_count += 1
+                        processed_count += 1
+                        self.mark_processed(paper_id)
+                        self._log_event(status="fail", paper_id=paper_id, reason="empty_abstract")
+                        continue
+                        
+                    if paper_id in self._processed:
+                        self._last_id = paper_id
+                        self.cursor_path.write_text(paper_id, encoding="utf-8")
+                        skip_count += 1
+                        if self.log_skips:
+                            self._log_event(status="skip", paper_id=paper_id)
+                        continue
+
+                    ok, payload = self.process_one(paper_id, title_clean, abstract_clean)
+                    if ok:
+                        self._append_jsonl(self.train_path, payload)
+                        success_count += 1
+                        self._log_event(status="ok", paper_id=paper_id)
+                    else:
+                        self._append_jsonl(self.fail_path, payload)
+                        fail_count += 1
+                        self._log_event(status="fail", paper_id=paper_id, error=payload.get("error"))
+
+                    self.mark_processed(paper_id)
+                    processed_count += 1
+                    if processed_count % max(1, self.print_every) == 0:
+                        pct = (
+                            (processed_count / self._total_eligible) * 100.0
+                            if self._total_eligible
+                            else None
+                        )
+                        self._write_summary(
+                            {
+                                "updated_ts": self._now_iso(),
+                                "total_eligible": self._total_eligible,
+                                "processed": processed_count,
+                                "success": success_count,
+                                "fail": fail_count,
+                                "skipped": skip_count,
+                                "percent_done": pct,
+                                "last_id": self._last_id,
+                            }
+                        )
+                        print(
+                            f"[Teacher_Data_Pipeline] processed={processed_count} "
+                            f"success={success_count} fail={fail_count} skipped={skip_count} "
+                            f"percent={pct:.2f}% last_id={self._last_id}"
+                            if pct is not None
+                            else f"[Teacher_Data_Pipeline] processed={processed_count} "
+                                f"success={success_count} fail={fail_count} skipped={skip_count} "
+                                f"last_id={self._last_id}"
+                        )
+
+            # Final summary
+            pct = (processed_count / self._total_eligible) * 100.0 if self._total_eligible else None
+            self._write_summary(
+                {
+                    "finished_ts": self._now_iso(),
+                    "total_eligible": self._total_eligible,
+                    "processed": processed_count,
+                    "success": success_count,
+                    "fail": fail_count,
+                    "skipped": skip_count,
+                    "percent_done": pct,
+                    "last_id": self._last_id,
+                }
+            )
+
+            print(
+                f"[Teacher_Data_Pipeline DONE] processed={processed_count} "
+                f"success={success_count} fail={fail_count} skipped={skip_count} "
+                f"percent={pct:.2f}% last_id={self._last_id}"
+                if pct is not None
+                else f"[Teacher_Data_Pipeline DONE] processed={processed_count} "
+                    f"success={success_count} fail={fail_count} skipped={skip_count} "
+                    f"last_id={self._last_id}"
+            )
+        finally:
+            conn.close()
+                
+                                        
