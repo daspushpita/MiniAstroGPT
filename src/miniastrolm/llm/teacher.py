@@ -250,7 +250,7 @@ class Validation_Regeneration:
         s = s.replace("\n", "\\n")
         return s
     
-    def _attempt_autofix_to_json(self, raw_text: str, paper_id: str) -> str | None:
+    def _attempt_autofix_to_json(self, raw_text: str, paper_id: str, mode: str = "teacher",) -> str | None:
         """
         Attempt to repair a near-JSON output where the explanation value
         exists but is not wrapped in quotes.
@@ -258,17 +258,27 @@ class Validation_Regeneration:
         Returns a valid JSON string if successful, otherwise None.
         """
 
+        if mode == "teacher":
+            required_key = "explanation"
+        elif mode == "judge":
+            required_key = "verdict"
+        else:
+            return None
+
         # 1. Normalize input
         text = (raw_text or "").strip()
 
-        # 2. Fast path: if a JSON object can already be extracted, return it unchanged
         existing = self._extract_json_object(text)
         if existing is not None:
             return existing
-
-        # 3. Must at least mention "explanation" to attempt a fix
-        if '"explanation"' not in text:
+        
+        if f'"{required_key}"' not in text:
             return None
+        
+        # Judge "autofix" = extract first JSON object only (do not invent/overwrite fields)
+        if mode == "judge":
+            extracted = self._extract_json_object(text)
+            return extracted  # may be None
 
         # 4. Extract id if present; otherwise fall back to provided paper_id
         m_id = re.search(r'"id"\s*:\s*"([^"]+)"', text)
@@ -303,7 +313,7 @@ class Validation_Regeneration:
         # 10. Rebuild a strict JSON object safely
         fixed_obj = {
             "id": extracted_id,
-            "explanation": explanation_body,
+            "explanation": body,
         }
 
         # 11. Serialize using json.dumps to guarantee valid JSON escaping
@@ -537,7 +547,7 @@ EXPLANATION:
         prompt = self._judge_prompt(paper_id=paper_id, abstract=abstract, explanation=explanation)
         raw_response = self.judge_model.generate_response(prompt=prompt, max_new_tokens=512, do_sample=False)
         # json_txt = self._extract_json_object(raw_response)
-        json_txt = self._attempt_autofix_to_json(raw_response, paper_id)
+        json_txt = self._attempt_autofix_to_json(raw_response, paper_id, mode="judge")
         if json_txt is None:
             return False, 0.0, ["Judge returned no JSON"], None
         try:
@@ -616,7 +626,7 @@ PREVIOUS EXPLANATION (do not copy wording):
         attempt = 0
         last_response = ""
         last_errors: List[str] = []
-        prompt = self._base_prompt(paper_id, abstract)
+        system_prompt, user_prompt = self._base_prompt(paper_id, abstract)
         
         while attempt < self.max_attempts:
             system_prompt, user_prompt = self._base_prompt(paper_id, abstract)
@@ -627,7 +637,7 @@ PREVIOUS EXPLANATION (do not copy wording):
             if not is_valid:
                 attempt += 1
                 last_errors = errors
-                prompt = self._repair_prompt(
+                system_prompt, user_prompt = self._repair_prompt(
                     paper_id=paper_id,
                     abstract=abstract,
                     bad_output=response,
@@ -639,7 +649,7 @@ PREVIOUS EXPLANATION (do not copy wording):
             if not isinstance(obj, dict):
                 attempt += 1
                 last_errors = ["Unexpected: obj is not dict after validation."]
-                prompt = self._repair_prompt(
+                system_prompt, user_prompt = self._repair_prompt(
                     paper_id=paper_id,
                     abstract=abstract,
                     bad_output=response,
@@ -653,7 +663,7 @@ PREVIOUS EXPLANATION (do not copy wording):
             if not ok_ctx:
                 last_errors = list(errors) + list(problems_ctx)
                 attempt += 1
-                prompt = self._context_repair_prompt(
+                system_prompt, user_prompt = self._context_repair_prompt(
                         paper_id=paper_id,
                         abstract=abstract,
                         bad_output=response,
@@ -965,5 +975,5 @@ class Teacher_Data_Pipeline:
             )
         finally:
             conn.close()
-                
-                                        
+            
+        
