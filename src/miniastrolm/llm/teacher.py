@@ -1,8 +1,8 @@
 from __future__ import annotations
-
+from dataclasses import dataclass
 import json
-from pathlib import Path
 import torch
+from pathlib import Path
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import re, sqlite3
 from collections import Counter
@@ -13,6 +13,20 @@ from tqdm import tqdm
 
 # DEFAULT_MODEL_NAME = "meta-llama/Llama-3.1-8B"
 DEFAULT_MODEL_ID = "meta-llama/Meta-Llama-3.1-8B-Instruct"
+
+@dataclass
+class TeacherConfig:
+    model_id: str = DEFAULT_MODEL_ID
+    max_new_tokens: int = 500
+    do_sample : bool = False
+    temperature : float = 0.7
+    top_p: float = 0.9
+    repetition_penalty: float = 1.1
+    min_chars: int = 1000
+    max_attempts: int = 3
+    context_min_coverage: float = 0.6
+    max_new_tokens_retry: int = 800
+    
 
 def check_mps_availability() -> bool:
     """checks if MPS (Metal Performance Shaders) is available for PyTorch
@@ -29,7 +43,8 @@ class Llama_Teacher:
         """
         if device is None:
             device = "mps" if check_mps_availability() else "cpu"
-        
+            
+        self.my_config = TeacherConfig()
         self.device = device
         self.model_id = model_id
         self.torch_dtype = torch_dtype
@@ -53,11 +68,11 @@ class Llama_Teacher:
 
     def generate_response(self,
                         prompt: str,
-                        max_new_tokens: int = 800,
-                        # temperature : float = 0.7,
-                        # top_p: float = 0.9,
-                        repetition_penalty: float = 1.1,
-                        do_sample=False) -> str:
+                        max_new_tokens: int,
+                        temperature : float,
+                        top_p: float,
+                        repetition_penalty: float,
+                        do_sample: bool) -> str:
         """Generates responses from a given prompt
 
         Args:
@@ -79,8 +94,8 @@ class Llama_Teacher:
             outputs = self.model.generate(
                 **inputs,
                 max_new_tokens=max_new_tokens,
-                # temperature=temperature,
-                # top_p=top_p,
+                temperature=temperature,
+                top_p=top_p,
                 repetition_penalty=repetition_penalty,
                 do_sample=do_sample
             )
@@ -91,11 +106,11 @@ class Llama_Teacher:
     def generate_response_chat(self,
                         system_prompt: str,
                         user_prompt: str,
-                        max_new_tokens: int = 800,
-                        # temperature : float = 0.7,
-                        # top_p: float = 0.9,
-                        repetition_penalty: float = 1.1,
-                        do_sample=False) -> str:
+                        max_new_tokens: int,
+                        temperature : float,
+                        top_p: float,
+                        repetition_penalty: float,
+                        do_sample: bool) -> str:
         """Generates responses from a given prompt
 
         Args:
@@ -125,8 +140,8 @@ class Llama_Teacher:
             outputs = self.model.generate(
                 **inputs,
                 max_new_tokens=max_new_tokens,
-                # temperature=temperature,
-                # top_p=top_p,
+                temperature=temperature,
+                top_p=top_p,
                 repetition_penalty=repetition_penalty,
                 do_sample=do_sample
             )
@@ -135,24 +150,23 @@ class Llama_Teacher:
         return output_text.strip()
     
 class Validation_Regeneration:
-    def __init__(self, teacher_model: Llama_Teacher, max_attempts: int = 3, 
+    def __init__(self, teacher_model: Llama_Teacher, max_attempts: int, 
                 prompt_path : Path | None = None, 
                 raise_on_fail: bool = True, 
-                context_min_coverage: float = 0.6, 
                 context_check_mode: str = "off", 
                 judge_model=None):
         
+        self.my_config = TeacherConfig()
         self.teacher_model = teacher_model
-        self.max_attempts = max_attempts
-        #self.min_chars = 800
-        self.min_chars = 250
+        self.max_attempts = self.my_config.max_attempts
+        self.min_chars = self.my_config.min_chars
         self.banned_phrases = [
             "we present", "we show", "we find", "we propose", "we investigate",
             "in this paper", "this paper", "we study", "we explore",
             "we report", "we demonstrate",
         ]
         self.raise_on_fail = raise_on_fail
-        self.context_min_coverage = context_min_coverage
+        self.context_min_coverage = self.my_config.context_min_coverage
         self.context_check_mode = context_check_mode
         self.judge_model = judge_model or teacher_model
 
@@ -160,6 +174,12 @@ class Validation_Regeneration:
         if prompt_path is None:
             raise ValueError("Base Teacher prompt path must be provided.")
         self.base_prompt_template = prompt_path.read_text(encoding="utf-8").strip()
+
+        self._END_OK = re.compile(r'[.!?]"?\s*$')  # ends with .,!,? optionally followed by quote
+
+        self._BAD_TAIL = {
+            "and","or","because","which","that","with","to","of","as","if","but","so","while","into","from"
+        }
 
     def _normalize_arxiv_id(self, arxiv_id: str) -> str:
         """
@@ -258,27 +278,29 @@ class Validation_Regeneration:
         Returns a valid JSON string if successful, otherwise None.
         """
 
-        if mode == "teacher":
-            required_key = "explanation"
-        elif mode == "judge":
-            required_key = "verdict"
-        else:
+
+        if mode != "teacher":
+            return None  # keep teacher-only here; judge has its own path now
+
+        required_key = "explanation"
+
+        # 1) Normalize
+        text = (raw_text or "").strip()
+        if not text:
             return None
 
-        # 1. Normalize input
-        text = (raw_text or "").strip()
-
-        existing = self._extract_json_object(text)
-        if existing is not None:
-            return existing
+        existing_extracted = self._extract_json_object(text)
+        if existing_extracted is not None:
+            try:
+                json.loads(existing_extracted)
+                return existing_extracted
+            except json.JSONDecodeError:
+                # fall through to targeted repair
+                pass
         
+        # 3) If it doesn't even mention the key, we can't do this targeted fix
         if f'"{required_key}"' not in text:
             return None
-        
-        # Judge "autofix" = extract first JSON object only (do not invent/overwrite fields)
-        if mode == "judge":
-            extracted = self._extract_json_object(text)
-            return extracted  # may be None
 
         # 4. Extract id if present; otherwise fall back to provided paper_id
         m_id = re.search(r'"id"\s*:\s*"([^"]+)"', text)
@@ -296,27 +318,27 @@ class Validation_Regeneration:
         if after_l.startswith('"'):
             return None
 
-        # 7. Remove a trailing closing brace if present
-        if explanation_body.endswith("}"):
-            explanation_body = explanation_body[:-1].strip()
+        # 7) SAFETY: only apply this repair if explanation appears to be the last field.
+        # Heuristic: after the explanation begins, there should NOT be another JSON key pattern like: ,"foo":
+        # (We accept whitespace/newlines before the comma.)
+        if re.search(r'\n?\s*,\s*"[A-Za-z0-9_ ]+"\s*:', explanation_body):
+            return None
+    
+        # 8) Trim trailing brace if present (common when model forgot quotes)
+        body = explanation_body.strip()
+        if body.endswith("}"):
+            body = body[:-1].rstrip()
         
-        # 8) Optional: if model accidentally left a trailing quote at the end, trim it
-        if explanation_body.endswith('"'):
-            explanation_body = explanation_body[:-1].rstrip()
+        # 9) Trim accidental trailing quote
+        if body.endswith('"'):
+            body = body[:-1].rstrip()
 
-        # 9) Optional: if model accidentally starts body with a comma/newline, clean it
-        body = explanation_body.lstrip(",").lstrip()
-
+        # 10) Trim leading comma/newline noise
+        body = body.lstrip(",").lstrip()
         if not body:
             return None
     
-        # 10. Rebuild a strict JSON object safely
-        fixed_obj = {
-            "id": extracted_id,
-            "explanation": body,
-        }
-
-        # 11. Serialize using json.dumps to guarantee valid JSON escaping
+        fixed_obj = {"id": extracted_id, "explanation": body}
         return json.dumps(fixed_obj, ensure_ascii=False)
 
 
@@ -380,7 +402,7 @@ class Validation_Regeneration:
                 return True
         return False
     
-    def _repair_prompt(self, *, paper_id: str, abstract: str, bad_output: str, errors: List[str], attempt: int) -> str:
+    def _repair_prompt(self, *, paper_id: str, abstract: str, bad_output: str, errors: List[str], attempt: int) -> tuple[str, str]:
         
         system_prompt, user_prompt = self._base_prompt(paper_id, abstract)
         errors_bullets = "\n".join(f"- {e}" for e in errors)
@@ -422,7 +444,7 @@ Now output ONLY this JSON object, starting with '{{' and ending with '}}':
 """
 
         user_prompt = user_prompt + "\n\n" + repair
-        return system_prompt, user_prompt
+        return (system_prompt, user_prompt)
 
     def _context_check_interactive(self, paper_id: str, 
                         abstract: str, 
@@ -545,7 +567,13 @@ EXPLANATION:
                         max_phrases: int = 10) -> Tuple[bool, float, List[str], Dict[str, Any] | None]:
         
         prompt = self._judge_prompt(paper_id=paper_id, abstract=abstract, explanation=explanation)
-        raw_response = self.judge_model.generate_response(prompt=prompt, max_new_tokens=512, do_sample=False)
+        raw_response = self.judge_model.generate_response(prompt=prompt, 
+                                                        max_new_tokens=self.my_config.max_new_tokens, 
+                                                        do_sample=self.my_config.do_sample, 
+                                                        temperature=self.my_config.temperature, 
+                                                        top_p=self.my_config.top_p, 
+                                                        repetition_penalty=self.my_config.repetition_penalty)
+        
         # json_txt = self._extract_json_object(raw_response)
         json_txt = self._attempt_autofix_to_json(raw_response, paper_id, mode="judge")
         if json_txt is None:
@@ -583,7 +611,7 @@ EXPLANATION:
         return ok, score, problems, json_obj
         
     def _context_repair_prompt(self, *, paper_id: str, abstract: str, bad_output: str,
-                            missing: List[str], ctx_score: float, attempt: int) -> str:
+                            missing: List[str], ctx_score: float, attempt: int) -> tuple[str, str]:
         
         system_prompt, user_prompt = self._base_prompt(paper_id, abstract)
         missing_bullets = "\n".join(f"- {m}" for m in missing)
@@ -609,7 +637,7 @@ PREVIOUS EXPLANATION (do not copy wording):
 {bad_output}
 """.strip()
         user_prompt = user_prompt + "\n\n" + ctx
-        return system_prompt, user_prompt   
+        return (system_prompt, user_prompt)   
 
     def _run_context_check(self, *, paper_id: str, abstract: str, explanation_text: str) -> Tuple[bool, float, List[str], Dict[str, Any] | None]:
         
@@ -622,28 +650,50 @@ PREVIOUS EXPLANATION (do not copy wording):
         else:
             raise ValueError("Context check mode not recognized")
 
+    def looks_truncated(self, explanation: str) -> bool:
+        text = (explanation or "").strip()
+
+        # too short for your spec => treat as truncated
+        if len(text) < self.my_config.min_chars:
+            return True
+
+        # must end like a complete sentence (this catches your "seem too small" case)
+        if not self._END_OK.search(text):
+            return True
+
+        # unbalanced quotes is a strong truncation signal
+        if text.count('"') % 2 == 1:
+            return True
+
+        return False
+        
+        
     def generate_item(self, paper_id: str, abstract: str) -> Dict[str, Any]:
         attempt = 0
         last_response = ""
         last_errors: List[str] = []
+        did_token_retry = False
+        gen_calls = 0
         system_prompt, user_prompt = self._base_prompt(paper_id, abstract)
-        
         while attempt < self.max_attempts:
-            system_prompt, user_prompt = self._base_prompt(paper_id, abstract)
-            response = self.teacher_model.generate_response_chat(system_prompt=system_prompt, user_prompt=user_prompt, max_new_tokens=800, do_sample=False)
+            response = self.teacher_model.generate_response_chat(system_prompt=system_prompt, 
+                                                                user_prompt=user_prompt, 
+                                                                max_new_tokens=self.my_config.max_new_tokens, 
+                                                                do_sample=self.my_config.do_sample, 
+                                                                temperature=self.my_config.temperature, 
+                                                                top_p=self.my_config.top_p, 
+                                                                repetition_penalty=self.my_config.repetition_penalty)
+            gen_calls += 1
             last_response = response
             is_valid, errors, obj = self._validate_response(response, paper_id, abstract)
-
             if not is_valid:
                 attempt += 1
                 last_errors = errors
-                system_prompt, user_prompt = self._repair_prompt(
-                    paper_id=paper_id,
-                    abstract=abstract,
-                    bad_output=response,
-                    errors=errors,
-                    attempt=attempt,
-                )
+                system_prompt, user_prompt = self._repair_prompt(paper_id=paper_id,
+                                                                abstract=abstract,
+                                                                bad_output=response,
+                                                                errors=errors,
+                                                                attempt=attempt)
                 continue
 
             if not isinstance(obj, dict):
@@ -659,6 +709,37 @@ PREVIOUS EXPLANATION (do not copy wording):
                 continue
 
             explanation_text = (obj.get("explanation") or "").strip()
+            if (not did_token_retry) and self.looks_truncated(explanation_text):
+                did_token_retry = True
+                response = self.teacher_model.generate_response_chat(
+                    system_prompt=system_prompt,
+                    user_prompt=user_prompt,
+                    max_new_tokens=int(self.my_config.max_new_tokens_retry),  # e.g. 500 -> 750
+                    do_sample=self.my_config.do_sample,
+                    temperature=self.my_config.temperature,
+                    top_p=self.my_config.top_p,
+                    repetition_penalty=self.my_config.repetition_penalty,
+                )
+                gen_calls += 1
+                last_response = response
+
+                is_valid, errors, obj = self._validate_response(response, paper_id, abstract)
+
+                # If the retry didn't help, fall back to normal repair flow
+                if (not is_valid) or (not isinstance(obj, dict)):
+                    attempt += 1
+                    last_errors = errors if errors else ["Truncation retry produced invalid JSON."]
+                    system_prompt, user_prompt = self._repair_prompt(
+                        paper_id=paper_id,
+                        abstract=abstract,
+                        bad_output=response,
+                        errors=last_errors,
+                        attempt=attempt,
+                    )
+                    continue
+
+                explanation_text = (obj.get("explanation") or "").strip()
+            
             ok_ctx, score_ctx, problems_ctx, obj_ctx = self._run_context_check(paper_id=paper_id, abstract=abstract, explanation_text=explanation_text)
             if not ok_ctx:
                 last_errors = list(errors) + list(problems_ctx)
@@ -679,6 +760,8 @@ PREVIOUS EXPLANATION (do not copy wording):
             obj["context_score"] = score_ctx
             obj["context_problems"] = problems_ctx
             obj["context_judge"] = obj_ctx
+            obj["gen_calls"] = gen_calls
+            obj["did_token_retry"] = did_token_retry
             return obj
 
 
@@ -689,6 +772,8 @@ PREVIOUS EXPLANATION (do not copy wording):
             "attempts": attempt,
             "validation_errors": last_errors,
             "last_response": last_response,
+            "gen_calls": gen_calls,
+            "did_token_retry": did_token_retry,
         }
         
         if self.raise_on_fail:
@@ -706,7 +791,8 @@ class Teacher_Data_Pipeline:
                 batch_size = 100, max_attempts = 3,
                 raise_on_fail = False,
                 log_skips=False,        
-                print_every=1,):
+                print_every=1,
+                max_total=None):
         
         self.database_path = database_path
         self.output_path = output_path
@@ -716,6 +802,7 @@ class Teacher_Data_Pipeline:
         self.raise_on_fail = raise_on_fail
         self.log_skips = log_skips
         self.print_every = print_every
+        self.max_total = max_total
         
         self.output_path.mkdir(parents=True, exist_ok=True)
 
@@ -877,16 +964,14 @@ class Teacher_Data_Pipeline:
                     "last_id": self._last_id,
                 }
             )
+            stop_now = False
             while True:
                 rows = self.fetch_batch(conn)
                 if not rows:
                     break
                 for paper_id, title_clean, abstract_clean in tqdm(
-                    rows,
-                    desc="Teacher pipeline",
-                    unit="paper",
-                    leave=False,
-                ):
+                    rows, desc="Teacher pipeline", unit="paper", leave=False):
+                    
                     if not abstract_clean or not str(abstract_clean).strip():
                         fail_payload = {
                             "id": paper_id,
@@ -898,6 +983,10 @@ class Teacher_Data_Pipeline:
                         fail_count += 1
                         processed_count += 1
                         self.mark_processed(paper_id)
+
+                        if self.max_total is not None and processed_count >= self.max_total:
+                            stop_now = True
+                            break
                         self._log_event(status="fail", paper_id=paper_id, reason="empty_abstract")
                         continue
                         
@@ -921,6 +1010,9 @@ class Teacher_Data_Pipeline:
 
                     self.mark_processed(paper_id)
                     processed_count += 1
+                    if self.max_total is not None and processed_count >= self.max_total:
+                        stop_now = True
+                        break
                     if processed_count % max(1, self.print_every) == 0:
                         pct = (
                             (processed_count / self._total_eligible) * 100.0
@@ -948,7 +1040,8 @@ class Teacher_Data_Pipeline:
                                 f"success={success_count} fail={fail_count} skipped={skip_count} "
                                 f"last_id={self._last_id}"
                         )
-
+                if stop_now:
+                    break
             # Final summary
             pct = (processed_count / self._total_eligible) * 100.0 if self._total_eligible else None
             self._write_summary(

@@ -350,3 +350,16 @@ class convert_sqlite_to_jasonl:
         self.conn.close()
         return self.output_jason_file
     
+# class Distillation_pipeline:
+    
+#     def __init__(self, sqlite_db_path, output_dir, batch_size=50, *args, **kwargs):
+#         self.sqlite_db_path = sqlite_db_path
+#         self.output_dir = Path(output_dir)
+#         self.batch_size = batch_size
+#         self.output_dir.mkdir(parents=True, exist_ok=True)
+    
+#     def count_categories(self):
+#         conn = sqlite3.connect(self.sqlite_db_path)
+#         cur = conn.cursor()
+#         cur.execute()
+        

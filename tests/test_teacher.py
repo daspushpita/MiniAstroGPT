@@ -1,6 +1,8 @@
 from pathlib import Path
 import sys
+import time
 
+start_time = time.time()
 
 ROOT = Path(__file__).resolve().parents[1]      # project root (one level above tests/)
 SRC  = ROOT / "src"
@@ -38,3 +40,8 @@ if __name__ == "__main__":
     my_model = test_llm_teacher_init()
     print(my_model)
     print("Llama_Teacher initialization test passed.")
+    
+end_time = time.time()
+execution_time = end_time - start_time
+
+print(f"Executed in: {execution_time:.4f} seconds")
