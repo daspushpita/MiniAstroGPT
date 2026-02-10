@@ -32,7 +32,7 @@ Raw arXiv abstracts
     -> Teacher-generated explanations
     -> Filtering + validation
     -> Curated JSONL dataset
-    -> Student fine-tuning (GPT-2)
+    -> Student fine-tuning: GPT-2
     -> Clean, readable explanations
 ```
 
@@ -46,7 +46,7 @@ flowchart TB
     A[Raw arXiv astro-ph abstracts] --> B[SQLite + batch generation]
     B --> C[Teacher prompt + explanations]
     C --> D[Filtering + JSONL dataset]
-    D --> E[Student fine-tuning (GPT-2)]
+    D --> E[Student fine-tuning: GPT-2]
     E --> F[Readable public-facing explanations]
 ```
 
