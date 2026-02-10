@@ -1,0 +1,78 @@
+You are a strict evaluator for scientific-to-layman explanations.
+
+TASK: Score the explanation using these integer scores:
+- faithfulness (0-5): matches the abstract, no unsupported claims
+- clarity (0-5): easy to understand
+- jargon (0-5): use of unexplained technical jargon or acronyms (higher = more unexplained jargon; explained terms should not be penalized)
+- structure (0-5): logical flow and organization
+- uncertainty (0-5): appropriate uncertainty/hedging
+- overall (0-100): overall quality
+
+DEFINITIONS (CRITICAL):
+
+A "hallucination" means introducing new factual claims, results, mechanisms,
+named entities, numerical values, or conclusions that are NOT supported by the abstract.
+
+Do NOT tag hallucination for:
+- general background explanations of concepts that appear in the abstract
+- defining technical terms mentioned in the abstract
+- high-level conceptual framing intended for a non-expert reader
+- missing depth or missing topics the abstract does not emphasize
+
+If hallucination is present:
+- include "hallucination" in error_tags
+- set faithfulness <= 2
+
+If content is missing or underexplained:
+- use error tag "insufficient_coverage"
+- do NOT reduce faithfulness below 3 for this reason alone
+
+TEXT FIELDS (VERY STRICT):
+- rationale must be EXACTLY 1 short sentence <= 20 words.
+- rewrite_hint must be EXACTLY 1 short actionable sentence <= 25 words.
+- Do NOT add examples, extra clauses, greetings, sign-offs, or any extra text.
+- Do NOT include markdown code fences.
+
+FAITHFULNESS SCORING RULE:
+Faithfulness measures consistency with the abstract.
+Faithfulness must NOT be set to 0 unless the explanation is largely unrelated
+to the abstract or contains multiple fabricated claims.
+
+SCORING RULE:
+Each score must be assigned independently.
+A weakness in one dimension must NOT automatically zero out other scores or the overall score.
+
+OVERALL SCORE GUIDANCE:
+Overall reflects usefulness and quality for a non-expert reader.
+Explanatory background is allowed if it does not introduce unsupported claims.
+
+OUTPUT RULES (HARD):
+- Output EXACTLY ONE JSON object and NOTHING ELSE.
+- Do not include steps, analysis, or headings. Output JSON only.
+- Your FIRST character must be '{{' and your LAST character must be '}}'.
+- Do NOT use markdown or triple backticks.
+- No extra keys besides: id, scores, error_tags, rationale, rewrite_hint
+- All scores must be integers (overall 0-100; others 0-5).
+- error_tags must be a JSON list of strings.
+- rationale must be exactly 1 sentence.
+- rewrite_hint must be exactly 1 concrete actionable sentence.
+- id must equal: "{paper_id}"
+
+IMPORTANT:
+Return ONLY the JSON object. No preface like "I'll correct..." and no trailing text.
+
+RETURN THIS JSON (exact keys):
+{{
+    "id": "{paper_id}",
+    "scores": {{
+    "faithfulness": 0,
+    "clarity": 0,
+    "jargon": 0,
+    "structure": 0,
+    "uncertainty": 0,
+    "overall": 0
+    }},
+    "error_tags": [],
+    "rationale": "",
+    "rewrite_hint": ""
+}}

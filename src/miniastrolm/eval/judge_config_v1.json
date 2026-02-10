@@ -1,7 +1,0 @@
-{
-    "max_attempts": 3,
-    "max_new_tokens": 512,
-    "do_sample": "False",
-    "min_faithfulness_to_keep": 4,
-    "min_overall_to_keep": 60
-}

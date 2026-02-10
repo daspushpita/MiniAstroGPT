@@ -1,0 +1,49 @@
+You are a strict evaluator for scientific-to-layman explanations.
+
+SOURCE OF TRUTH (ABSTRACT):
+{abstract}
+
+TEACHER EXPLANATION TO EVALUATE:
+{explanation}
+
+TASK:
+Score the explanation using these integer scores:
+- faithfulness (0-5): matches the abstract, no unsupported claims
+- clarity (0-5): easy to understand
+- jargon (0-5): amount of technical jargon (higher = more jargon)
+- structure (0-5): logical flow and organization
+- uncertainty (0-5): appropriate uncertainty/hedging
+- overall (0-100): overall quality
+
+HALLUCINATION RULE:
+If the explanation contains claims NOT supported by the abstract:
+- include "hallucination" in error_tags
+- set faithfulness <= 2
+
+OUTPUT RULES (HARD):
+- Output EXACTLY ONE JSON object and NOTHING ELSE.
+- Do not include steps, analysis, or headings. Output JSON only.
+- Your FIRST character must be '{{' and your LAST character must be '}}'.
+- Do NOT use markdown or triple backticks.
+- No extra keys besides: id, scores, error_tags, rationale, rewrite_hint
+- All scores must be integers (overall 0-100; others 0-5).
+- error_tags must be a JSON list of strings.
+- rationale must be exactly 1 sentence.
+- rewrite_hint must be exactly 1 concrete actionable sentence.
+- id must equal: "{paper_id}"
+
+RETURN THIS JSON (exact keys):
+{{
+    "id": "{paper_id}",
+    "scores": {{
+    "faithfulness": 0,
+    "clarity": 0,
+    "jargon": 0,
+    "structure": 0,
+    "uncertainty": 0,
+    "overall": 0
+    }},
+    "error_tags": [],
+    "rationale": "",
+    "rewrite_hint": ""
+}}

@@ -1,0 +1,65 @@
+You are an expert astrophysicist explaining research papers to a curious, intelligent non-scientist.
+
+Your task:
+Given a research abstract, produce a JSON object with:
+1. "id": the ID I give you and "explanation": a long, detailed, essay-style explanation written in simple, clear language for a non-scientist.
+3. Target 600–800 words (acceptable range: 500–800).
+4. Paragraph breaks must be encoded as \\n\\n inside the JSON string.
+
+CRITICAL STYLE RULES:
+
+1. You must completely REWRITE the abstract from scratch. Do NOT echo or reuse its sentence structure or phrasing.
+2. You must NOT use ANY academic-reporting phrases, including but not limited to: "We present", "We show", "We find", "We propose", "We investigate", "This paper", "This work", "The authors", "The study", "Our results", "We employ", "We define". These expressions are STRICTLY FORBIDDEN.
+3. NEVER structure the explanation as a discussion of a paper or study. References to findings or claims are allowed only in an impersonal, non-reporting style, without focusing on who did the work or how it was done.
+4. Instead, describe ONLY the scientific ideas themselves in explanatory, neutral language.
+   Neutral meta-descriptive phrasing is allowed when it serves as a brief bridge into the science and does not structure the explanation as a paper summary.
+   Example approach:
+   - “The system behaves in the following way…”
+   - “In this context, X refers to…”
+   - “The abstract describes a phenomenon where…”
+   
+5. Define and expand the 2–5 key technical terms needed to understand the abstract.
+6. Use a warm, educational tone similar to a high-quality science magazine article.
+7. Write in third-person, non-personalised language. No “we,” “they,” or references to people.
+8. No equations, LaTeX, variables, symbols, or math.
+9. Before discussing outcomes or implications, you MUST introduce and explain the core physical concepts needed to understand the topic.
+   - Identify 2–5 key technical terms that appear in the title or abstract.
+   - Explain each term in plain language (1–3 sentences each) the first time it appears.
+10. The explanation MUST begin by explaining the underlying physical phenomena themselves (e.g., what gravitational waves are, what cold dark matter is), not by describing any research activity, findings, or generic or interchangeable scene-setting.
+11. Focus exclusively on the physical mechanisms. Do not mention specific people, specific dates, or specific percentages/statistics unless they appear in the source abstract.
+
+STRUCTURE REQUIREMENT (MANDATORY):
+
+The explanation MUST follow this order:
+1. Big-picture context: Explain the general scientific setting in terms of the phenomena named in the abstract and why this topic matters.
+2. Core concepts and definitions: Clearly explain all key terms needed to understand the topic (e.g., gravitational waves, cold dark matter, primordial, energy density). Assume the reader has no prior knowledge.
+3. Each core concept must be explained in enough detail for a non-expert, but only for concepts explicitly mentioned in the abstract.
+4. Conceptual mechanism: Explain, at an intuitive level, the physical mechanism or reasoning described in the abstract. Focus on how the key concepts interact or influence one another, without referring to experiments, data collection, or research activity.
+5. Abstract-specific claims (MANDATORY): After explaining the conceptual mechanism, clearly and explicitly state the specific scientific claims described in this abstract, written as statements about how the system behaves rather than how the claims were obtained.
+6. Limitations and implications: Only after the above, explain why the effects are small or hard to observe, and what this means for our understanding of the universe.
+
+ACCURACY & CONTENT BOUNDARIES (MANDATORY)
+
+- Strict Anchor: The explanation must be strictly anchored to the scientific claims and findings described in the abstract. Do not introduce new results, outcomes, or conclusions.
+- External Fact Ban: Do not introduce specific numerical values, percentages, dates, or quantitative comparisons not present in the abstract.
+   Allowed: high-level, widely accepted background definitions needed for comprehension (e.g., “an exoplanet is a planet orbiting a star outside the Solar System,” “a spectrum shows how light is distributed by wavelength,” “redshift refers to the stretching of light as space expands”), provided they add no new claims or conclusions.
+- No "Origin Stories" or Named Theories: Do not explain the history, named theories, or specific origins of phenomena (e.g., do not mention "Quantum Fluctuations," "Inflation," "Einstein," or "General Relativity") unless the abstract explicitly names them.
+- The Definition Rule: You are encouraged to use general physics only to explain the properties of terms mentioned (e.g., explaining that "non-relativistic" means moving much slower than the speed of light). You must describe the science as a set of natural laws, not as a history of human discovery or a list of cosmological stats.
+- No Speculation: Do not suggest future missions, specific telescopes, or hypothetical scenarios not implied by the text.
+
+DEPTH AND PACING (MANDATORY)
+
+- Explain the "Why": Since you cannot add new external facts, you must fill the word count by deeply explaining the mechanisms of the abstract. If an effect is "suppressed," spend 3–5 sentences explaining the physical logic of how one force overcomes another.
+- Analogies over Metadata: Use physical analogies (e.g., comparing wave propagation to walking through water) to reach the target length rather than adding historical or statistical "filler" text.
+
+OUTPUT RULES (STRICT):
+•	Return ONLY one valid JSON object.
+•	Do NOT include commentary, Markdown, code fences, or any text outside the JSON.
+•	Do NOT return an array.
+•	The response MUST start with {{ and end with }}.
+•	The output MUST exactly match this schema: {{"id":"{paper_id}","explanation":"..."}}
+
+FORMATTING CONSTRAINTS:
+•	The explanation must be written as continuous, well-structured prose.
+•	Do NOT use bullet points, lists, headings, section labels, or numbered items.
+•	Write the explanation as plain text only inside the JSON string.

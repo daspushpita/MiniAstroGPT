@@ -1,144 +1,128 @@
-# AstroGPT
-### A Domain-Specific GenAI System for Explaining Astrophysics Research
+# MiniAstroLM (AstroGPT)
+### Distilling astrophysics papers into clear, accessible explanations
 
-AstroGPT is a **domain-adapted generative AI system** designed to translate technical astrophysics research abstracts into **clear, accurate, and public-friendly explanations**.
+MiniAstroLM is a compact, end-to-end teacher–student distillation pipeline that converts arXiv astro-ph abstracts into high-quality, public-friendly explanations.
 
-The system is built around a **teacher–student training paradigm**, where a high-capability language model first generates high-quality explanations from raw arXiv abstracts, and a smaller **GPT-2–based student model** is then fine-tuned to reproduce this explanatory style efficiently.
+A large teacher model generates supervision.
+A small GPT-2 student is fine-tuned to reproduce it efficiently.
 
-AstroGPT demonstrates how **structured prompting, automated dataset construction, and classical language-model fine-tuning** can be combined into a robust, end-to-end GenAI pipeline.
-
----
-
-## Why AstroGPT?
-
-Scientific knowledge—especially in fields like astrophysics—is often locked behind dense, technical language. AstroGPT addresses this gap by:
-
-- Preserving scientific correctness  
-- Eliminating unnecessary jargon  
-- Producing explanations readable by non-experts  
-- Enabling scalable, automated science communication  
-
-The project also serves as a **research-grade example** of how to build and evaluate domain-specific generative models from scratch.
+The focus is not scale for its own sake, but faithful explanations, low-cost inference, and full reproducibility.
 
 ---
 
-## Core Capabilities
+## Why this project exists
 
-- Automated arXiv ingestion for astro-ph research abstracts  
-- Teacher-prompt framework with strict style and content constraints  
-- SQLite-backed data pipeline for reproducible dataset generation  
-- End-to-end GPT-2 fine-tuning workflow (no black-box tooling)  
-- Evaluation rules to enforce readability and stylistic correctness  
-- CLI-based inference for generating explanations on demand  
-- Modular design supporting model scaling and alignment extensions  
+Astrophysics papers are precise by design — and inaccessible for general public at large.
+Most LLM demos rely on prompting alone, with little control over faithfulness or consistency.
+
+MiniAstroLM takes a systems-first approach:
+	•	Supervision over prompting: explanations are generated, filtered, and curated
+	•	Distillation over scale: a small student learns the task directly
+	•	Realistic constraints: fast inference, cheap training, reproducible runs
+	•	Transparent pipeline: every step is inspectable and modifiable
+
 
 ---
 
-## System Overview
+## At a glance
 
-```Raw arXiv abstracts
-		↓
-Structured SQLite database
-		↓
-Teacher prompt generation
-		↓
-Teacher explanations (JSON)
-		↓
-Filtered training dataset (JSONL)
-		↓
-Fine-tuned GPT-2 student model
-		↓
-Clear, layperson-friendly explanations
+```
+Raw arXiv abstracts
+    -> SQLite ingestion + batching
+    -> Teacher-generated explanations
+    -> Filtering + validation
+    -> Curated JSONL dataset
+    -> Student fine-tuning (GPT-2)
+    -> Clean, readable explanations
 ```
 
-⸻
+---
 
-This architecture mirrors real-world GenAI workflows:
-**data ingestion → supervision → filtering → training → evaluation → inference**.
+
+## Pipeline diagram
+
+```mermaid
+flowchart TB
+    A[Raw arXiv astro-ph abstracts] --> B[SQLite + batch generation]
+    B --> C[Teacher prompt + explanations]
+    C --> D[Filtering + JSONL dataset]
+    D --> E[Student fine-tuning (GPT-2)]
+    E --> F[Readable public-facing explanations]
+```
 
 ---
 
-## Repository Structure
+## Repo map
 
-```AstroGPT/
-├── data/
-│   ├── raw/                         # Downloaded arXiv metadata
-│   └── processed/
-│       ├── mini_astrolm.db          # SQLite database
-│       ├── batches/                 # Abstract batches
-│       ├── teacher_outputs/         # Teacher explanations
-│       └── train.jsonl              # Final training dataset
-│
-├── src/
-│   └── miniastrolm/
-│       ├── data/
-│       │   ├── arxiv_fetcher.py     # arXiv ingestion logic
-│       │   ├── db.py                # DB schema & helpers
-│       │   └── dataset_builder.py   # Batch & JSONL construction
-│       │
-│       ├── llm/
-│       │   ├── teacher.py           # Teacher model interface
-│       │   ├── student.py           # Student inference
-│       │   └── prompts.py           # Prompt templates & style rules
-│       │
-│       ├── training/
-│       │   ├── finetune_gpt2.py     # Fine-tuning entry point
-│       │   └── collate.py           # Tokenization & batching
-│       │
-│       └── eval/
-│           ├── eval_rules.py        # Structural & style checks
-│           └── sample_compare.py    # Before/after comparisons
-│
-├── scripts/
-│   ├── build_dataset.py             # Dataset generation
-│   ├── train.py                     # Training launcher
-│   └── explain.py                   # CLI inference tool
-│
-├── notebooks/
-│   └── debug_*.ipynb                # Experiments & debugging
-│
+```
+MiniAstroLM/
+├── configs/                  # Training configs (YAML)
+├── data/                     # Local data outputs
+├── prompts/                  # Teacher prompt templates
+├── src/miniastrolm/
+│   ├── data_scripts/         # Dataset construction and helpers
+│   ├── llm/                  # Teacher interfaces and prompt logic
+│   ├── student/              # Student model training and inference
+│   ├── training/             # Collators and training utilities
+│   └── eval/                 # Evaluation helpers
+├── tests/                    # Tests and smoke checks
+├── Notebooks/                # Experiments and debugging
 └── README.md
 ```
----
-
-## Design Philosophy
-
-- **Explicit over implicit** — every transformation step is inspectable  
-- **Reproducible by construction** — datasets are derived, not manual  
-- **Small-model realism** — optimized for efficient training and inference  
-- **Production-inspired layout** — mirrors real ML system organization  
-
-No monolithic scripts. No hidden magic.
 
 ---
 
-## Installation
 
-*Coming soon.*
+## System architecture
 
-(Planned support via Hugging Face `transformers` with minimal dependencies.)
+```mermaid
+flowchart LR
+    subgraph Data[Data pipeline]
+        A[arXiv abstracts] --> B[SQLite + batches]
+        B --> C[Teacher prompts]
+        C --> D[Teacher explanations]
+        D --> E[Filtered JSONL]
+    end
+
+    subgraph Training[Student training]
+        E --> F[Tokenizer + collator]
+        F --> G[GPT-2 student fine-tuning]
+        G --> H[Student checkpoint]
+    end
+
+    subgraph Inference[Inference]
+        I[User abstract or arXiv ID] --> J[StudentInferencer]
+        H --> J
+        J --> K[Readable explanation]
+    end
+```
 
 ---
 
-## Usage
+## Quickstart (local)
 
-*Coming soon.*
+```
+conda env create -f environment.yml
+conda activate miniastrolm
+```
 
-(The CLI will support explaining raw abstracts or arXiv IDs.)
+Train the student model (example):
+
+```
+python src/miniastrolm/student/train.py --config configs/student_train.yaml
+```
 
 ---
 
-## Planned Extensions
+## Project status
 
-- Scaling to instruction-tuned foundation models  
-- Preference-based alignment and quality ranking  
-- Automated readability and faithfulness metrics  
-- Web interface for daily arXiv summaries  
-- Cross-domain generalization beyond astrophysics  
+- Training workflow: implemented and configurable
+- Dataset pipeline: implemented via data scripts
+- Inference CLI: scaffolding in progress
 
 ---
 
 ## Author
 
-**Pushpita Das**  
-Astrophysicist · Machine Learning Researcher · GenAI Systems Developer
+Pushpita Das
+Astrophysicist | Machine Learning Researcher | GenAI Systems Developer
