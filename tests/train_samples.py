@@ -6,7 +6,7 @@ ROOT = Path(__file__).resolve().parents[1]      # project root (one level above 
 SRC  = ROOT / "src"
 sys.path.insert(0, str(SRC))
 
-from miniastrolm.data_scripts.generate_train_samples import Tranning_Samples_Split
+from miniastrolm.data_scripts.build_student_jsonl import Tranning_Samples_Split
 JUDGED_DATA_PATH = Path("/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/data/evals/judge_results_v1.jsonl")
 TEACHER_DATA_PATH = Path("/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/data/teacher_output/v2/train.jsonl")
 

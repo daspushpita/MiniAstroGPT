@@ -27,6 +27,7 @@ class JsonlStudentDataset(Dataset):
         {"id": ..., "text": <formatted string>}
     """
     def __init__(self, path: str | Path,
+                tokenizer,
                 input_key: str = "abstract",
                 output_key: str = "target_explanation",
                 id_key: str = "id",
@@ -46,6 +47,8 @@ class JsonlStudentDataset(Dataset):
         self.samples: List[Sample] = []
         self._load()
         
+        self.tokenizer = tokenizer
+        
     def __len__(self) -> int:
         return len(self.samples)
     
@@ -53,18 +56,29 @@ class JsonlStudentDataset(Dataset):
         s = self.samples[idx]
         return {"id": s.id, "text": self.format_text(s.abstract, s.target_explanation)}
     
-    def format_text(self, abstract:str, explanation:str) -> str:
-        """ONE format the student trains on.
+    # def format_text(self, abstract:str, explanation:str) -> str:
+    #     """ONE format the student trains on.
 
-        Args:
-            abstract (str): abstract
-            explanation (str): explanation
+    #     Args:
+    #         abstract (str): abstract
+    #         explanation (str): explanation
 
-        Returns:
-            str: trainning sample format
-        """
-        return f"Abstract:\n{abstract}\n\nExplanation:\n{explanation}\n"
+    #     Returns:
+    #         str: trainning sample format
+    #     """
+    #     return (
+    #         "Task: Explain the abstract in simple, non-technical language. Stay strictly on-topic.\n\n"
+    #         f"Abstract:\n{abstract}\n\nExplanation:\n{explanation}\n"
+    #     )
     
+    def format_text(self, abstract:str, explanation:str) -> str:
+        # Notice: No space after the final colon in "Explanation:\n"
+        return (
+            f"{self.tokenizer.bos_token}Task: Explain the abstract in simple, non-technical language. "
+            f"Stay strictly on-topic.\n\n"
+            f"Abstract:\n{abstract}\n\n"
+            f"Explanation:\n{explanation}{self.tokenizer.eos_token}"
+        )
 
     def _load(self) -> None:
         with open(self.path, "r", encoding="utf-8") as file:

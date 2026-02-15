@@ -6,14 +6,16 @@ import argparse
 import numpy as np
 import random
 import torch
+import gc
 
-from .device import resolve_device
+from miniastrolm.student.device import resolve_device
 from torch.utils.data import DataLoader
 import os, yaml
 from tqdm import tqdm
 from pathlib import Path
+from transformers import get_linear_schedule_with_warmup
 from miniastrolm.student.data import JsonlStudentDataset
-from miniastrolm.student.model import load_student
+from miniastrolm.student.model import load_student, freeze_gpt2_bottom
 from miniastrolm.training.collate import CausalLMCollator
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
@@ -36,6 +38,8 @@ class TrainingConfig:
     weight_decay: float
     seed: int
     device: str
+    freeze_embeddings : bool
+    n_freeze_blocks: int
 
 @dataclass
 class OutputConfig:
@@ -83,7 +87,13 @@ class TrainRunner:
 
     def setup_model(self):
         self.model, self.tokenizer = load_student(self.config.model.model_name, self.config.model.max_length)
+        
+        freeze_gpt2_bottom(self.model, n_freeze_blocks=self.config.training.n_freeze_blocks, freeze_embeddings=self.config.training.freeze_embeddings)
         self.model = self.model.to(self.device)
+
+        self.model.config.use_cache = False
+        self.model.gradient_checkpointing_enable()
+
         print(f"Model on device: {next(self.model.parameters()).device}")
         self.model.train()
         return self.model
@@ -91,6 +101,7 @@ class TrainRunner:
     def setup_data(self):
         
         self.dataset = JsonlStudentDataset(path = self.config.data.train_path,
+                tokenizer=self.tokenizer,
                 input_key = "abstract",
                 output_key = "target_explanation",
                 id_key = "id",
@@ -119,14 +130,25 @@ class TrainRunner:
         if self.debug:
             batch = next(iter(self.dataloader))
             print("Batch keys:", batch.keys())
+        # ex = self.dataset[0]
+        # print(ex.keys())
+        # print("TEXT PREVIEW:\n", ex["text"])
         return self.dataloader
 
     def setup_optimizer(self):
         trainable_params = [p for p in self.model.parameters() if p.requires_grad]
-        self.optimizer = torch.optim.Adam(trainable_params, lr = self.config.training.lr,
-                                        weight_decay=self.config.training.weight_decay,
-                                        eps=1e-8)
-        
+        self.optimizer = torch.optim.AdamW( # Use AdamW
+            trainable_params, 
+            lr=self.config.training.lr,
+            weight_decay=self.config.training.weight_decay,
+            eps=1e-8
+        )
+        warmup_steps = int(0.1 * self.config.training.max_steps)
+        self.scheduler = get_linear_schedule_with_warmup(
+            self.optimizer,
+            num_warmup_steps=warmup_steps,
+            num_training_steps=self.config.training.max_steps
+        )
         return self.optimizer
 
     # ---- core loop ----
@@ -156,6 +178,8 @@ class TrainRunner:
         with tqdm(total=max_steps, unit="step") as pbar:
             while step < max_steps:
                 for batch in dataloader:
+                    if batch is None:
+                        continue
                     step += 1
                     input_ids = batch["input_ids"].to(device, non_blocking=True)
                     attention_mask = batch["attention_mask"].to(device, non_blocking=True)
@@ -165,8 +189,17 @@ class TrainRunner:
                                     attention_mask=attention_mask,
                                     labels=labels)
                     loss = outputs.loss
+                    if torch.isnan(loss):
+                        print(f"Critcal: NaN loss detected at step {step}. Reducing LR is advised.")
+                        valid = (labels != -100).sum(dim=1)
+                        print("valid tokens per sample:", valid.tolist())
+                        print("max prompt_lens:", int((labels == -100).sum(dim=1).max().item()))
+                        return
+
                     loss.backward()
+                    torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0) # Add this line
                     optimizer.step()
+                    self.scheduler.step()
                     optimizer.zero_grad(set_to_none=True)
                     running_loss += loss.item()
                     if step == 1 or step % log_every == 0 or step == max_steps:
@@ -176,12 +209,17 @@ class TrainRunner:
                         pbar.set_postfix(loss=f"{avg_loss:.4f}")
                         running_loss = 0.0
 
+                    if step % 50 == 0:
+                        gc.collect()
+                        torch.mps.empty_cache()
                     pbar.update(1)
                     if step >= max_steps:
                         break
                     if (step % 10 == 0):
                         print(f"step={step} loss={loss.item():.4f}")
-                    
+                        
+                    del outputs, loss, input_ids, attention_mask, labels
+
                     if self.debug and step == 1:
                         print("One backward step succeeded")
                     

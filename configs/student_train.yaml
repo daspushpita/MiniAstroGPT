@@ -1,18 +1,21 @@
 model:
   model_name: "gpt2"
-  max_length: 512
+  max_length: 768
   
 
 data:
-  train_path: "/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/data/judged_samples/train.jsonl"
-  max_samples: 1000
+  train_path: "/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/data/judged_samples/overfit_20.jsonl"
+  max_samples: 20
+
 training:
-  batch_size: 2
+  batch_size: 1
   lr: 5.e-5
   max_steps: 2000
-  weight_decay: 0.01
+  weight_decay: 0.0
   seed: 42
   device: "mps"
+  freeze_embeddings : 0
+  n_freeze_blocks: False
 
 output:
-  output_dir: "/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/data/student"
+  output_dir: "/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/data/student/test_overfitting"
