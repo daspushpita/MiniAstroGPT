@@ -1,31 +1,46 @@
-# MiniAstroLM (AstroGPT)
-### Distilling astrophysics papers into clear, accessible explanations
+# MiniAstroLM (AstroGPT) – v1  
+### Controlled Distillation of Mechanism-Focused Scientific Explanations
 
-MiniAstroLM is a compact, end-to-end teacher–student distillation pipeline that converts arXiv astro-ph abstracts into high-quality, public-friendly explanations.
+MiniAstroLM v1 is a research-oriented teacher–judge–student distillation pipeline for generating structured, mechanism-focused explanations of astrophysics abstracts.
 
-A large teacher model generates supervision.
-A small GPT-2 student is fine-tuned to reproduce it efficiently.
+This project investigates a focused modeling question:
 
-The focus is not scale for its own sake, but faithful explanations, low-cost inference, and full reproducibility.
+> Can a small causal language model reliably reproduce a constrained scientific explanation style when supervision is generated and filtered systematically?
 
----
-
-## Why this project exists
-
-Astrophysics papers are precise by design — and inaccessible for general public at large.
-Most LLM demos rely on prompting alone, with little control over faithfulness or consistency.
-
-MiniAstroLM takes a systems-first approach:
-	•	Supervision over prompting: explanations are generated, filtered, and curated
-	•	Distillation over scale: a small student learns the task directly
-	•	Realistic constraints: fast inference, cheap training, reproducible runs
-	•	Transparent pipeline: every step is inspectable and modifiable
-
+Rather than relying on prompt engineering alone, MiniAstroLM constructs supervision explicitly and distills it into GPT-2 under controlled training conditions.
 
 ---
 
-## At a glance
+## Research Motivation
 
+Astrophysics abstracts compress physical mechanisms, observational constraints, and inference chains into dense prose.
+
+Large language models can unpack this effectively — but:
+
+- Prompt-only approaches are unstable.
+- Style drift is common.
+- Faithfulness is difficult to enforce.
+- Inference cost is high.
+
+MiniAstroLM treats explanation generation as a **controlled distillation problem under constraints**, not as a generic summarization task.
+
+---
+
+## v1 Task Definition
+
+Given an astrophysics abstract, generate an explanation that:
+
+- Is 180–220 words.
+- Rewrites the abstract from scratch (no structural copying).
+- Focuses on physical mechanism and inference.
+- Avoids academic reporting phrases.
+- Maintains structured paragraph flow.
+
+This creates a tightly constrained output distribution suitable for small-model distillation experiments.
+
+---
+
+## System Overview
 ```
 Raw arXiv abstracts
     -> SQLite ingestion + batching
@@ -38,91 +53,156 @@ Raw arXiv abstracts
 
 ---
 
-
-## Pipeline diagram
+## Architecture
 
 ```mermaid
 flowchart TB
-    A[Raw arXiv astro-ph abstracts] --> B[SQLite + batch generation]
-    B --> C[Teacher prompt + explanations]
-    C --> D[Filtering + JSONL dataset]
-    D --> E[Student fine-tuning: GPT-2]
-    E --> F[Readable public-facing explanations]
-```
 
----
-
-## Repo map
-
-```
-MiniAstroLM/
-├── configs/                  # Training configs (YAML)
-├── data/                     # Local data outputs
-├── prompts/                  # Teacher prompt templates
-├── src/miniastrolm/
-│   ├── data_scripts/         # Dataset construction and helpers
-│   ├── llm/                  # Teacher interfaces and prompt logic
-│   ├── student/              # Student model training and inference
-│   ├── training/             # Collators and training utilities
-│   └── eval/                 # Evaluation helpers
-├── tests/                    # Tests and smoke checks
-├── Notebooks/                # Experiments and debugging
-└── README.md
-```
-
----
-
-
-## System architecture
-
-```mermaid
-flowchart LR
-    subgraph Data[Data pipeline]
-        A[arXiv abstracts] --> B[SQLite + batches]
-        B --> C[Teacher prompts]
-        C --> D[Teacher explanations]
-        D --> E[Filtered JSONL]
+    subgraph Supervision
+        A[Astro abstracts]
+        B[Teacher LLM]
+        C[Structured JSON output]
+        D[Judge evaluation]
+        E[Filtered dataset]
+        A --> B --> C --> D --> E
     end
 
-    subgraph Training[Student training]
-        E --> F[Tokenizer + collator]
-        F --> G[GPT-2 student fine-tuning]
+    subgraph Distillation
+        E --> F[Causal LM collator<br/>(prefix masked)]
+        F --> G[GPT-2 fine-tuning]
         G --> H[Student checkpoint]
     end
 
-    subgraph Inference[Inference]
-        I[User abstract or arXiv ID] --> J[StudentInferencer]
-        H --> J
-        J --> K[Readable explanation]
+    subgraph Inference
+        I[New abstract]
+        H --> J[Greedy decoding]
+        I --> J
+        J --> K[Mechanism-focused explanation]
     end
 ```
+## Technical Highlights
 
----
+### 1. Explicit Supervision Construction
 
-## Quickstart (local)
+Teacher outputs follow a strict JSON schema:
+	•	id
+	•	title
+	•	abstract
+	•	target_explanation
+	•	judge_feedback
+	•	accepted
 
+Only samples meeting scoring thresholds are used for student training.
+
+⸻
+
+### 2. Masked Causal LM Training
+
+Training format:
+``` 
+    [prompt tokens]  → masked (-100)
+    [target tokens]  → supervised
 ```
-conda env create -f environment.yml
-conda activate miniastrolm
+
+The student learns conditional generation of explanations without being penalized for the prefix.
+
+⸻
+
+### 3. Overfitting Validation
+
+Before scaling experiments, the pipeline is validated through:
+	•	Single-sample overfit verification
+	•	20-sample memorization confirmation
+	•	EOS supervision debugging
+	•	Repetition collapse mitigation
+	•	Controlled greedy decoding
+
+This validates:
+	•	Dataset formatting
+	•	Label masking correctness
+	•	Optimization stability
+	•	Stop-condition learning
+
+⸻
+
+### 4. Small-Model Realism
+
+GPT-2 small (124M parameters) is used intentionally:
+	•	Runs on consumer hardware (MPS-compatible)
+	•	Exposes training pathologies clearly
+	•	Forces careful supervision design
+	•	Emphasizes signal quality over model scale
+
+⸻
+
+Experimental Observations (v1)
+	•	Small curated datasets (≤20 samples) are fully memorized.
+	•	Repetition collapse occurs without explicit EOS supervision.
+	•	Generation stability depends strongly on decoding configuration.
+	•	Structured style constraints are learnable via distillation.
+
+These observations provide insight into small-model conditional generation under tight stylistic control.
+
+⸻
+
+## Repository Structure
+```
+MiniAstroLM/
+├── configs/                  # Training + generation configs
+├── prompts/                  # Teacher prompt definitions
+├── data/                     # Curated datasets + checkpoints
+├── src/miniastrolm/
+│   ├── llm/                  # Teacher & judge modules
+│   ├── data_scripts/         # Dataset construction
+│   ├── student/
+│   │   ├── data.py
+│   │   ├── collate.py
+│   │   ├── train.py
+│   │   ├── infer.py
+│   │   └── model.py
+│   └── eval/                 # Evaluation utilities
+└── README.md
+```
+## Running the Student
+
+### Train
+
+```python -m miniastrolm.student.train \
+    --config configs/student_train.yaml
 ```
 
-Train the student model (example):
-
+### Inference
 ```
-python src/miniastrolm/student/train.py --config configs/student_train.yaml
+python -m miniastrolm.student.infer \
+    --config configs/generation.yaml \
+    --model_dir data/student/checkpoint \
+    --abstract "Abstract text"
 ```
+## Research Directions
 
----
+Planned next steps:
+	•	Scale curated dataset to 5k–10k samples.
+	•	Quantitative teacher–student alignment metrics.
+	•	Faithfulness verification via entity anchoring.
+	•	LoRA vs full fine-tuning comparison.
+	•	Robust decoding under style constraints.
+	•	Cross-domain generalization experiments.
 
-## Project status
+⸻
 
-- Training workflow: implemented and configurable
-- Dataset pipeline: implemented via data scripts
-- Inference CLI: scaffolding in progress
+## Positioning
 
----
+MiniAstroLM is not a summarization demo.
 
-## Author
+It is a controlled experiment in:
+	•	Structured supervision design
+	•	Small-model distillation
+	•	Style-constrained scientific generation
+	•	Training dynamics under explicit output rules
+
+⸻
+
+Author
 
 Pushpita Das
-Astrophysicist | Machine Learning Researcher | GenAI Systems Developer
+Computational Astrophysicist → Generative AI Systems Research
