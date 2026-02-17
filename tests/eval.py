@@ -21,7 +21,7 @@ from miniastrolm.eval.judge_config import JudgeConfig
 OUT_PATH = Path("/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/data/evals/judge_results_v1.jsonl")
 OUT_MD   = Path("/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/data/evals/judge_results_v1.md")
 
-IN_PATH  = Path("/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/data/teacher_output/v2/train.jsonl")
+IN_PATH  = Path("/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/data/teacher/v1/train.jsonl")
 PROMPT_PATH = Path("/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/prompts/judge/prompt_v2.txt")
 N = 1000
 

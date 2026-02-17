@@ -8,14 +8,14 @@ DEFAULT_MODEL_ID = "meta-llama/Meta-Llama-3.1-8B-Instruct"
 class TeacherConfig:
     model_id: str = DEFAULT_MODEL_ID
     architecture = "llama-cpp-python"
-    max_new_tokens: int = 1200
-    max_new_tokens_retry: int = 1800
+    max_new_tokens: int = 768
+    max_new_tokens_retry: int = 1024
     do_sample: bool = True
-    temperature: float = 0.4
-    top_p: float = 0.9
-    repetition_penalty: float = 1.1
+    temperature: float = 0.2
+    top_p: float = 0.8
+    repetition_penalty: float = 1.15
 
-    min_chars: int = 2000
+    min_chars: int = 900
     max_attempts: int = 3
     context_min_coverage: float = 0.6
 

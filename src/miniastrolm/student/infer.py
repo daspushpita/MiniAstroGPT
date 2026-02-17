@@ -36,11 +36,11 @@ class StudentInferencer:
     
         self.model_dir = Path(model_dir)
         self.gen_cfg = gen_cfg or GenerationConfig(
-            max_new_tokens=256,
-            temperature=0.7,
-            top_p=0.9,
-            repetition_penalty=1.1,
-            do_sample=True,
+            max_new_tokens=768,
+            temperature=0.0,
+            top_p=1.0,
+            repetition_penalty=1.0,
+            do_sample=False,
         )
         self.device = device
         self.debug = debug
@@ -55,9 +55,21 @@ class StudentInferencer:
         Loads model/tokenizer and prepares device.
         """
         self.device = torch.device(resolve_device(self.device))
+        model_path = self.model_dir.expanduser().resolve()
+        if not model_path.exists() or not model_path.is_dir():
+            raise FileNotFoundError(f"Model directory not found: {model_path}")
+        required_files = ("config.json", "tokenizer_config.json")
+        missing = [name for name in required_files if not (model_path / name).exists()]
+        if missing:
+            raise FileNotFoundError(
+                f"Missing required file(s) in model directory {model_path}: {', '.join(missing)}"
+            )
+        self.model_dir = model_path
 
-        self.tokenizer = AutoTokenizer.from_pretrained(self.model_dir, use_fast=True)
-        model = AutoModelForCausalLM.from_pretrained(self.model_dir)
+        self.tokenizer = AutoTokenizer.from_pretrained(
+            str(self.model_dir), use_fast=True, local_files_only=True
+        )
+        model = AutoModelForCausalLM.from_pretrained(str(self.model_dir), local_files_only=True)
         model.config.use_cache = True
         
         if self.tokenizer.pad_token is None:
@@ -80,8 +92,9 @@ class StudentInferencer:
 
     def format_prompt(self, abstract: str) -> str:
         # This MUST be identical to the training string prefix
+        bos = self.tokenizer.bos_token or ""
         return (
-            f"{self.tokenizer.bos_token}Task: Explain the abstract in simple, non-technical language. "
+            f"{bos}Task: Explain the abstract in simple, non-technical language. "
             f"Stay strictly on-topic.\n\n"
             f"Abstract:\n{abstract}\n\n"
             f"Explanation:\n"
@@ -183,16 +196,19 @@ class StudentInferencer:
 
         self._synchronize_device()
         started = time.perf_counter()
-        outputs = self.model.generate(
-                                **inputs,
-                                max_new_tokens=effective_max_new_tokens,
-                                temperature=self.gen_cfg.temperature,
-                                top_p=self.gen_cfg.top_p,
-                                repetition_penalty=self.gen_cfg.repetition_penalty,
-                                do_sample=self.gen_cfg.do_sample,
-                                eos_token_id=self.tokenizer.eos_token_id,
-                                pad_token_id=self.tokenizer.eos_token_id,
-                            )
+        gen_kwargs = {
+            **inputs,
+            "max_new_tokens": effective_max_new_tokens,
+            "do_sample": self.gen_cfg.do_sample,
+            "eos_token_id": self.tokenizer.eos_token_id,
+            "pad_token_id": self.tokenizer.eos_token_id,
+        }
+        if self.gen_cfg.do_sample:
+            gen_kwargs["temperature"] = self.gen_cfg.temperature
+            gen_kwargs["top_p"] = self.gen_cfg.top_p
+        if self.gen_cfg.repetition_penalty != 1.0:
+            gen_kwargs["repetition_penalty"] = self.gen_cfg.repetition_penalty
+        outputs = self.model.generate(**gen_kwargs)
         self._synchronize_device()
         elapsed_s = time.perf_counter() - started
 
@@ -222,11 +238,11 @@ def load_config(path: str| Path) -> GenerationConfig:
         raise ValueError("Config must be a mapping for generation settings.")
 
     return GenerationConfig(
-        max_new_tokens=int(cfg.get("max_new_tokens", 256)),
-        temperature=float(cfg.get("temperature", 0.7)),
-        top_p=float(cfg.get("top_p", 0.9)),
-        repetition_penalty=float(cfg.get("repetition_penalty", 1.1)),
-        do_sample=bool(cfg.get("do_sample", True)),
+        max_new_tokens=int(cfg.get("max_new_tokens", 768)),
+        temperature=float(cfg.get("temperature", 0.0)),
+        top_p=float(cfg.get("top_p", 1.0)),
+        repetition_penalty=float(cfg.get("repetition_penalty", 1.0)),
+        do_sample=bool(cfg.get("do_sample", False)),
     )
 
 def parse_args():

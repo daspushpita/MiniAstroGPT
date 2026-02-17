@@ -36,6 +36,7 @@ class Validation_Regeneration:
         if prompt_path is None:
             raise ValueError("Base Teacher prompt path must be provided.")
         self.base_prompt_template = prompt_path.read_text(encoding="utf-8").strip()
+        self.max_words = self._infer_max_words(self.base_prompt_template)
 
         self._END_OK = re.compile(r'[.!?]"?\s*$')  # ends with .,!,? optionally followed by quote
 
@@ -67,6 +68,40 @@ class Validation_Regeneration:
 
         return s
 
+    def _infer_max_words(self, prompt_template: str) -> int | None:
+        candidates: List[int] = []
+
+        m = re.search(r"do\s+not\s+exceed\s+(\d+)\s+words", prompt_template, flags=re.IGNORECASE)
+        if m:
+            candidates.append(int(m.group(1)))
+
+        m = re.search(r"target\s+(\d+)\s*[\u2013-]\s*(\d+)\s+words", prompt_template, flags=re.IGNORECASE)
+        if m:
+            lo, hi = int(m.group(1)), int(m.group(2))
+            candidates.append(max(lo, hi))
+
+        m = re.search(r"<=\s*(\d+)\s*words", prompt_template, flags=re.IGNORECASE)
+        if m:
+            candidates.append(int(m.group(1)))
+
+        return min(candidates) if candidates else None
+
+    def _count_words(self, text: str) -> int:
+        return len(re.findall(r"[A-Za-z0-9]+(?:[-'][A-Za-z0-9]+)*", text))
+
+    def _count_paragraphs(self, text: str) -> int:
+        normalized = (text or "").replace("\r\n", "\n").replace("\r", "\n")
+        normalized = normalized.replace("\\n\\n", "\n\n").replace("\\n", "\n")
+        paragraphs = [p.strip() for p in re.split(r"\n\s*\n+", normalized.strip()) if p.strip()]
+        return len(paragraphs)
+
+    def _normalize_number_token(self, token: str) -> str:
+        return token.lower().replace(",", "")
+
+    def _extract_numeric_tokens(self, text: str) -> set[str]:
+        number_re = re.compile(r"(?<!\w)[+-]?(?:\d[\d,]*\.?\d*|\.\d+)(?:e[+-]?\d+)?%?(?!\w)", flags=re.IGNORECASE)
+        return {self._normalize_number_token(tok) for tok in number_re.findall(text or "")}
+
 
     def _base_prompt(self, paper_id: str, abstract: str) -> tuple[str, str]:
         """
@@ -82,31 +117,13 @@ class Validation_Regeneration:
         """
         
         system_prompt = self.base_prompt_template.format(paper_id=paper_id)
-
-        key_phrases = self._extract_key_phrases(abs_str=abstract, k=8)
-        must_cover = "\n".join(f"- {p}" for p in key_phrases)
-
-        system_prompt = (
-            system_prompt
-            + "\n\nMUST-COVER CONCEPTS (paraphrase, do not quote):\n"
-            + must_cover
-            + "\n\nIf any must-cover concept is missing, the output fails."
-        )
-
         if self.architecture == "llama_hf":
             user_prompt = (
-                    f"paper_id: {paper_id}\n\n"
-                    f"ABSTRACT:\n{abstract}\n\n"
-                    f"Return ONLY the JSON object."
-                )
+                f"paper_id: {paper_id}\n\n"
+                f"ABSTRACT:\n{abstract}\n\n"
+                "Return ONLY one valid JSON object."
+            )
         else:
-        # user_prompt = (
-        #     f"paper_id: {paper_id}\n\n"
-        #     f"ABSTRACT:\n{abstract}\n\n"
-        #     f"Return ONLY one JSON object on a SINGLE LINE, then write {self.end_sentinel} and STOP.\n"
-        #     f"Do not write anything after {self.end_sentinel}."
-        # )
-
             user_prompt = (
                 f"paper_id: {paper_id}\n\n"
                 f"ABSTRACT:\n{abstract}\n\n"
@@ -260,6 +277,22 @@ class Validation_Regeneration:
 
         if len(explanation_text) < self.min_chars:
             errors.append(f"Response too short: {len(explanation_text)} characters")
+
+        if self.max_words is not None:
+            n_words = self._count_words(explanation_text)
+            if n_words > self.max_words:
+                errors.append(f"Response too long: {n_words} words (max {self.max_words})")
+
+        n_paragraphs = self._count_paragraphs(explanation_text)
+        if n_paragraphs != 4:
+            errors.append(f"Expected exactly 4 paragraphs; found {n_paragraphs}")
+
+        abstract_numbers = self._extract_numeric_tokens(abstract)
+        explanation_numbers = self._extract_numeric_tokens(explanation_text)
+        new_numbers = sorted(explanation_numbers - abstract_numbers)
+        if new_numbers:
+            preview = ", ".join(new_numbers[:8])
+            errors.append(f"Numeric tokens not in abstract: {preview}")
             
         low = explanation_text.lower()
         for phrase in self.banned_phrases:
@@ -267,7 +300,7 @@ class Validation_Regeneration:
                 errors.append(f"Banned phrase found: '{phrase}'")
         
         if self._has_long_overlap(explanation_text, abstract, n=20):
-            errors.append("Likely copied from abstract (12+ word overlap detected).")
+            errors.append("Likely copied from abstract (20+ word overlap detected).")
 
         is_valid = (len(errors) == 0)
         return is_valid, errors, obj
@@ -296,26 +329,51 @@ PAPER ID: "{paper_id}"
 VALIDATION ERRORS:
 {errors_bullets}
 
-HARD REQUIREMENTS:
+HARD REQUIREMENTS (ASTROGPT v1):
 - Output ONLY valid JSON. No markdown. No commentary. No extra text.
 - Top-level output MUST be a single JSON object (not an array).
 - The JSON object MUST have keys: "id", "explanation" (additional keys are allowed).
 - "id" MUST equal: "{paper_id}"
-- "explanation" MUST be at least {self.min_chars} characters.
-- Must NOT use academic-reporting phrases (e.g., "we present", "in this paper", etc.).
-- Must NOT start with: “The paper…”, “This paper…”, “The authors…”, “This study…”
-- Must NOT mention the paper, authors, or “the abstract”.
-- Write as a direct popular-science explanation (magazine tone).
-- Begin by explaining the underlying phenomena (definitions first), then mechanisms, then implications.
-- No bullets/headings in the explanation text.
+
+LENGTH (STRICT):
+- "explanation" MUST be <= 220 words.
+- Target 180–220 words.
+- If you exceed 220 words, the output is invalid.
+- Use exactly 4 paragraphs separated by \\n\\n.
+
+STYLE (STRICT):
+- Must NOT use academic-reporting phrases (e.g., "we present", "we show", "this paper", "this study", "the authors", "our results", etc.).
+- Must NOT mention the paper, authors, researchers, or “the abstract”.
+- Write in third-person, neutral language.
+- No equations, LaTeX, symbols, or math.
+- No bullet points, headings, section labels, or numbered items inside the explanation.
 - Must be rewritten from scratch and not copy phrases from the abstract.
-- Define key technical terms the first time they appear (1 short sentence each).
-- Examples of “key terms”: the main physical ingredients, objects, or mechanisms in the abstract (e.g., a kind of matter/field, a signal being measured, an effect/process).
-- Do not include ```json fences or any text before/after the JSON.
 - Do not reuse any sequence of 12 consecutive words from the abstract.
 - Change sentence structure. Use different wording. Avoid reusing multi-word phrases.
 
-If the abstract contains a modifier that changes meaning (e.g., “cold”, “primordial”, “frequency-dependent”), briefly explain what that modifier implies.
+CONTENT & FAITHFULNESS (STRICT):
+- Strict Anchor: Only state claims that are explicitly in the abstract.
+- External Fact Ban: Do NOT add numerical facts (e.g., percentages, ages, common cosmology numbers) unless they appear in the abstract.
+- Number rule: any number token in the explanation must already appear in the abstract.
+- No history/origin stories or named theories unless explicitly mentioned.
+- No generic filler like “this is hard to detect” or “needs sensitive instruments” unless explicitly stated in the abstract.
+- Use background physics ONLY to define terms that appear in the abstract, without adding new conclusions.
+- Scope rule: Do NOT add illustrative examples, typical sources, or canonical origin explanations unless explicitly mentioned in the abstract.
+- Property rule: If the abstract mentions “properties” of something, do NOT name specific properties unless the abstract names them.
+
+STRUCTURE (MANDATORY, 4 PARAGRAPHS IN THIS ORDER):
+- Must contain exactly three \\n\\n separators (4 paragraphs total).
+Paragraph 1: Big-picture physical setting based strictly on phenomena named in the abstract.
+Paragraph 2: Define 2–5 key technical terms that appear in the abstract (1 short sentence each).
+Paragraph 3: Mechanism-level explanation: how the processes described interact.
+Paragraph 4: Abstract-specific claims as statements about system behavior + any limits explicitly stated.
+
+COVERAGE (REPAIR-ONLY):
+- If stated in the abstract, you MUST include: astrophysical vs primordial distinction; frequency-dependent propagation-speed modification; (near-future) undetectability; wavelength dependence; suppression due to non-relativistic nature; suppression due to small energy-density fraction.
+
+IMPORTANT:
+- Paragraph breaks must be encoded as \\n\\n inside the JSON string.
+
 ABSTRACT:
 {abstract}
 
@@ -752,7 +810,9 @@ class Teacher_Data_Pipeline:
                 raise_on_fail = False,
                 log_skips=False,        
                 print_every=1,
-                max_total=None):
+                max_total=None,
+                max_accepted=None,
+                exclude_ids_path: Path | None = None):
         
         self.database_path = database_path
         self.output_path = output_path
@@ -762,6 +822,8 @@ class Teacher_Data_Pipeline:
         self.log_skips = log_skips
         self.print_every = print_every
         self.max_total = max_total
+        self.max_accepted = max_accepted
+        self.exclude_ids_path = exclude_ids_path
         self.data_batch_size = self.my_config.data_batch_size
         self.llm_batch_size = self.my_config.llm_batch_size
         self.llm_batch = self.my_config.llm_batch
@@ -770,20 +832,24 @@ class Teacher_Data_Pipeline:
         self.output_path.mkdir(parents=True, exist_ok=True)
 
         self.train_path = self.output_path / "train.jsonl"
-        self.fail_path = self.output_path / "failures.jsonl"
+        self.fail_path = self.output_path / "rejected.jsonl"
         self.processed_ids_path = self.output_path / "processed_ids.txt"
         self.cursor_path = self.output_path / "cursor_last_id.txt"
 
         self.run_log_path = self.output_path / "run_log.jsonl"
-        self.run_summary_path = self.output_path / "run_summary.json"
+        self.run_summary_path = self.output_path / "stats.json"
         
         self._processed = set()
+        self._excluded_ids = set()
         self._last_id = None
         self._total_eligible = None
+        self._accepted_existing = 0
 
     def setup(self):
         self._processed = self._load_processed_ids(self.processed_ids_path)
         self._last_id = self._load_last_id(self.cursor_path)
+        self._excluded_ids = self._load_ids(self.exclude_ids_path)
+        self._accepted_existing = self._count_jsonl_lines(self.train_path)
         self.validator = Validation_Regeneration(
                     teacher_model=self.teacher_model,
                     my_config=self.my_config,
@@ -809,6 +875,23 @@ class Teacher_Data_Pipeline:
             return None
         s = Path(path).read_text(encoding="utf-8").strip()
         return s or None
+
+    def _load_ids(self, path: Path | None) -> set[str]:
+        if path is None or not Path(path).exists():
+            return set()
+        ids = set()
+        with Path(path).open("r", encoding="utf-8") as f:
+            for line in f:
+                s = line.strip()
+                if s:
+                    ids.add(s)
+        return ids
+
+    def _count_jsonl_lines(self, path: Path) -> int:
+        if not Path(path).exists():
+            return 0
+        with Path(path).open("r", encoding="utf-8") as f:
+            return sum(1 for _ in f)
     
     # ----------------------------
     # NEW: Progress tracking helpers
@@ -854,7 +937,8 @@ class Teacher_Data_Pipeline:
                     "max_attempts": self.my_config.max_attempts,
                 },
             }
-            return True, payload
+            accepted = isinstance(output, dict) and bool(output.get("accepted"))
+            return accepted, payload
         except Exception as e:
             fail = {
                 "id": paper_id,
@@ -898,6 +982,86 @@ class Teacher_Data_Pipeline:
     def _append_jsonl(self, path, payload):
         with Path(path).open("a", encoding="utf-8") as f:
             f.write(json.dumps(payload, ensure_ascii=False) + "\n")
+
+    def _extract_validation_errors(self, payload: Dict[str, Any]) -> List[str]:
+        errors: List[str] = []
+        output = payload.get("output")
+        if isinstance(output, dict):
+            verrs = output.get("validation_errors")
+            if isinstance(verrs, list):
+                errors.extend(str(e) for e in verrs if e)
+        if payload.get("error"):
+            errors.append(str(payload.get("error")))
+        return errors
+
+    def _update_failure_stats(self, *, errors: List[str], error_counter: Counter[str], metric_fail_counts: Dict[str, int]) -> None:
+        if not errors:
+            return
+
+        for err in errors:
+            error_counter[err] += 1
+
+        err_text = " ".join(errors).lower()
+        format_length_hits = (
+            "no json object found" in err_text
+            or "invalid json" in err_text
+            or "json must contain keys" in err_text
+            or "response too short" in err_text
+            or "response too long" in err_text
+        )
+        if format_length_hits:
+            metric_fail_counts["format_length"] += 1
+        if "expected exactly 4 paragraphs" in err_text:
+            metric_fail_counts["paragraph_structure"] += 1
+        if "numeric tokens not in abstract" in err_text:
+            metric_fail_counts["no_new_numbers"] += 1
+
+    def _build_stats(
+        self,
+        *,
+        processed_count: int,
+        success_count: int,
+        fail_count: int,
+        skip_count: int,
+        accepted_total: int,
+        error_counter: Counter[str],
+        metric_fail_counts: Dict[str, int],
+        ts_key: str,
+    ) -> Dict[str, Any]:
+        pct = (processed_count / self._total_eligible) * 100.0 if self._total_eligible else None
+        denom = processed_count if processed_count > 0 else None
+
+        def _pass_rate(metric_name: str) -> float | None:
+            if denom is None:
+                return None
+            fails = metric_fail_counts.get(metric_name, 0)
+            return (denom - fails) / denom
+
+        top_failures = [{"error": e, "count": c} for e, c in error_counter.most_common(20)]
+        return {
+            ts_key: self._now_iso(),
+            "total_eligible": self._total_eligible,
+            "processed": processed_count,
+            "success": success_count,
+            "fail": fail_count,
+            "skipped": skip_count,
+            "percent_done": pct,
+            "accepted_total": accepted_total,
+            "accepted_existing": self._accepted_existing,
+            "accepted_new": max(0, accepted_total - self._accepted_existing),
+            "max_total": self.max_total,
+            "max_accepted": self.max_accepted,
+            "exclude_ids_count": len(self._excluded_ids),
+            "pass_rates": {
+                "overall_accept": (success_count / denom) if denom is not None else None,
+                "format_length": _pass_rate("format_length"),
+                "paragraph_structure": _pass_rate("paragraph_structure"),
+                "no_new_numbers": _pass_rate("no_new_numbers"),
+            },
+            "failure_counts": dict(metric_fail_counts),
+            "top_failure_patterns": top_failures,
+            "last_id": self._last_id,
+        }
         
     def run(self):
         self.setup()
@@ -907,23 +1071,41 @@ class Teacher_Data_Pipeline:
         success_count = 0
         fail_count = 0
         skip_count = 0
+        accepted_total = self._accepted_existing
+        error_counter: Counter[str] = Counter()
+        metric_fail_counts: Dict[str, int] = {
+            "format_length": 0,
+            "paragraph_structure": 0,
+            "no_new_numbers": 0,
+        }
         conn = sqlite3.connect(self.database_path)
-        
+
+        def should_stop() -> bool:
+            if self.max_total is not None and processed_count >= self.max_total:
+                return True
+            if self.max_accepted is not None and accepted_total >= self.max_accepted:
+                return True
+            return False
+
         try:
             self._total_eligible = self._count_total_eligible(conn)
-            self._write_summary(
-                {
-                    "started_ts": self._now_iso(),
-                    "total_eligible": self._total_eligible,
-                    "processed": processed_count,
-                    "success": success_count,
-                    "fail": fail_count,
-                    "skipped": skip_count,
-                    "last_id": self._last_id,
-                }
-            )
+            self._write_summary(self._build_stats(
+                processed_count=processed_count,
+                success_count=success_count,
+                fail_count=fail_count,
+                skip_count=skip_count,
+                accepted_total=accepted_total,
+                error_counter=error_counter,
+                metric_fail_counts=metric_fail_counts,
+                ts_key="started_ts",
+            ))
             stop_now = False
+            if should_stop():
+                stop_now = True
+
             while True:
+                if stop_now:
+                    break
                 rows = self.fetch_batch(conn)
                 if not rows:
                     break
@@ -941,14 +1123,26 @@ class Teacher_Data_Pipeline:
                             }
                             self._append_jsonl(self.fail_path, fail_payload)
                             self._log_event(status="fail", paper_id=paper_id, reason="empty_abstract")
+                            self._update_failure_stats(
+                                errors=["Empty abstract_clean"],
+                                error_counter=error_counter,
+                                metric_fail_counts=metric_fail_counts,
+                            )
 
                             self.mark_processed(paper_id)
                             fail_count += 1
                             processed_count += 1
 
-                            if self.max_total is not None and processed_count >= self.max_total:
+                            if should_stop():
                                 stop_now = True
                                 break
+                            continue
+                        if paper_id in self._excluded_ids:
+                            self._last_id = paper_id
+                            self.cursor_path.write_text(paper_id, encoding="utf-8")
+                            skip_count += 1
+                            if self.log_skips:
+                                self._log_event(status="skip", paper_id=paper_id, reason="heldout_eval")
                             continue
                         # already processed => skip
                         if paper_id in self._processed:
@@ -986,45 +1180,51 @@ class Teacher_Data_Pipeline:
                             if isinstance(out, dict) and out.get("accepted"):
                                 self._append_jsonl(self.train_path, payload)
                                 success_count += 1
+                                accepted_total += 1
                                 self._log_event(status="ok", paper_id=pid)
                             else:
                                 self._append_jsonl(self.fail_path, payload)
                                 fail_count += 1
                                 self._log_event(status="fail", paper_id=pid, error=str(out)[:200])
+                                self._update_failure_stats(
+                                    errors=self._extract_validation_errors(payload),
+                                    error_counter=error_counter,
+                                    metric_fail_counts=metric_fail_counts,
+                                )
 
                             self.mark_processed(pid)
                             processed_count += 1
 
-                            if self.max_total is not None and processed_count >= self.max_total:
+                            if should_stop():
                                 stop_now = True
                                 break
 
                         # progress summary update
                         if processed_count % max(1, self.print_every) == 0:
-                            pct = (processed_count / self._total_eligible) * 100.0 if self._total_eligible else None
-                            self._write_summary(
-                                {
-                                    "updated_ts": self._now_iso(),
-                                    "total_eligible": self._total_eligible,
-                                    "processed": processed_count,
-                                    "success": success_count,
-                                    "fail": fail_count,
-                                    "skipped": skip_count,
-                                    "percent_done": pct,
-                                    "last_id": self._last_id,
-                                }
+                            stats = self._build_stats(
+                                processed_count=processed_count,
+                                success_count=success_count,
+                                fail_count=fail_count,
+                                skip_count=skip_count,
+                                accepted_total=accepted_total,
+                                error_counter=error_counter,
+                                metric_fail_counts=metric_fail_counts,
+                                ts_key="updated_ts",
                             )
+                            self._write_summary(stats)
+                            pct = stats.get("percent_done")
                             if pct is not None:
                                 print(
                                     f"[Teacher_Data_Pipeline] processed={processed_count} "
                                     f"success={success_count} fail={fail_count} skipped={skip_count} "
+                                    f"accepted_total={accepted_total} "
                                     f"percent={pct:.2f}% last_id={self._last_id}"
                                 )
                             else:
                                 print(
                                     f"[Teacher_Data_Pipeline] processed={processed_count} "
                                     f"success={success_count} fail={fail_count} skipped={skip_count} "
-                                    f"last_id={self._last_id}"
+                                    f"accepted_total={accepted_total} last_id={self._last_id}"
                                 )
                 else:
                     for paper_id, title_clean, abstract_clean in tqdm(
@@ -1040,14 +1240,27 @@ class Teacher_Data_Pipeline:
                             self._append_jsonl(self.fail_path, fail_payload)
                             fail_count += 1
                             processed_count += 1
+                            self._update_failure_stats(
+                                errors=["Empty abstract_clean"],
+                                error_counter=error_counter,
+                                metric_fail_counts=metric_fail_counts,
+                            )
                             self.mark_processed(paper_id)
 
-                            if self.max_total is not None and processed_count >= self.max_total:
+                            if should_stop():
                                 stop_now = True
                                 break
                             self._log_event(status="fail", paper_id=paper_id, reason="empty_abstract")
                             continue
-                            
+
+                        if paper_id in self._excluded_ids:
+                            self._last_id = paper_id
+                            self.cursor_path.write_text(paper_id, encoding="utf-8")
+                            skip_count += 1
+                            if self.log_skips:
+                                self._log_event(status="skip", paper_id=paper_id, reason="heldout_eval")
+                            continue
+
                         if paper_id in self._processed:
                             self._last_id = paper_id
                             self.cursor_path.write_text(paper_id, encoding="utf-8")
@@ -1060,70 +1273,70 @@ class Teacher_Data_Pipeline:
                         if ok:
                             self._append_jsonl(self.train_path, payload)
                             success_count += 1
+                            accepted_total += 1
                             self._log_event(status="ok", paper_id=paper_id)
                         else:
                             self._append_jsonl(self.fail_path, payload)
                             fail_count += 1
                             self._log_event(status="fail", paper_id=paper_id, error=payload.get("error"))
+                            self._update_failure_stats(
+                                errors=self._extract_validation_errors(payload),
+                                error_counter=error_counter,
+                                metric_fail_counts=metric_fail_counts,
+                            )
 
                         self.mark_processed(paper_id)
                         processed_count += 1
-                        if self.max_total is not None and processed_count >= self.max_total:
+                        if should_stop():
                             stop_now = True
                             break
                         if processed_count % max(1, self.print_every) == 0:
-                            pct = (
-                                (processed_count / self._total_eligible) * 100.0
-                                if self._total_eligible
-                                else None
+                            stats = self._build_stats(
+                                processed_count=processed_count,
+                                success_count=success_count,
+                                fail_count=fail_count,
+                                skip_count=skip_count,
+                                accepted_total=accepted_total,
+                                error_counter=error_counter,
+                                metric_fail_counts=metric_fail_counts,
+                                ts_key="updated_ts",
                             )
-                            self._write_summary(
-                                {
-                                    "updated_ts": self._now_iso(),
-                                    "total_eligible": self._total_eligible,
-                                    "processed": processed_count,
-                                    "success": success_count,
-                                    "fail": fail_count,
-                                    "skipped": skip_count,
-                                    "percent_done": pct,
-                                    "last_id": self._last_id,
-                                }
-                            )
+                            self._write_summary(stats)
+                            pct = stats.get("percent_done")
                             print(
                                 f"[Teacher_Data_Pipeline] processed={processed_count} "
                                 f"success={success_count} fail={fail_count} skipped={skip_count} "
-                                f"percent={pct:.2f}% last_id={self._last_id}"
+                                f"accepted_total={accepted_total} percent={pct:.2f}% last_id={self._last_id}"
                                 if pct is not None
                                 else f"[Teacher_Data_Pipeline] processed={processed_count} "
                                     f"success={success_count} fail={fail_count} skipped={skip_count} "
-                                    f"last_id={self._last_id}"
+                                    f"accepted_total={accepted_total} last_id={self._last_id}"
                             )
                     if stop_now:
                         break           
 
             # final summary
-            pct = (processed_count / self._total_eligible) * 100.0 if self._total_eligible else None
-            self._write_summary(
-                {
-                    "finished_ts": self._now_iso(),
-                    "total_eligible": self._total_eligible,
-                    "processed": processed_count,
-                    "success": success_count,
-                    "fail": fail_count,
-                    "skipped": skip_count,
-                    "percent_done": pct,
-                    "last_id": self._last_id,
-                }
+            final_stats = self._build_stats(
+                processed_count=processed_count,
+                success_count=success_count,
+                fail_count=fail_count,
+                skip_count=skip_count,
+                accepted_total=accepted_total,
+                error_counter=error_counter,
+                metric_fail_counts=metric_fail_counts,
+                ts_key="finished_ts",
             )
+            self._write_summary(final_stats)
+            pct = final_stats.get("percent_done")
 
             print(
                 f"[Teacher_Data_Pipeline DONE] processed={processed_count} "
                 f"success={success_count} fail={fail_count} skipped={skip_count} "
-                f"percent={pct:.2f}% last_id={self._last_id}"
+                f"accepted_total={accepted_total} percent={pct:.2f}% last_id={self._last_id}"
                 if pct is not None
                 else f"[Teacher_Data_Pipeline DONE] processed={processed_count} "
                     f"success={success_count} fail={fail_count} skipped={skip_count} "
-                    f"last_id={self._last_id}"
+                    f"accepted_total={accepted_total} last_id={self._last_id}"
             )
         finally:
             conn.close()

@@ -7,6 +7,7 @@ import numpy as np
 import random
 import torch
 import gc
+import csv
 
 from miniastrolm.student.device import resolve_device
 from torch.utils.data import DataLoader
@@ -40,6 +41,8 @@ class TrainingConfig:
     device: str
     freeze_embeddings : bool
     n_freeze_blocks: int
+    scheduler: str = "linear"
+    warmup_ratio: float = 0.1
 
 @dataclass
 class OutputConfig:
@@ -66,7 +69,10 @@ class TrainRunner:
         self.dataloader = None
         self.collator = None
         self.optimizer = None
+        self.scheduler = None
         self.debug = debug
+        self.train_loss_path = Path(self.config.output.output_dir) / "train_loss.csv"
+        self._printed_training_example = False
         
     # ---- setup steps ----
     def setup_seed(self, seed:int=42):
@@ -115,6 +121,7 @@ class TrainRunner:
         self.collator = CausalLMCollator(
             tokenizer=self.tokenizer,
             max_length=self.config.model.max_length,
+            debug=self.debug,
         )
         num_workers = 0 #min(4, os.cpu_count() or 0)
         self.dataloader = DataLoader(
@@ -143,21 +150,48 @@ class TrainRunner:
             weight_decay=self.config.training.weight_decay,
             eps=1e-8
         )
-        warmup_steps = int(0.1 * self.config.training.max_steps)
-        self.scheduler = get_linear_schedule_with_warmup(
-            self.optimizer,
-            num_warmup_steps=warmup_steps,
-            num_training_steps=self.config.training.max_steps
-        )
+        scheduler_name = str(self.config.training.scheduler).lower()
+        if scheduler_name == "linear":
+            warmup_steps = int(self.config.training.warmup_ratio * self.config.training.max_steps)
+            self.scheduler = get_linear_schedule_with_warmup(
+                self.optimizer,
+                num_warmup_steps=warmup_steps,
+                num_training_steps=self.config.training.max_steps
+            )
+        elif scheduler_name in {"constant", "none"}:
+            self.scheduler = None
+        else:
+            raise ValueError(
+                f"Unsupported scheduler '{self.config.training.scheduler}'. "
+                "Use one of: linear, constant, none."
+            )
         return self.optimizer
 
     # ---- core loop ----
+    def print_training_example_once(self) -> None:
+        if self._printed_training_example:
+            return
+        train_path = Path(self.config.data.train_path)
+        try:
+            with train_path.open("r", encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if line:
+                        print(f"Training example ({train_path}):")
+                        print(line)
+                        self._printed_training_example = True
+                        return
+            print(f"Training example ({train_path}): <empty file>")
+        except Exception as exc:
+            print(f"Warning: could not print training example from {train_path}: {exc}")
+        self._printed_training_example = True
 
     def train_loop(self):
         device = self.device
         model = self.model
         optimizer = self.optimizer
         dataloader = self.dataloader
+        self.print_training_example_once()
         if model is None or optimizer is None or dataloader is None:
             raise RuntimeError("Model, optimizer, and dataloader must be initialized before training.")
         max_steps = self.config.training.max_steps
@@ -175,53 +209,58 @@ class TrainRunner:
             out = model(**batch)
             print("Loss:", out.loss)
             
-        with tqdm(total=max_steps, unit="step") as pbar:
-            while step < max_steps:
-                for batch in dataloader:
-                    if batch is None:
-                        continue
-                    step += 1
-                    input_ids = batch["input_ids"].to(device, non_blocking=True)
-                    attention_mask = batch["attention_mask"].to(device, non_blocking=True)
-                    labels = batch["labels"].to(device, non_blocking=True)
-                    
-                    outputs = model(input_ids=input_ids,
-                                    attention_mask=attention_mask,
-                                    labels=labels)
-                    loss = outputs.loss
-                    if torch.isnan(loss):
-                        print(f"Critcal: NaN loss detected at step {step}. Reducing LR is advised.")
-                        valid = (labels != -100).sum(dim=1)
-                        print("valid tokens per sample:", valid.tolist())
-                        print("max prompt_lens:", int((labels == -100).sum(dim=1).max().item()))
-                        return
-
-                    loss.backward()
-                    torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0) # Add this line
-                    optimizer.step()
-                    self.scheduler.step()
-                    optimizer.zero_grad(set_to_none=True)
-                    running_loss += loss.item()
-                    if step == 1 or step % log_every == 0 or step == max_steps:
-                        avg_loss = running_loss / max(
-                            1, log_every if step % log_every == 0 else 1
-                        )
-                        pbar.set_postfix(loss=f"{avg_loss:.4f}")
-                        running_loss = 0.0
-
-                    if step % 50 == 0:
-                        gc.collect()
-                        torch.mps.empty_cache()
-                    pbar.update(1)
-                    if step >= max_steps:
-                        break
-                    if (step % 10 == 0):
-                        print(f"step={step} loss={loss.item():.4f}")
+        with self.train_loss_path.open("w", encoding="utf-8", newline="") as loss_file:
+            writer = csv.writer(loss_file)
+            writer.writerow(["step", "loss", "lr"])
+            with tqdm(total=max_steps, unit="step") as pbar:
+                while step < max_steps:
+                    for batch in dataloader:
+                        if batch is None:
+                            continue
+                        step += 1
+                        input_ids = batch["input_ids"].to(device, non_blocking=True)
+                        attention_mask = batch["attention_mask"].to(device, non_blocking=True)
+                        labels = batch["labels"].to(device, non_blocking=True)
                         
-                    del outputs, loss, input_ids, attention_mask, labels
+                        outputs = model(input_ids=input_ids,
+                                        attention_mask=attention_mask,
+                                        labels=labels)
+                        loss = outputs.loss
+                        if torch.isnan(loss):
+                            print(f"Critcal: NaN loss detected at step {step}. Reducing LR is advised.")
+                            valid = (labels != -100).sum(dim=1)
+                            print("valid tokens per sample:", valid.tolist())
+                            print("max prompt_lens:", int((labels == -100).sum(dim=1).max().item()))
+                            return
 
-                    if self.debug and step == 1:
-                        print("One backward step succeeded")
+                        loss.backward()
+                        torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0) # Add this line
+                        optimizer.step()
+                        if self.scheduler is not None:
+                            self.scheduler.step()
+                        optimizer.zero_grad(set_to_none=True)
+                        running_loss += loss.item()
+                        writer.writerow([step, f"{loss.item():.6f}", f"{self.optimizer.param_groups[0]['lr']:.10f}"])
+                        if step == 1 or step % log_every == 0 or step == max_steps:
+                            avg_loss = running_loss / max(
+                                1, log_every if step % log_every == 0 else 1
+                            )
+                            pbar.set_postfix(loss=f"{avg_loss:.4f}")
+                            running_loss = 0.0
+
+                        if step % 50 == 0:
+                            gc.collect()
+                            torch.mps.empty_cache()
+                        pbar.update(1)
+                        if step >= max_steps:
+                            break
+                        if (step % 10 == 0):
+                            print(f"step={step} loss={loss.item():.4f}")
+                            
+                        del outputs, loss, input_ids, attention_mask, labels
+
+                        if self.debug and step == 1:
+                            print("One backward step succeeded")
                     
 
     # ---- lifecycle ----
@@ -232,8 +271,9 @@ class TrainRunner:
         self.setup_model()
         self.setup_data()
         self.setup_optimizer()
-        self.train_loop()
         os.makedirs(self.config.output.output_dir, exist_ok=True)
+        self.train_loop()
+        print(f"Saved train loss log to: {self.train_loss_path}")
         if self.model is None or self.tokenizer is None:
             raise RuntimeError("Model and tokenizer must be initialized before saving.")
         self.model.save_pretrained(self.config.output.output_dir)
@@ -266,6 +306,7 @@ def load_config(path: str | Path) -> MainConfig:
 def parse_args():
     p = argparse.ArgumentParser(description="Train AstroGPT student model")
     p.add_argument("--config", type=str, required=True, help="Path to YAML config")
+    p.add_argument("--debug", action="store_true", help="Enable training + collator debug prints")
 
     # optional overrides (only include what you actually want)
     p.add_argument("--device", type=str, default=None, help="Override device: auto/cpu/mps/cuda")
@@ -287,7 +328,7 @@ def main() -> None:
         config.training.batch_size = args.batch_size
     if args.lr is not None:
         config.training.lr = args.lr
-    runner = TrainRunner(config)
+    runner = TrainRunner(config, debug=args.debug)
     runner.run()
 
 

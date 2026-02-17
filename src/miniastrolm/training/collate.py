@@ -50,7 +50,7 @@ class CausalLMCollator:
             raise ValueError("min_prefix_tokens must be < max_length so there is space for target tokens.")
 
     def __call__(self, batch: List[Dict[str, str]]) -> Dict[str, Any] | None:
-        marker = "Explanation:\n"
+        marker = "Explanation:\n" #target_explanation
 
         input_ids_list: List[torch.Tensor] = []
         labels_list: List[torch.Tensor] = []

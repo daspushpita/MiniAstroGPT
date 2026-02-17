@@ -8,11 +8,11 @@ sys.path.insert(0, str(SRC))
 
 from miniastrolm.data_scripts.build_student_jsonl import Tranning_Samples_Split
 JUDGED_DATA_PATH = Path("/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/data/evals/judge_results_v1.jsonl")
-TEACHER_DATA_PATH = Path("/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/data/teacher_output/v2/train.jsonl")
+TEACHER_DATA_PATH = Path("/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/data/teacher/v1/train.jsonl")
 
-OUTPUT_PATH_1 = Path("/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/data/judged_samples/train.jsonl")
-OUTPUT_PATH_2 = Path("/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/data/judged_samples/validation.jsonl")
-OUTPUT_PATH_3 = Path("/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/data/judged_samples/test.jsonl")
+OUTPUT_PATH_1 = Path("/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/data/v1_judged_samples/train.jsonl")
+OUTPUT_PATH_2 = Path("/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/data/v1_judged_samples/validation.jsonl")
+OUTPUT_PATH_3 = Path("/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/data/v1_judged_samples/test.jsonl")
 
 # generator = TrainSampleGenerator(JUDGED_DATA_PATH, OUTPUT_PATH_1, OUTPUT_PATH_2).generate_train_samples()
 generator = Tranning_Samples_Split(judged_samples_path=JUDGED_DATA_PATH,

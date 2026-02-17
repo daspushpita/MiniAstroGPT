@@ -28,7 +28,7 @@ def test_llm_teacher_init():
     validator = Validation_Regeneration(
         teacher_model=teacher_model,
         my_config = my_config,
-        prompt_path=Path("/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/prompts/teacher_prompt_v1_final.txt"),
+        prompt_path=Path("/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/prompts/teacher/teacher_prompt_distill_v1.txt"),
         raise_on_fail=True,
         context_check_mode="off",
         judge_model=None)

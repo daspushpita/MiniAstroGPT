@@ -73,11 +73,13 @@ class JsonlStudentDataset(Dataset):
     
     def format_text(self, abstract:str, explanation:str) -> str:
         # Notice: No space after the final colon in "Explanation:\n"
+        bos = self.tokenizer.bos_token or ""
+        eos = self.tokenizer.eos_token or ""
         return (
-            f"{self.tokenizer.bos_token}Task: Explain the abstract in simple, non-technical language. "
+            f"{bos}Task: Explain the abstract in simple, non-technical language. "
             f"Stay strictly on-topic.\n\n"
             f"Abstract:\n{abstract}\n\n"
-            f"Explanation:\n{explanation}{self.tokenizer.eos_token}"
+            f"Explanation:\n{explanation}{eos}"
         )
 
     def _load(self) -> None:

@@ -29,7 +29,7 @@ class LlamaCppTeacher:
             n_ctx=self.cfg.n_ctx,           # Good balance for M1 Pro memory
             n_batch=self.cfg.n_batch,          # Essential for GPU parallel processing
             n_threads=self.cfg.n_threads,          # M1 Pro has 8 Performance cores
-            flash_attn=self.cfg,
+            flash_attn=self.cfg.flash_attn,
             verbose=self.cfg.verbose,          # This will show the "BLAS = 1" log confirming GPU use
             seed=self.cfg.seed)
         

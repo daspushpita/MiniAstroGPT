@@ -4,18 +4,20 @@ model:
   
 
 data:
-  train_path: "/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/data/judged_samples/overfit_20.jsonl"
+  train_path: "/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/data/v1_judged_samples/overfit_20.jsonl"
   max_samples: 20
 
 training:
   batch_size: 1
-  lr: 5.e-5
-  max_steps: 2000
+  lr: 9.e-5
+  max_steps: 6000
   weight_decay: 0.0
   seed: 42
   device: "mps"
-  freeze_embeddings : 0
-  n_freeze_blocks: False
+  freeze_embeddings: false
+  n_freeze_blocks: 0
+  scheduler: "constant"
+  warmup_ratio: 0.0
 
 output:
-  output_dir: "/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/data/student/test_overfitting"
+  output_dir: "/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/data/student/overfit_20"
