@@ -108,7 +108,7 @@ Teacher outputs follow a strict JSON schema:
 
 Only samples meeting scoring thresholds are used for student training.
 
-⸻
+---
 
 ### 2. Masked Causal LM Training
 
@@ -156,8 +156,7 @@ Experimental Observations (v1)
 -	Structured style constraints are learnable via distillation.
 
 These observations provide insight into small-model conditional generation under tight stylistic control.
-
-⸻
+---
 
 ## Repository Structure
 ```
@@ -178,13 +177,12 @@ MiniAstroLM/
 └── README.md
 ```
 ## Running the Student
-
 ### Train
 
 ```python -m miniastrolm.student.train \
     --config configs/student_train.yaml
 ```
-
+---
 ### Inference
 ```
 python -m miniastrolm.student.infer \
@@ -192,6 +190,7 @@ python -m miniastrolm.student.infer \
     --model_dir data/student/checkpoint \
     --abstract "Abstract text"
 ```
+---
 ## Research Directions
 
 Planned next steps:
@@ -202,7 +201,7 @@ Planned next steps:
 -	Robust decoding under style constraints.
 -	Cross-domain generalization experiments.
 
-⸻
+---
 
 ## Positioning
 
