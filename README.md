@@ -1,4 +1,4 @@
-# MiniAstroLM (AstroGPT) – v1  
+# AstroGPT  
 ### Controlled Distillation of Mechanism-Focused Scientific Explanations
 
 MiniAstroLM v1 is a research-oriented teacher–judge–student distillation pipeline for generating structured, mechanism-focused explanations of astrophysics abstracts.
@@ -17,10 +17,10 @@ Astrophysics abstracts compress physical mechanisms, observational constraints, 
 
 Large language models can unpack this effectively — but:
 
-- Prompt-only approaches are unstable.
-- Style drift is common.
-- Faithfulness is difficult to enforce.
-- Inference cost is high.
+- Prompt-only approaches are unstable
+- Style drift is common
+- Faithfulness is difficult to enforce
+- Inference cost is high
 
 MiniAstroLM treats explanation generation as a **controlled distillation problem under constraints**, not as a generic summarization task.
 
@@ -30,13 +30,17 @@ MiniAstroLM treats explanation generation as a **controlled distillation problem
 
 Given an astrophysics abstract, generate an explanation that:
 
-- Is 180–220 words.
-- Rewrites the abstract from scratch (no structural copying).
-- Focuses on physical mechanism and inference.
-- Avoids academic reporting phrases.
-- Maintains structured paragraph flow.
+- Is 180–220 words
+- Rewrites the abstract from scratch (no structural copying)
+- Focuses on physical mechanism and inference
+- Avoids academic reporting phrases
+- Maintains structured paragraph flow
 
 This creates a tightly constrained output distribution suitable for small-model distillation experiments.
+
+---
+
+## System Overview
 
 ---
 
@@ -56,41 +60,51 @@ Raw arXiv abstracts
 ## Architecture
 
 ```mermaid
-flowchart TB
+flowchart LR
 
-    subgraph Supervision
-        A[Astro abstracts]
-        B[Teacher LLM]
-        C[Structured JSON output]
-        D[Judge evaluation]
-        E[Filtered dataset]
-        A --> B --> C --> D --> E
-    end
+  %% ===== Supervision Stage =====
+  subgraph S[Supervision Pipeline]
+    direction LR
+    A[Astrophysics Abstracts]
+    B[Teacher LLM<br/>Strict Prompt Schema]
+    C[Structured JSON Output]
+    D[Judge Model<br/>Scoring + Filtering]
+    E[Curated Dataset<br/>accepted = true]
+    A --> B --> C --> D --> E
+  end
 
-    subgraph Distillation
-        E --> F[Causal LM collator<br/>(prefix masked)]
-        F --> G[GPT-2 fine-tuning]
-        G --> H[Student checkpoint]
-    end
+  %% ===== Distillation Stage =====
+  subgraph T[Student Distillation]
+    direction LR
+    F[Tokenizer + Causal LM Collator<br/>Prefix Masked]
+    G[GPT-2 Fine-Tuning]
+    H[Student Checkpoint]
+    E --> F --> G --> H
+  end
 
-    subgraph Inference
-        I[New abstract]
-        H --> J[Greedy decoding]
-        I --> J
-        J --> K[Mechanism-focused explanation]
-    end
+  %% ===== Inference Stage =====
+  subgraph I[Inference]
+    direction LR
+    X[New Abstract]
+    Y[Greedy Decoding]
+    Z[Mechanism-Focused Explanation]
+    X --> Y --> Z
+    H --> Y
+  end
 ```
+---
+
 ## Technical Highlights
 
 ### 1. Explicit Supervision Construction
 
 Teacher outputs follow a strict JSON schema:
-	•	id
-	•	title
-	•	abstract
-	•	target_explanation
-	•	judge_feedback
-	•	accepted
+-	id
+-	title
+-	abstract
+-	target_explanation
+-	judge_feedback
+-	accepted
 
 Only samples meeting scoring thresholds are used for student training.
 
@@ -106,40 +120,40 @@ Training format:
 
 The student learns conditional generation of explanations without being penalized for the prefix.
 
-⸻
+---
 
 ### 3. Overfitting Validation
 
 Before scaling experiments, the pipeline is validated through:
-	•	Single-sample overfit verification
-	•	20-sample memorization confirmation
-	•	EOS supervision debugging
-	•	Repetition collapse mitigation
-	•	Controlled greedy decoding
+-	Single-sample overfit verification
+-	20-sample memorization confirmation
+-	EOS supervision debugging
+-	Repetition collapse mitigation
+-	Controlled greedy decoding
 
 This validates:
-	•	Dataset formatting
-	•	Label masking correctness
-	•	Optimization stability
-	•	Stop-condition learning
+-	Dataset formatting
+-	Label masking correctness
+-	Optimization stability
+-	Stop-condition learning
 
-⸻
+---
 
 ### 4. Small-Model Realism
 
 GPT-2 small (124M parameters) is used intentionally:
-	•	Runs on consumer hardware (MPS-compatible)
-	•	Exposes training pathologies clearly
-	•	Forces careful supervision design
-	•	Emphasizes signal quality over model scale
+-	Runs on consumer hardware (MPS-compatible)
+-	Exposes training pathologies clearly
+-	Forces careful supervision design
+-	Emphasizes signal quality over model scale
 
-⸻
+---
 
 Experimental Observations (v1)
-	•	Small curated datasets (≤20 samples) are fully memorized.
-	•	Repetition collapse occurs without explicit EOS supervision.
-	•	Generation stability depends strongly on decoding configuration.
-	•	Structured style constraints are learnable via distillation.
+-	Small curated datasets (≤20 samples) are fully memorized.
+-	Repetition collapse occurs without explicit EOS supervision.
+-	Generation stability depends strongly on decoding configuration.
+-	Structured style constraints are learnable via distillation.
 
 These observations provide insight into small-model conditional generation under tight stylistic control.
 
@@ -181,12 +195,12 @@ python -m miniastrolm.student.infer \
 ## Research Directions
 
 Planned next steps:
-	•	Scale curated dataset to 5k–10k samples.
-	•	Quantitative teacher–student alignment metrics.
-	•	Faithfulness verification via entity anchoring.
-	•	LoRA vs full fine-tuning comparison.
-	•	Robust decoding under style constraints.
-	•	Cross-domain generalization experiments.
+-	Scale curated dataset to 5k–10k samples.
+-	Quantitative teacher–student alignment metrics.
+-	Faithfulness verification via entity anchoring.
+-	LoRA vs full fine-tuning comparison.
+-	Robust decoding under style constraints.
+-	Cross-domain generalization experiments.
 
 ⸻
 
@@ -195,12 +209,12 @@ Planned next steps:
 MiniAstroLM is not a summarization demo.
 
 It is a controlled experiment in:
-	•	Structured supervision design
-	•	Small-model distillation
-	•	Style-constrained scientific generation
-	•	Training dynamics under explicit output rules
+-	Structured supervision design
+-	Small-model distillation
+-	Style-constrained scientific generation
+-	Training dynamics under explicit output rules
 
-⸻
+---
 
 Author
 
