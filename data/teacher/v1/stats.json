@@ -1,0 +1,109 @@
+{
+  "finished_ts": "2026-02-16T14:10:11.306530+00:00",
+  "total_eligible": 80000,
+  "processed": 1188,
+  "success": 1000,
+  "fail": 188,
+  "skipped": 50,
+  "percent_done": 1.485,
+  "accepted_total": 1000,
+  "accepted_existing": 0,
+  "accepted_new": 1000,
+  "max_total": null,
+  "max_accepted": 1000,
+  "exclude_ids_count": 50,
+  "pass_rates": {
+    "overall_accept": 0.8417508417508418,
+    "format_length": 0.9402356902356902,
+    "paragraph_structure": 0.9604377104377104,
+    "no_new_numbers": 0.9183501683501684
+  },
+  "failure_counts": {
+    "format_length": 71,
+    "paragraph_structure": 47,
+    "no_new_numbers": 97
+  },
+  "top_failure_patterns": [
+    {
+      "error": "Expected exactly 4 paragraphs; found 2",
+      "count": 14
+    },
+    {
+      "error": "Likely copied from abstract (20+ word overlap detected).",
+      "count": 12
+    },
+    {
+      "error": "Expected exactly 4 paragraphs; found 3",
+      "count": 12
+    },
+    {
+      "error": "Expected exactly 4 paragraphs; found 5",
+      "count": 11
+    },
+    {
+      "error": "Expected exactly 4 paragraphs; found 1",
+      "count": 10
+    },
+    {
+      "error": "Numeric tokens not in abstract: 1",
+      "count": 5
+    },
+    {
+      "error": "Numeric tokens not in abstract: 2",
+      "count": 4
+    },
+    {
+      "error": "Response too long: 240 words (max 220)",
+      "count": 3
+    },
+    {
+      "error": "Numeric tokens not in abstract: 4",
+      "count": 3
+    },
+    {
+      "error": "Numeric tokens not in abstract: 2.",
+      "count": 3
+    },
+    {
+      "error": "Banned phrase found: 'we find'",
+      "count": 2
+    },
+    {
+      "error": "Response too long: 229 words (max 220)",
+      "count": 2
+    },
+    {
+      "error": "Numeric tokens not in abstract: 1.",
+      "count": 2
+    },
+    {
+      "error": "Numeric tokens not in abstract: 11.",
+      "count": 2
+    },
+    {
+      "error": "Response too short: 657 characters",
+      "count": 2
+    },
+    {
+      "error": "Numeric tokens not in abstract: 40",
+      "count": 2
+    },
+    {
+      "error": "Numeric tokens not in abstract: 100",
+      "count": 2
+    },
+    {
+      "error": "Numeric tokens not in abstract: 60",
+      "count": 2
+    },
+    {
+      "error": "Numeric tokens not in abstract: -3",
+      "count": 2
+    },
+    {
+      "error": "Numeric tokens not in abstract: 10",
+      "count": 2
+    }
+  ],
+  "last_id": "http://arxiv.org/abs/1801.09682v3"
+}
