@@ -54,33 +54,25 @@ class JsonlStudentDataset(Dataset):
     
     def __getitem__(self, idx: int) -> Dict[str, str]:
         s = self.samples[idx]
-        return {"id": s.id, "text": self.format_text(s.abstract, s.target_explanation)}
+        return {"id": s.id, "text": self.format_input(s.abstract, s.target_explanation)}
     
-    # def format_text(self, abstract:str, explanation:str) -> str:
-    #     """ONE format the student trains on.
+    def format_input(self, abstract:str, explanation:str) -> str:
+        
+        """formats the input string into a defined format for feeding into the model
 
-    #     Args:
-    #         abstract (str): abstract
-    #         explanation (str): explanation
-
-    #     Returns:
-    #         str: trainning sample format
-    #     """
-    #     return (
-    #         "Task: Explain the abstract in simple, non-technical language. Stay strictly on-topic.\n\n"
-    #         f"Abstract:\n{abstract}\n\nExplanation:\n{explanation}\n"
-    #     )
-    
-    def format_text(self, abstract:str, explanation:str) -> str:
-        # Notice: No space after the final colon in "Explanation:\n"
+        Returns:
+            _type_: str (the formatted string)
+            Notice: No space after the final colon in "Explanation:\n"
+        """
+        
         bos = self.tokenizer.bos_token or ""
         eos = self.tokenizer.eos_token or ""
-        return (
-            f"{bos}Task: Explain the abstract in simple, non-technical language. "
-            f"Stay strictly on-topic.\n\n"
-            f"Abstract:\n{abstract}\n\n"
-            f"Explanation:\n{explanation}{eos}"
-        )
+        
+        instruction_text = "### Task: Explain the abstract in simple, non-technical language. Stay strictly on-topic."
+        input_text = f"### Abstract:\n{abstract}"
+        full_text = f"{bos}{instruction_text}\n\n{input_text}\n\n### Explanation:\n{explanation}{eos}"
+        return full_text
+
 
     def _load(self) -> None:
         with open(self.path, "r", encoding="utf-8") as file:

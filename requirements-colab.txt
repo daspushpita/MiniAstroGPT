@@ -1,0 +1,12 @@
+# Minimal dependencies for MiniAstroLM training/inference on Google Colab.
+# Keep Colab's preinstalled CUDA-enabled torch unless you explicitly need to change it.
+# If torch is missing in your runtime, install it separately with a CUDA wheel.
+
+numpy>=1.24,<3
+pyyaml>=6,<7
+tqdm>=4.66,<5
+transformers>=4.40,<5
+peft>=0.11,<1
+accelerate>=0.28,<1
+safetensors>=0.4,<1
+sentencepiece>=0.1.99,<1

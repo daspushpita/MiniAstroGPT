@@ -91,14 +91,10 @@ class StudentInferencer:
         return self.model, self.tokenizer
 
     def format_prompt(self, abstract: str) -> str:
-        # This MUST be identical to the training string prefix
         bos = self.tokenizer.bos_token or ""
-        return (
-            f"{bos}Task: Explain the abstract in simple, non-technical language. "
-            f"Stay strictly on-topic.\n\n"
-            f"Abstract:\n{abstract}\n\n"
-            f"Explanation:\n"
-        )
+        instruction_text = "### Task: Explain the abstract in simple, non-technical language. Stay strictly on-topic."
+        input_text = f"### Abstract:\n{abstract}"
+        return f"{bos}{instruction_text}\n\n{input_text}\n\n### Explanation:\n"
 
     def pick_device(self) -> torch.device:
         """

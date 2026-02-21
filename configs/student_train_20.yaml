@@ -16,6 +16,7 @@ training:
   device: "mps"
   freeze_embeddings: false
   n_freeze_blocks: 0
+  gradient_accumulation_steps: 8
   scheduler: "constant"
   warmup_ratio: 0.0
 
