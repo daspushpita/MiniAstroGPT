@@ -1,5 +1,5 @@
 {
-  "started_ts": "2026-02-22T09:56:34.177045+00:00",
+  "started_ts": "2026-02-22T15:53:31.418774+00:00",
   "total_eligible": 80000,
   "processed": 0,
   "success": 0,
@@ -10,7 +10,7 @@
   "accepted_existing": 1000,
   "accepted_new": 0,
   "max_total": null,
-  "max_accepted": 4000,
+  "max_accepted": 5000,
   "exclude_ids_count": 50,
   "pass_rates": {
     "overall_accept": null,

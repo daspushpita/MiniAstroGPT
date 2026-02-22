@@ -8,7 +8,7 @@ DEFAULT_MODEL_ID = "meta-llama/Meta-Llama-3.1-8B-Instruct"
 class TeacherConfig:
     model_id: str = DEFAULT_MODEL_ID        # Hugging Face model ID or local path for the teacher model
     four_bit_teacher: bool = True           # Whether to use 4-bit quantization for the teacher model (saves memory, may reduce quality)
-    architecture = "llama_hf"               #llama_hf, llama-cpp-python etc.
+    architecture = "llama-cpp-python"       #llama_hf, llama-cpp-python etc.
     max_new_tokens: int = 768
     max_new_tokens_retry: int = 1024
     do_sample: bool = True
@@ -19,7 +19,7 @@ class TeacherConfig:
     min_chars: int = 900
     max_attempts: int = 3
     context_min_coverage: float = 0.6
-    device="cuda"
+    device="mps"
 
     # pipeline
     data_batch_size: int = 100
