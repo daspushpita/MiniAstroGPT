@@ -7,7 +7,7 @@ from miniastrolm.utils.device import resolve_device
 
 
 
-class Llama_Teacher:
+class Llama_HF_Teacher:
     def __init__(self, my_config,
                 device: str | None = None,
                 torch_dtype: torch.dtype = torch.float16,):
@@ -17,7 +17,7 @@ class Llama_Teacher:
         """
             
         self.my_config = my_config
-        self.device = resolve_device(self.config.training.device)
+        self.device = resolve_device(self.my_config.device)
         self.model_id = my_config.model_id
         self.torch_dtype = torch_dtype
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_id, use_fast=True)
