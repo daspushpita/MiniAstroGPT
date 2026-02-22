@@ -4,12 +4,9 @@ from dataclasses import dataclass
 from typing import List, Optional
 from pathlib import Path
 import time
-import json
-
-import torch
 import argparse, yaml
-from .device import resolve_device
-
+import argparse, yaml
+from miniastrolm.utils.device import resolve_device
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from peft import PeftConfig, PeftModel
 

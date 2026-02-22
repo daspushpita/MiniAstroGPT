@@ -2,15 +2,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 import torch
 from pathlib import Path
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
+from miniastrolm.utils.device import resolve_device
 
 
-DEFAULT_MODEL_ID = "meta-llama/Meta-Llama-3.1-8B-Instruct"
-
-def check_mps_availability() -> bool:
-    """checks if MPS (Metal Performance Shaders) is available for PyTorch
-    """
-    return torch.backends.mps.is_available() and torch.backends.mps.is_built()
 
 class Llama_Teacher:
     def __init__(self, my_config,
@@ -20,28 +15,51 @@ class Llama_Teacher:
         """Initializes the Llama Teacher model and tokenizer.
         Mac GPU path uses MPS.
         """
-        if device is None:
-            device = "mps" if check_mps_availability() else "cpu"
             
         self.my_config = my_config
-        self.device = device
+        self.device = resolve_device(self.config.training.device)
         self.model_id = my_config.model_id
         self.torch_dtype = torch_dtype
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_id, use_fast=True)
         
-        if self.device == "mps":
-            self.model = AutoModelForCausalLM.from_pretrained(
-                self.model_id,
-                dtype=torch_dtype,
-                device_map={"": "mps"},
-                low_cpu_mem_usage=True,
+        if self.my_config.four_bit_teacher:
+            bnb_config = BitsAndBytesConfig(
+            load_in_4bit=True,
+            bnb_4bit_quant_type="nf4",
+            bnb_4bit_compute_dtype=torch.float16,
+            bnb_4bit_use_double_quant=True,
             )
+            if self.device == "mps":
+                self.model = AutoModelForCausalLM.from_pretrained(
+                    self.model_id,
+                    torch_dtype=torch_dtype,
+                    device_map={"": "mps"},
+                    low_cpu_mem_usage=True,
+                    quantization_config=bnb_config,
+                )
+            else:
+                self.model = AutoModelForCausalLM.from_pretrained(
+                    self.model_id,
+                    torch_dtype=torch_dtype,
+                    device_map="auto",
+                    low_cpu_mem_usage=True,
+                    quantization_config=bnb_config,
+                )
         else:
-            self.model = AutoModelForCausalLM.from_pretrained(
-                model_id,
-                dtype=torch_dtype,
-                low_cpu_mem_usage=True,
-            ).to(self.device)
+            if self.device == "mps":
+                self.model = AutoModelForCausalLM.from_pretrained(
+                    self.model_id,
+                    torch_dtype=torch_dtype,
+                    device_map={"": "mps"},
+                    low_cpu_mem_usage=True,
+                )
+            else:
+                self.model = AutoModelForCausalLM.from_pretrained(
+                    self.model_id,
+                    torch_dtype=torch_dtype,
+                    device_map="auto",
+                    low_cpu_mem_usage=True,
+                )
             
         self.model.eval()
 

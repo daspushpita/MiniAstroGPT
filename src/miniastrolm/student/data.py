@@ -73,7 +73,14 @@ class JsonlStudentDataset(Dataset):
         full_text = f"{bos}{instruction_text}\n\n{input_text}\n\n### Explanation:\n{explanation}{eos}"
         return full_text
 
-
+    def _normalize_text(s: str) -> str:
+        # Convert literal backslash escapes into real characters
+        # (this is the important one for your dataset)
+        s = s.replace("\\n", "\n")
+        s = s.replace("\\t", "\t")
+        s = s.replace("\r\n", "\n")
+        return s
+    
     def _load(self) -> None:
         with open(self.path, "r", encoding="utf-8") as file:
             for line_num, line in enumerate(file, start=1):
@@ -81,6 +88,7 @@ class JsonlStudentDataset(Dataset):
                 if not line:
                     continue
                 data = json.loads(line)
+                
                 if self.input_key not in data:
                     raise ValueError(f"Line {line_num}: '{self.input_key}' (abstract) missing")
                 if self.id_key not in data:
@@ -88,8 +96,8 @@ class JsonlStudentDataset(Dataset):
                 if self.output_key not in data:
                     raise ValueError(f"Line {line_num}: '{self.output_key}' (explanation) missing")
 
-                abstract = data[self.input_key]
-                explanation = data[self.output_key]
+                abstract = _normalize_text(data[self.input_key])
+                explanation = _normalize_text(data[self.output_key])
                 sid = data[self.id_key]
                 
                 if self.strip_whitespace:

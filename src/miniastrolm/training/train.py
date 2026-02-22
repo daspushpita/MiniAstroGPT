@@ -9,7 +9,7 @@ import torch
 import gc
 import csv
 
-from miniastrolm.student.device import resolve_device
+from miniastrolm.utils.device import resolve_device
 from torch.utils.data import DataLoader
 import os, yaml
 from tqdm import tqdm
@@ -102,7 +102,6 @@ class TrainRunner:
 
         freeze_gpt2_bottom(self.model, n_freeze_blocks=self.config.training.n_freeze_blocks, freeze_embeddings=self.config.training.freeze_embeddings)
         self.model = self.model.to(self.device)
-        self.model.enable_input_require_grads()
         self.model.config.use_cache = False
         # With LoRA + gradient checkpointing, ensure input embeddings require grads.
         if hasattr(self.model, "enable_input_require_grads"):

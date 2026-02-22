@@ -28,7 +28,7 @@ my_pipeline = Teacher_Data_Pipeline(database_path = Path("/Users/pushpita/Docume
                                     raise_on_fail = False, 
                                     log_skips=False, 
                                     print_every=25,
-                                    max_accepted=200,
+                                    max_accepted=4000,
                                     exclude_ids_path=Path("/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/data/teacher/v1/eval_v1_ids.txt"))
 
 teacher_data = my_pipeline.run()
