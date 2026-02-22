@@ -1,0 +1,3 @@
+# Default notebook-friendly requirements.
+# For full local environment, use environment.yml.
+-r requirements-colab.txt
