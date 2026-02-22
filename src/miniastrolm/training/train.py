@@ -102,11 +102,17 @@ class TrainRunner:
 
         freeze_gpt2_bottom(self.model, n_freeze_blocks=self.config.training.n_freeze_blocks, freeze_embeddings=self.config.training.freeze_embeddings)
         self.model = self.model.to(self.device)
-
+        self.model.enable_input_require_grads()
         self.model.config.use_cache = False
-        self.model.gradient_checkpointing_enable()
+        # With LoRA + gradient checkpointing, ensure input embeddings require grads.
+        if hasattr(self.model, "enable_input_require_grads"):
+            self.model.enable_input_require_grads()
+        if str(self.device).startswith(("cuda", "mps")):
+            self.model.gradient_checkpointing_enable()
 
         print(f"Model on device: {next(self.model.parameters()).device}")
+        if not any(p.requires_grad for p in self.model.parameters()):
+            raise RuntimeError("No trainable parameters found after model setup.")
         self.model.train()
         return self.model
 

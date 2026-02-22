@@ -1,5 +1,5 @@
 model:
-  model_name: "gpt2"
+  model_name: "gpt2-medium"
   max_length: 768
   lora_r: 8
   lora_alpha: 16
@@ -27,4 +27,4 @@ training:
   warmup_ratio: 0.0
 
 output:
-  output_dir: "/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/data/student/train_300"
+  output_dir: "/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/data/student/train_300_medium"
