@@ -4,12 +4,14 @@ from dataclasses import dataclass
 from typing import List, Optional
 from pathlib import Path
 import time
+import json
 
 import torch
 import argparse, yaml
 from .device import resolve_device
 
 from transformers import AutoTokenizer, AutoModelForCausalLM
+from peft import PeftConfig, PeftModel
 
 # 1.	Load a saved student checkpoint (model + tokenizer)
 # 2.	Format inference prompts to match training (Abstract:\n...\n\nExplanation:\n)
@@ -32,6 +34,8 @@ class StudentInferencer:
         debug: bool = False,
         prompt_max_tokens: Optional[int] = None,
         prompt_tail_tokens: Optional[int] = None,
+        base_model: Optional[str] = None,
+        merge_lora: bool = False,
     ):
     
         self.model_dir = Path(model_dir)
@@ -46,9 +50,48 @@ class StudentInferencer:
         self.debug = debug
         self.prompt_max_tokens = prompt_max_tokens
         self.prompt_tail_tokens = prompt_tail_tokens
+        self.base_model = base_model
+        self.merge_lora = merge_lora
         self.model = None
         self.tokenizer = None
 
+    def _is_adapter_checkpoint(self, model_path: Path) -> bool:
+        return (model_path / "adapter_config.json").exists()
+
+    def _resolve_base_model_name(self, model_path: Path) -> str:
+        if self.base_model:
+            return self.base_model
+        cfg = PeftConfig.from_pretrained(str(model_path))
+        base_model_name = getattr(cfg, "base_model_name_or_path", None)
+        if not base_model_name:
+            raise ValueError(
+                "LoRA adapter detected but base model could not be resolved. "
+                "Pass --base_model (e.g., gpt2-medium)."
+            )
+        return str(base_model_name)
+
+    def _load_tokenizer(self, model_path: Path, fallback_name: Optional[str] = None):
+        tokenizer_files_exist = (model_path / "tokenizer_config.json").exists()
+        if tokenizer_files_exist:
+            return AutoTokenizer.from_pretrained(str(model_path), use_fast=True, local_files_only=True)
+        if fallback_name is None:
+            raise FileNotFoundError(
+                f"Tokenizer files not found in {model_path}. "
+                "Save tokenizer with the adapter checkpoint or pass a loadable base model."
+            )
+        return AutoTokenizer.from_pretrained(str(fallback_name), use_fast=True)
+
+    def _load_model(self, model_path: Path):
+        if self._is_adapter_checkpoint(model_path):
+            base_model_name = self._resolve_base_model_name(model_path)
+            base_model = AutoModelForCausalLM.from_pretrained(base_model_name)
+            model = PeftModel.from_pretrained(base_model, str(model_path), local_files_only=True)
+            if self.merge_lora and hasattr(model, "merge_and_unload"):
+                model = model.merge_and_unload()
+            return model, base_model_name, True
+
+        model = AutoModelForCausalLM.from_pretrained(str(model_path), local_files_only=True)
+        return model, getattr(model.config, "_name_or_path", str(model_path)), False
 
     def setup(self):
         """
@@ -58,18 +101,19 @@ class StudentInferencer:
         model_path = self.model_dir.expanduser().resolve()
         if not model_path.exists() or not model_path.is_dir():
             raise FileNotFoundError(f"Model directory not found: {model_path}")
-        required_files = ("config.json", "tokenizer_config.json")
-        missing = [name for name in required_files if not (model_path / name).exists()]
-        if missing:
+        has_full_model = (model_path / "config.json").exists()
+        has_adapter = (model_path / "adapter_config.json").exists()
+        has_tokenizer = (model_path / "tokenizer_config.json").exists()
+        if not (has_full_model or has_adapter):
             raise FileNotFoundError(
-                f"Missing required file(s) in model directory {model_path}: {', '.join(missing)}"
+                f"Model directory {model_path} is missing both config.json and adapter_config.json."
             )
         self.model_dir = model_path
-
-        self.tokenizer = AutoTokenizer.from_pretrained(
-            str(self.model_dir), use_fast=True, local_files_only=True
-        )
-        model = AutoModelForCausalLM.from_pretrained(str(self.model_dir), local_files_only=True)
+        base_model_name = self.base_model if self.base_model else None
+        if has_adapter and base_model_name is None:
+            base_model_name = self._resolve_base_model_name(self.model_dir)
+        self.tokenizer = self._load_tokenizer(self.model_dir, fallback_name=base_model_name)
+        model, resolved_name, is_adapter = self._load_model(self.model_dir)
         model.config.use_cache = True
         
         if self.tokenizer.pad_token is None:
@@ -81,12 +125,15 @@ class StudentInferencer:
         
         print("Loading model from:", self.model_dir.resolve())
         print("Files:", [p.name for p in self.model_dir.iterdir()])
-        print("Model name_or_path:", model.config._name_or_path)
+        print("Model name_or_path:", resolved_name)
+        print("Checkpoint type:", "LoRA adapter" if is_adapter else "full model")
         if self.debug:
             print("Resolved device:", self.device)
             print("use_cache:", self.model.config.use_cache)
             print("prompt_max_tokens:", self.prompt_max_tokens)
             print("prompt_tail_tokens:", self.prompt_tail_tokens)
+            print("has_tokenizer_files:", has_tokenizer)
+            print("merge_lora:", self.merge_lora)
 
         return self.model, self.tokenizer
 
@@ -262,6 +309,17 @@ def parse_args():
         default=None,
         help="Optional extra tail cap to mirror training prefix tail (e.g., collator min_prefix_tokens=128).",
     )
+    p.add_argument(
+        "--base_model",
+        type=str,
+        default=None,
+        help="Optional base model name/path when loading a LoRA adapter checkpoint (e.g., gpt2-medium).",
+    )
+    p.add_argument(
+        "--merge_lora",
+        action="store_true",
+        help="Merge LoRA adapter into the base model for inference after loading.",
+    )
     return p.parse_args()
 
 def main() -> None:
@@ -276,6 +334,8 @@ def main() -> None:
         debug=args.debug,
         prompt_max_tokens=args.prompt_max_tokens,
         prompt_tail_tokens=args.prompt_tail_tokens,
+        base_model=args.base_model,
+        merge_lora=args.merge_lora,
     )
     infer.setup()
     output = infer.generate_one(args.abstract)
