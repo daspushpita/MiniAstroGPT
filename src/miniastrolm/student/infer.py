@@ -9,6 +9,7 @@ import argparse, yaml
 from miniastrolm.utils.device import resolve_device
 from miniastrolm.student.prompting import build_prompt
 from transformers import AutoTokenizer, AutoModelForCausalLM
+import torch
 from peft import PeftConfig, PeftModel
 
 # 1.	Load a saved student checkpoint (model + tokenizer)

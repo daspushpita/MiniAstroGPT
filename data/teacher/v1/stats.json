@@ -1,36 +1,36 @@
 {
-  "updated_ts": "2026-02-24T06:57:19.217456+00:00",
+  "updated_ts": "2026-02-24T09:31:18.880186+00:00",
   "total_eligible": 80000,
-  "processed": 2250,
-  "success": 1888,
-  "fail": 362,
+  "processed": 2425,
+  "success": 2036,
+  "fail": 389,
   "skipped": 0,
-  "percent_done": 2.8125,
-  "accepted_total": 2888,
+  "percent_done": 3.03125,
+  "accepted_total": 3036,
   "accepted_existing": 1000,
-  "accepted_new": 1888,
+  "accepted_new": 2036,
   "max_total": null,
   "max_accepted": 5000,
   "exclude_ids_count": 50,
   "pass_rates": {
-    "overall_accept": 0.8391111111111111,
-    "format_length": 0.9342222222222222,
-    "paragraph_structure": 0.9555555555555556,
-    "no_new_numbers": 0.9235555555555556
+    "overall_accept": 0.8395876288659794,
+    "format_length": 0.9360824742268041,
+    "paragraph_structure": 0.9562886597938144,
+    "no_new_numbers": 0.9224742268041237
   },
   "failure_counts": {
-    "format_length": 148,
-    "paragraph_structure": 100,
-    "no_new_numbers": 172
+    "format_length": 155,
+    "paragraph_structure": 106,
+    "no_new_numbers": 188
   },
   "top_failure_patterns": [
     {
       "error": "Likely copied from abstract (20+ word overlap detected).",
-      "count": 32
+      "count": 33
     },
     {
       "error": "Expected exactly 4 paragraphs; found 5",
-      "count": 30
+      "count": 33
     },
     {
       "error": "Expected exactly 4 paragraphs; found 2",
@@ -38,15 +38,23 @@
     },
     {
       "error": "Expected exactly 4 paragraphs; found 3",
-      "count": 25
+      "count": 27
     },
     {
       "error": "Expected exactly 4 paragraphs; found 1",
-      "count": 15
+      "count": 16
     },
     {
       "error": "Numeric tokens not in abstract: 1",
-      "count": 12
+      "count": 14
+    },
+    {
+      "error": "Banned phrase found: 'we find'",
+      "count": 5
+    },
+    {
+      "error": "Numeric tokens not in abstract: 10",
+      "count": 5
     },
     {
       "error": "Response too long: 225 words (max 220)",
@@ -57,11 +65,7 @@
       "count": 5
     },
     {
-      "error": "Banned phrase found: 'we find'",
-      "count": 4
-    },
-    {
-      "error": "Numeric tokens not in abstract: 10",
+      "error": "Response too short: 771 characters",
       "count": 4
     },
     {
@@ -85,10 +89,6 @@
       "count": 3
     },
     {
-      "error": "Response too short: 771 characters",
-      "count": 3
-    },
-    {
       "error": "Response too short: 823 characters",
       "count": 3
     },
@@ -101,9 +101,9 @@
       "count": 3
     },
     {
-      "error": "Numeric tokens not in abstract: 50%",
-      "count": 2
+      "error": "Numeric tokens not in abstract: 1, 2",
+      "count": 3
     }
   ],
-  "last_id": "http://arxiv.org/abs/1803.09032v1"
+  "last_id": "http://arxiv.org/abs/1803.10531v2"
 }
