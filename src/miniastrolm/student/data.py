@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Iterable
 import json
 from torch.utils.data import Dataset
+from miniastrolm.student.prompting import build_full_text
 
 # ---------- Data container ----------
 @dataclass(frozen=True)
@@ -54,32 +55,26 @@ class JsonlStudentDataset(Dataset):
     
     def __getitem__(self, idx: int) -> Dict[str, str]:
         s = self.samples[idx]
-        return {"id": s.id, "text": self.format_input(s.abstract, s.target_explanation)}
+        text = build_full_text(self.tokenizer, s.abstract, s.target_explanation)
+        return {"id": s.id, "text": text}
     
-    def format_input(self, abstract:str, explanation:str) -> str:
-        
-        """formats the input string into a defined format for feeding into the model
-
-        Returns:
-            _type_: str (the formatted string)
-            Notice: No space after the final colon in "Explanation:\n"
-        """
-        
-        bos = self.tokenizer.bos_token or ""
-        eos = self.tokenizer.eos_token or ""
-        
-        instruction_text = "### Task: Explain the abstract in simple, non-technical language. Stay strictly on-topic."
-        input_text = f"### Abstract:\n{abstract}"
-        full_text = f"{bos}{instruction_text}\n\n{input_text}\n\n### Explanation:\n{explanation}{eos}"
-        return full_text
-
+    @staticmethod
     def _normalize_text(s: str) -> str:
         # Convert literal backslash escapes into real characters
         # (this is the important one for your dataset)
         s = s.replace("\\n", "\n")
         s = s.replace("\\t", "\t")
         s = s.replace("\r\n", "\n")
-        return s
+        s = s.replace("\u00a0", " ")
+        #remove lines that look like they might be copyright notices, licenses, URLs, or DOIs
+        bad = ("copyright", "license", "http", "www", "doi")
+        kept = []
+        for line in s.splitlines():
+            l = line.lower()
+            if any(b in l for b in bad):
+                continue
+            kept.append(line)
+        return "\n".join(kept).strip()
     
     def _load(self) -> None:
         with open(self.path, "r", encoding="utf-8") as file:
@@ -96,8 +91,8 @@ class JsonlStudentDataset(Dataset):
                 if self.output_key not in data:
                     raise ValueError(f"Line {line_num}: '{self.output_key}' (explanation) missing")
 
-                abstract = _normalize_text(data[self.input_key])
-                explanation = _normalize_text(data[self.output_key])
+                abstract = self._normalize_text(data[self.input_key])
+                explanation = self._normalize_text(data[self.output_key])
                 sid = data[self.id_key]
                 
                 if self.strip_whitespace:

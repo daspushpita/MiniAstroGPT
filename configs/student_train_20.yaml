@@ -1,6 +1,7 @@
 model:
   model_name: "gpt2"
   max_length: 768
+  use_lora: true
   
 
 data:

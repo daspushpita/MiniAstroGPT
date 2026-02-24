@@ -1,28 +1,109 @@
 {
-  "started_ts": "2026-02-22T15:53:31.418774+00:00",
+  "updated_ts": "2026-02-24T06:57:19.217456+00:00",
   "total_eligible": 80000,
-  "processed": 0,
-  "success": 0,
-  "fail": 0,
+  "processed": 2250,
+  "success": 1888,
+  "fail": 362,
   "skipped": 0,
-  "percent_done": 0.0,
-  "accepted_total": 1000,
+  "percent_done": 2.8125,
+  "accepted_total": 2888,
   "accepted_existing": 1000,
-  "accepted_new": 0,
+  "accepted_new": 1888,
   "max_total": null,
   "max_accepted": 5000,
   "exclude_ids_count": 50,
   "pass_rates": {
-    "overall_accept": null,
-    "format_length": null,
-    "paragraph_structure": null,
-    "no_new_numbers": null
+    "overall_accept": 0.8391111111111111,
+    "format_length": 0.9342222222222222,
+    "paragraph_structure": 0.9555555555555556,
+    "no_new_numbers": 0.9235555555555556
   },
   "failure_counts": {
-    "format_length": 0,
-    "paragraph_structure": 0,
-    "no_new_numbers": 0
+    "format_length": 148,
+    "paragraph_structure": 100,
+    "no_new_numbers": 172
   },
-  "top_failure_patterns": [],
-  "last_id": "http://arxiv.org/abs/1801.09682v3"
+  "top_failure_patterns": [
+    {
+      "error": "Likely copied from abstract (20+ word overlap detected).",
+      "count": 32
+    },
+    {
+      "error": "Expected exactly 4 paragraphs; found 5",
+      "count": 30
+    },
+    {
+      "error": "Expected exactly 4 paragraphs; found 2",
+      "count": 28
+    },
+    {
+      "error": "Expected exactly 4 paragraphs; found 3",
+      "count": 25
+    },
+    {
+      "error": "Expected exactly 4 paragraphs; found 1",
+      "count": 15
+    },
+    {
+      "error": "Numeric tokens not in abstract: 1",
+      "count": 12
+    },
+    {
+      "error": "Response too long: 225 words (max 220)",
+      "count": 5
+    },
+    {
+      "error": "Response too short: 861 characters",
+      "count": 5
+    },
+    {
+      "error": "Banned phrase found: 'we find'",
+      "count": 4
+    },
+    {
+      "error": "Numeric tokens not in abstract: 10",
+      "count": 4
+    },
+    {
+      "error": "Response too short: 874 characters",
+      "count": 4
+    },
+    {
+      "error": "Numeric tokens not in abstract: 4",
+      "count": 3
+    },
+    {
+      "error": "Response too long: 226 words (max 220)",
+      "count": 3
+    },
+    {
+      "error": "Numeric tokens not in abstract: 2",
+      "count": 3
+    },
+    {
+      "error": "Numeric tokens not in abstract: 0.5",
+      "count": 3
+    },
+    {
+      "error": "Response too short: 771 characters",
+      "count": 3
+    },
+    {
+      "error": "Response too short: 823 characters",
+      "count": 3
+    },
+    {
+      "error": "Response too short: 898 characters",
+      "count": 3
+    },
+    {
+      "error": "Response too long: 242 words (max 220)",
+      "count": 3
+    },
+    {
+      "error": "Numeric tokens not in abstract: 50%",
+      "count": 2
+    }
+  ],
+  "last_id": "http://arxiv.org/abs/1803.09032v1"
 }

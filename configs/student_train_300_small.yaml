@@ -1,6 +1,7 @@
 model:
   model_name: "gpt2-medium"
   max_length: 768
+  use_lora: true
   lora_r: 8
   lora_alpha: 16
   lora_dropout: 0.01

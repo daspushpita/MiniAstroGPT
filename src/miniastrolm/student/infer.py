@@ -7,6 +7,7 @@ import time
 import argparse, yaml
 import argparse, yaml
 from miniastrolm.utils.device import resolve_device
+from miniastrolm.student.prompting import build_prompt
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from peft import PeftConfig, PeftModel
 
@@ -134,12 +135,6 @@ class StudentInferencer:
 
         return self.model, self.tokenizer
 
-    def format_prompt(self, abstract: str) -> str:
-        bos = self.tokenizer.bos_token or ""
-        instruction_text = "### Task: Explain the abstract in simple, non-technical language. Stay strictly on-topic."
-        input_text = f"### Abstract:\n{abstract}"
-        return f"{bos}{instruction_text}\n\n{input_text}\n\n### Explanation:\n"
-
     def pick_device(self) -> torch.device:
         """
         Inference device selection. Keep simple.
@@ -216,7 +211,7 @@ class StudentInferencer:
         """
         if abstract is None or not abstract.strip():
             raise ValueError("Abstract cannot be empty. Provide --abstract.")
-        prompt = self.format_prompt(abstract)
+        prompt = build_prompt(self.tokenizer, abstract)
         # 1) tokenize
         if self.tokenizer is None:
             raise ValueError("Tokenizer is None, Initialize it first")

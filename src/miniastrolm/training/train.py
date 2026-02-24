@@ -24,6 +24,7 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 class ModelConfig:
     model_name: str
     max_length: int
+    use_lora: bool = True
     lora_r: int = 8
     lora_alpha: int = 16
     lora_dropout: float = 0.01
@@ -98,7 +99,15 @@ class TrainRunner:
 
     def setup_model(self):
         self.model, self.tokenizer = load_student(self.config.model.model_name, self.config.model.max_length)
-        self.model = apply_peft(self.model, r=self.config.model.lora_r, alpha=self.config.model.lora_alpha, dropout=self.config.model.lora_dropout)
+        if self.config.model.use_lora:
+            self.model = apply_peft(
+                self.model,
+                r=self.config.model.lora_r,
+                alpha=self.config.model.lora_alpha,
+                dropout=self.config.model.lora_dropout,
+            )
+        else:
+            print("LoRA disabled (model.use_lora=false); training base model directly.")
 
         freeze_gpt2_bottom(self.model, n_freeze_blocks=self.config.training.n_freeze_blocks, freeze_embeddings=self.config.training.freeze_embeddings)
         self.model = self.model.to(self.device)
@@ -433,6 +442,12 @@ def parse_args():
     p.add_argument("--batch_size", type=int, default=None, help="Override batch size")
     p.add_argument("--lr", type=float, default=None, help="Override learning rate")
     p.add_argument(
+        "--use_lora",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help="Enable/disable LoRA adapter training.",
+    )
+    p.add_argument(
         "--use_grad_accum_loss",
         action=argparse.BooleanOptionalAction,
         default=None,
@@ -453,6 +468,8 @@ def main() -> None:
         config.training.batch_size = args.batch_size
     if args.lr is not None:
         config.training.lr = args.lr
+    if args.use_lora is not None:
+        config.model.use_lora = args.use_lora
     if args.use_grad_accum_loss is not None:
         config.training.use_grad_accum_loss = args.use_grad_accum_loss
     runner = TrainRunner(config, debug=args.debug)
