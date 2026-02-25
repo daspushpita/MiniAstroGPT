@@ -38,7 +38,7 @@ def apply_peft(model, r: int, alpha: int, dropout: float):
     """
     peft_config = LoraConfig(r=r,  # Rank
                     lora_alpha=alpha,  # Scaling factor
-                    target_modules=["c_attn", "c_proj"],  # GPT-2 specific attention layer
+                    target_modules=["c_attn", "c_proj", "c_fc"],  # GPT-2 specific attention layer
                     lora_dropout=dropout,
                     bias="none",
                     task_type=TaskType.CAUSAL_LM
