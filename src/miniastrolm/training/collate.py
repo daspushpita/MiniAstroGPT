@@ -50,7 +50,7 @@ class CausalLMCollator:
             raise ValueError("min_prefix_tokens must be < max_length so there is space for target tokens.")
 
     def __call__(self, batch: List[Dict[str, str]]) -> Dict[str, Any] | None:
-        marker = "### Explanation:\n" #target_explanation
+        marker = "### Output:\n"
 
         input_ids_list: List[torch.Tensor] = []
         labels_list: List[torch.Tensor] = []
@@ -85,6 +85,8 @@ class CausalLMCollator:
             # 1) Keep as much target as possible (up to max_target)
             if len(target_ids) > max_target:
                 target_ids = target_ids[:max_target]
+                if self.tokenizer.eos_token_id is not None:
+                    target_ids[-1] = self.tokenizer.eos_token_id  # preserve stop signal
                 if self.tokenizer.eos_token_id is not None:
                     target_ids[-1] = self.tokenizer.eos_token_id  # ensure EOS if truncated
 

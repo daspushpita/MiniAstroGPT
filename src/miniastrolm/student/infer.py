@@ -206,13 +206,13 @@ class StudentInferencer:
         return {"input_ids": input_ids, "attention_mask": attention_mask}
 
     @torch.no_grad()
-    def generate_one(self, abstract: str) -> str:
+    def generate_one(self, abstract: str, paper_id: Optional[str] = None) -> str:
         """
         Returns only the generated explanation text.
         """
         if abstract is None or not abstract.strip():
             raise ValueError("Abstract cannot be empty. Provide --abstract.")
-        prompt = build_prompt(self.tokenizer, abstract)
+        prompt = build_prompt(self.tokenizer, paper_id or "", abstract)
         # 1) tokenize
         if self.tokenizer is None:
             raise ValueError("Tokenizer is None, Initialize it first")
@@ -287,6 +287,7 @@ def parse_args():
     p.add_argument("--model_dir", type=Path, required=True, help="path to the student model files")
     p.add_argument("--device", type=str, default=None, help="Override device: auto/cpu/mps/cuda")
     p.add_argument("--abstract", type=str, default=None, help="Give the abstract")
+    p.add_argument("--paper_id", type=str, default="", help="Paper ID to include in the prompt JSON schema")
     p.add_argument("--max_new_tokens", type=int, default=None, help="Override max_new_tokens from config")
     p.add_argument("--debug", action="store_true", help="Print generation diagnostics")
     p.add_argument("--print_repr", action="store_true", help="Print repr(output) to debug blank outputs")
@@ -331,7 +332,7 @@ def main() -> None:
         merge_lora=args.merge_lora,
     )
     infer.setup()
-    output = infer.generate_one(args.abstract)
+    output = infer.generate_one(args.abstract, paper_id=args.paper_id)
     if args.print_repr:
         print(repr(output))
     else:

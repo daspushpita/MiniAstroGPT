@@ -55,7 +55,7 @@ class JsonlStudentDataset(Dataset):
     
     def __getitem__(self, idx: int) -> Dict[str, str]:
         s = self.samples[idx]
-        text = build_full_text(self.tokenizer, s.abstract, s.target_explanation)
+        text = build_full_text(self.tokenizer, s.id, s.abstract, s.target_explanation)
         return {"id": s.id, "text": text}
     
     @staticmethod
