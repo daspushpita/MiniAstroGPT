@@ -85,6 +85,8 @@ class CausalLMCollator:
             # 1) Keep as much target as possible (up to max_target)
             if len(target_ids) > max_target:
                 target_ids = target_ids[:max_target]
+                if self.tokenizer.eos_token_id is not None:
+                    target_ids[-1] = self.tokenizer.eos_token_id  # ensure EOS if truncated
 
             # 2) Fit prefix into remaining space by keeping the TAIL
             max_prefix = self.max_length - len(target_ids)
