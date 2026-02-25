@@ -287,7 +287,7 @@ def parse_args():
     p.add_argument("--model_dir", type=Path, required=True, help="path to the student model files")
     p.add_argument("--device", type=str, default=None, help="Override device: auto/cpu/mps/cuda")
     p.add_argument("--abstract", type=str, default=None, help="Give the abstract")
-    p.add_argument("--paper_id", type=str, default="", help="Paper ID to include in the prompt JSON schema")
+    p.add_argument("--paper_id", type=str, default="", help="Paper ID to include in the prompt context")
     p.add_argument("--max_new_tokens", type=int, default=None, help="Override max_new_tokens from config")
     p.add_argument("--debug", action="store_true", help="Print generation diagnostics")
     p.add_argument("--print_repr", action="store_true", help="Print repr(output) to debug blank outputs")
