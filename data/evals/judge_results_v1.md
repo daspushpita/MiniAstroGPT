@@ -52442,3 +52442,115 @@ Rewrite to clearly explain how DC- and pulsed-magnet technologies generate inten
 
 ---
 
+## Paper: http://arxiv.org/abs/1803.07555v2
+**Accepted:** ✅  
+**Faithfulness:** 4  
+**Overall:** 80  
+**Error tags:** 
+
+**Rationale:**  
+The explanation accurately conveys the key concepts and relationships between CMB photons, neutral hydrogen gas, and early dark energy.
+
+**Rewrite hint:**  
+Clarify the Wouthuysen-Field effect's role in coupling gas temperature to CMB temperature without introducing new jargon.
+
+---
+
+## Paper: http://arxiv.org/abs/1803.07561v2
+**Accepted:** ✅  
+**Faithfulness:** 4  
+**Overall:** 80  
+**Error tags:** 
+
+**Rationale:**  
+The explanation accurately conveys the main points of the abstract.
+
+**Rewrite hint:**  
+Clarify the relationship between cosmological curvature and dark energy equation of state, and provide more context on how CMB data will alleviate degeneracy.
+
+---
+
+## Paper: http://arxiv.org/abs/1803.07562v2
+**Accepted:** ✅  
+**Faithfulness:** 5  
+**Overall:** 90  
+**Error tags:** 
+
+**Rationale:**  
+The explanation accurately conveys the main idea of the abstract without introducing unsupported claims.
+
+**Rewrite hint:**  
+Clarify the concept of Type Ia supernovae and their remnants in a more concrete way.
+
+---
+
+## Paper: http://arxiv.org/abs/1803.07563v2
+**Accepted:** ✅  
+**Faithfulness:** 4  
+**Overall:** 85  
+**Error tags:** 
+
+**Rationale:**  
+The explanation accurately conveys the connection between high-metallicity absorption-selected galaxies and their star formation processes.
+
+**Rewrite hint:**  
+Clarify the distinction between molecular gas mass, fraction, and star formation rate in a single sentence.
+
+---
+
+## Paper: http://arxiv.org/abs/1803.07564v1
+**Accepted:** ✅  
+**Faithfulness:** 5  
+**Overall:** 85  
+**Error tags:** 
+
+**Rationale:**  
+The explanation accurately conveys the key points of the abstract without introducing unsupported claims.
+
+**Rewrite hint:**  
+Clarify the distinction between helium and hydrogen composition in white dwarfs, and provide a concrete example to illustrate nuclear processing within stars.
+
+---
+
+## Paper: http://arxiv.org/abs/1803.07569v2
+**Accepted:** ✅  
+**Faithfulness:** 4  
+**Overall:** 85  
+**Error tags:** 
+
+**Rationale:**  
+The explanation accurately conveys the main idea of using galaxy-scale strong-lens systems to find strongly lensed supernovae.
+
+**Rewrite hint:**  
+Rewrite the explanation to clearly define technical terms and provide more context for non-expert readers, while maintaining a logical flow and structure.
+
+---
+
+## Paper: http://arxiv.org/abs/1803.07571v2
+**Accepted:** ✅  
+**Faithfulness:** 4  
+**Overall:** 85  
+**Error tags:** 
+
+**Rationale:**  
+The explanation provides a general background on the environment and processes around NGC 300 ULX1.
+
+**Rewrite hint:**  
+Clarify that cyclotron resonant scattering is a specific feature reported in the paper, and its implications for understanding ULX pulsars.
+
+---
+
+## Paper: http://arxiv.org/abs/1803.07572v1
+**Accepted:** ✅  
+**Faithfulness:** 5  
+**Overall:** 90  
+**Error tags:** 
+
+**Rationale:**  
+The explanation accurately conveys the abstract's main points.
+
+**Rewrite hint:**  
+Clarify the concept of 'critical rotational speed' for a non-expert audience.
+
+---
+
