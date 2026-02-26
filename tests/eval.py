@@ -23,7 +23,7 @@ OUT_MD   = Path("/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch
 
 IN_PATH  = Path("/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/data/teacher/v1/train.jsonl")
 PROMPT_PATH = Path("/Users/pushpita/Documents/ML Projects/Building_LLM_from_scratch/MiniAstroLM/prompts/judge/prompt_v2.txt")
-N = 1000
+N = 4100
 
 judge_config = JudgeConfig(
     min_faithfulness_to_keep=4,

@@ -4106,3 +4106,798 @@
 {"ts": "2026-02-24T16:35:21.496382+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03649v1", "last_id": "http://arxiv.org/abs/1804.03640v1"}
 {"ts": "2026-02-24T16:35:56.729367+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03652v2", "last_id": "http://arxiv.org/abs/1804.03649v1"}
 {"ts": "2026-02-24T16:36:35.457022+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03653v1", "last_id": "http://arxiv.org/abs/1804.03652v2"}
+{"ts": "2026-02-25T18:18:56.254520+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03661v1", "last_id": "http://arxiv.org/abs/1804.03653v1"}
+{"ts": "2026-02-25T18:19:34.731636+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03662v1", "last_id": "http://arxiv.org/abs/1804.03661v1"}
+{"ts": "2026-02-25T18:20:24.473047+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03663v1", "last_id": "http://arxiv.org/abs/1804.03662v1"}
+{"ts": "2026-02-25T18:20:54.430975+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03664v1", "last_id": "http://arxiv.org/abs/1804.03663v1"}
+{"ts": "2026-02-25T18:21:51.778145+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03666v2", "last_id": "http://arxiv.org/abs/1804.03664v1"}
+{"ts": "2026-02-25T18:23:05.948509+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03667v2", "last_id": "http://arxiv.org/abs/1804.03666v2"}
+{"ts": "2026-02-25T18:23:24.407450+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03668v2", "last_id": "http://arxiv.org/abs/1804.03667v2"}
+{"ts": "2026-02-25T18:24:15.128320+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03669v1", "last_id": "http://arxiv.org/abs/1804.03668v2"}
+{"ts": "2026-02-25T18:24:57.539442+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03670v1", "last_id": "http://arxiv.org/abs/1804.03669v1"}
+{"ts": "2026-02-25T18:25:41.793813+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03671v1", "last_id": "http://arxiv.org/abs/1804.03670v1"}
+{"ts": "2026-02-25T18:26:38.576441+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03672v1", "last_id": "http://arxiv.org/abs/1804.03671v1"}
+{"ts": "2026-02-25T18:27:31.219846+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03676v1", "last_id": "http://arxiv.org/abs/1804.03672v1"}
+{"ts": "2026-02-25T18:27:51.295409+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03681v1", "last_id": "http://arxiv.org/abs/1804.03676v1"}
+{"ts": "2026-02-25T18:28:33.359613+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03684v1", "last_id": "http://arxiv.org/abs/1804.03681v1"}
+{"ts": "2026-02-25T18:28:54.046673+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03689v1", "last_id": "http://arxiv.org/abs/1804.03684v1"}
+{"ts": "2026-02-25T18:29:32.913900+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03693v1", "last_id": "http://arxiv.org/abs/1804.03689v1"}
+{"ts": "2026-02-25T18:30:05.683125+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03698v1", "last_id": "http://arxiv.org/abs/1804.03693v1"}
+{"ts": "2026-02-25T18:31:07.643619+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03703v1", "last_id": "http://arxiv.org/abs/1804.03698v1"}
+{"ts": "2026-02-25T18:32:00.724287+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03704v2", "last_id": "http://arxiv.org/abs/1804.03703v1"}
+{"ts": "2026-02-25T18:32:53.935465+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03727v1", "last_id": "http://arxiv.org/abs/1804.03704v2"}
+{"ts": "2026-02-25T18:33:33.522455+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03734v1", "last_id": "http://arxiv.org/abs/1804.03727v1"}
+{"ts": "2026-02-25T18:33:52.667419+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03735v2", "last_id": "http://arxiv.org/abs/1804.03734v1"}
+{"ts": "2026-02-25T18:35:05.154032+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03743v1", "last_id": "http://arxiv.org/abs/1804.03735v2"}
+{"ts": "2026-02-25T18:36:06.117094+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03746v1", "last_id": "http://arxiv.org/abs/1804.03743v1"}
+{"ts": "2026-02-25T18:36:49.182060+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03748v1", "last_id": "http://arxiv.org/abs/1804.03746v1"}
+{"ts": "2026-02-25T18:37:33.413053+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03765v3", "last_id": "http://arxiv.org/abs/1804.03748v1"}
+{"ts": "2026-02-25T18:38:54.231026+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.03771v2", "last_id": "http://arxiv.org/abs/1804.03765v3", "error": null}
+{"ts": "2026-02-25T18:39:39.248095+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03776v1", "last_id": "http://arxiv.org/abs/1804.03771v2"}
+{"ts": "2026-02-25T18:40:31.470013+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03805v1", "last_id": "http://arxiv.org/abs/1804.03776v1"}
+{"ts": "2026-02-25T18:41:02.363392+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03831v1", "last_id": "http://arxiv.org/abs/1804.03805v1"}
+{"ts": "2026-02-25T18:42:07.668565+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03837v1", "last_id": "http://arxiv.org/abs/1804.03831v1"}
+{"ts": "2026-02-25T18:43:15.851740+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.03848v2", "last_id": "http://arxiv.org/abs/1804.03837v1", "error": null}
+{"ts": "2026-02-25T18:43:44.072203+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03857v1", "last_id": "http://arxiv.org/abs/1804.03848v2"}
+{"ts": "2026-02-25T18:44:23.314136+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03874v1", "last_id": "http://arxiv.org/abs/1804.03857v1"}
+{"ts": "2026-02-25T18:45:28.861086+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03877v1", "last_id": "http://arxiv.org/abs/1804.03874v1"}
+{"ts": "2026-02-25T18:46:32.307437+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03888v2", "last_id": "http://arxiv.org/abs/1804.03877v1"}
+{"ts": "2026-02-25T18:47:06.386120+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03902v2", "last_id": "http://arxiv.org/abs/1804.03888v2"}
+{"ts": "2026-02-25T18:47:44.400052+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.03909v1", "last_id": "http://arxiv.org/abs/1804.03902v2", "error": null}
+{"ts": "2026-02-25T18:48:46.288538+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03947v1", "last_id": "http://arxiv.org/abs/1804.03909v1"}
+{"ts": "2026-02-25T18:49:33.400733+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03948v1", "last_id": "http://arxiv.org/abs/1804.03947v1"}
+{"ts": "2026-02-25T18:50:38.103027+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.03966v1", "last_id": "http://arxiv.org/abs/1804.03948v1"}
+{"ts": "2026-02-25T18:51:22.559237+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04008v1", "last_id": "http://arxiv.org/abs/1804.03966v1"}
+{"ts": "2026-02-25T18:52:40.528132+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04039v1", "last_id": "http://arxiv.org/abs/1804.04008v1"}
+{"ts": "2026-02-25T18:53:41.431169+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04040v1", "last_id": "http://arxiv.org/abs/1804.04039v1"}
+{"ts": "2026-02-25T18:53:57.142285+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04043v1", "last_id": "http://arxiv.org/abs/1804.04040v1"}
+{"ts": "2026-02-25T18:54:34.066805+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04055v1", "last_id": "http://arxiv.org/abs/1804.04043v1"}
+{"ts": "2026-02-25T18:55:11.702801+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04060v1", "last_id": "http://arxiv.org/abs/1804.04055v1"}
+{"ts": "2026-02-25T18:55:53.105680+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04070v1", "last_id": "http://arxiv.org/abs/1804.04060v1"}
+{"ts": "2026-02-25T18:56:31.972854+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04072v2", "last_id": "http://arxiv.org/abs/1804.04070v1"}
+{"ts": "2026-02-25T18:57:17.444529+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.04079v1", "last_id": "http://arxiv.org/abs/1804.04072v2", "error": null}
+{"ts": "2026-02-25T18:57:40.974711+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04089v1", "last_id": "http://arxiv.org/abs/1804.04079v1"}
+{"ts": "2026-02-25T18:58:40.521592+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.04101v1", "last_id": "http://arxiv.org/abs/1804.04089v1", "error": null}
+{"ts": "2026-02-25T18:59:21.373716+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04110v2", "last_id": "http://arxiv.org/abs/1804.04101v1"}
+{"ts": "2026-02-25T18:59:34.788333+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04123v1", "last_id": "http://arxiv.org/abs/1804.04110v2"}
+{"ts": "2026-02-25T19:00:22.675386+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04125v1", "last_id": "http://arxiv.org/abs/1804.04123v1"}
+{"ts": "2026-02-25T19:01:04.053764+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04126v1", "last_id": "http://arxiv.org/abs/1804.04125v1"}
+{"ts": "2026-02-25T19:02:13.444782+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.04132v2", "last_id": "http://arxiv.org/abs/1804.04126v1", "error": null}
+{"ts": "2026-02-25T19:02:58.134131+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04133v1", "last_id": "http://arxiv.org/abs/1804.04132v2"}
+{"ts": "2026-02-25T19:04:05.098443+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04134v1", "last_id": "http://arxiv.org/abs/1804.04133v1"}
+{"ts": "2026-02-25T19:04:25.053842+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04136v2", "last_id": "http://arxiv.org/abs/1804.04134v1"}
+{"ts": "2026-02-25T19:05:00.591946+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04137v1", "last_id": "http://arxiv.org/abs/1804.04136v2"}
+{"ts": "2026-02-25T19:05:43.176940+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04138v2", "last_id": "http://arxiv.org/abs/1804.04137v1"}
+{"ts": "2026-02-25T19:06:27.834565+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04139v2", "last_id": "http://arxiv.org/abs/1804.04138v2"}
+{"ts": "2026-02-25T19:07:43.848444+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04141v1", "last_id": "http://arxiv.org/abs/1804.04139v2"}
+{"ts": "2026-02-25T19:08:41.446203+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04153v2", "last_id": "http://arxiv.org/abs/1804.04141v1"}
+{"ts": "2026-02-25T19:09:30.966101+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04158v1", "last_id": "http://arxiv.org/abs/1804.04153v2"}
+{"ts": "2026-02-25T19:10:03.541426+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04160v2", "last_id": "http://arxiv.org/abs/1804.04158v1"}
+{"ts": "2026-02-25T19:10:37.690410+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04167v1", "last_id": "http://arxiv.org/abs/1804.04160v2"}
+{"ts": "2026-02-25T19:11:27.289170+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04179v2", "last_id": "http://arxiv.org/abs/1804.04167v1"}
+{"ts": "2026-02-25T19:12:15.032242+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04188v1", "last_id": "http://arxiv.org/abs/1804.04179v2"}
+{"ts": "2026-02-25T19:12:56.224345+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04194v1", "last_id": "http://arxiv.org/abs/1804.04188v1"}
+{"ts": "2026-02-25T19:13:38.831571+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04220v1", "last_id": "http://arxiv.org/abs/1804.04194v1"}
+{"ts": "2026-02-25T19:14:20.800111+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04224v1", "last_id": "http://arxiv.org/abs/1804.04220v1"}
+{"ts": "2026-02-25T19:14:39.540841+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04233v1", "last_id": "http://arxiv.org/abs/1804.04224v1"}
+{"ts": "2026-02-25T19:15:40.283996+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04258v1", "last_id": "http://arxiv.org/abs/1804.04233v1"}
+{"ts": "2026-02-25T19:16:18.308736+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04265v2", "last_id": "http://arxiv.org/abs/1804.04258v1"}
+{"ts": "2026-02-25T19:17:00.675346+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04271v1", "last_id": "http://arxiv.org/abs/1804.04265v2"}
+{"ts": "2026-02-25T19:17:43.284318+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04277v1", "last_id": "http://arxiv.org/abs/1804.04271v1"}
+{"ts": "2026-02-25T19:18:16.185473+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04284v1", "last_id": "http://arxiv.org/abs/1804.04277v1"}
+{"ts": "2026-02-25T19:18:52.705052+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04320v2", "last_id": "http://arxiv.org/abs/1804.04284v1"}
+{"ts": "2026-02-25T19:19:25.215693+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04332v2", "last_id": "http://arxiv.org/abs/1804.04320v2"}
+{"ts": "2026-02-25T19:20:23.636673+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.04354v1", "last_id": "http://arxiv.org/abs/1804.04332v2", "error": null}
+{"ts": "2026-02-25T19:20:46.118781+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04374v2", "last_id": "http://arxiv.org/abs/1804.04354v1"}
+{"ts": "2026-02-25T19:21:40.318854+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04384v2", "last_id": "http://arxiv.org/abs/1804.04374v2"}
+{"ts": "2026-02-25T19:22:41.785886+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04401v2", "last_id": "http://arxiv.org/abs/1804.04384v2"}
+{"ts": "2026-02-25T19:23:26.976291+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.04407v1", "last_id": "http://arxiv.org/abs/1804.04401v2", "error": null}
+{"ts": "2026-02-25T19:24:14.979267+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04414v3", "last_id": "http://arxiv.org/abs/1804.04407v1"}
+{"ts": "2026-02-25T19:24:34.227854+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04429v2", "last_id": "http://arxiv.org/abs/1804.04414v3"}
+{"ts": "2026-02-25T19:25:22.033839+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04470v1", "last_id": "http://arxiv.org/abs/1804.04429v2"}
+{"ts": "2026-02-25T19:26:15.681525+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04477v1", "last_id": "http://arxiv.org/abs/1804.04470v1"}
+{"ts": "2026-02-25T19:27:14.778105+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04484v2", "last_id": "http://arxiv.org/abs/1804.04477v1"}
+{"ts": "2026-02-25T19:28:23.904527+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04492v2", "last_id": "http://arxiv.org/abs/1804.04484v2"}
+{"ts": "2026-02-25T19:29:36.936656+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04530v2", "last_id": "http://arxiv.org/abs/1804.04492v2"}
+{"ts": "2026-02-25T19:30:17.868103+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04536v2", "last_id": "http://arxiv.org/abs/1804.04530v2"}
+{"ts": "2026-02-25T19:31:00.668274+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04571v2", "last_id": "http://arxiv.org/abs/1804.04536v2"}
+{"ts": "2026-02-25T19:32:00.191083+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.04582v1", "last_id": "http://arxiv.org/abs/1804.04571v2", "error": null}
+{"ts": "2026-02-25T19:32:44.744712+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04584v2", "last_id": "http://arxiv.org/abs/1804.04582v1"}
+{"ts": "2026-02-25T19:33:44.819414+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04611v2", "last_id": "http://arxiv.org/abs/1804.04584v2"}
+{"ts": "2026-02-25T19:34:47.146972+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.04641v1", "last_id": "http://arxiv.org/abs/1804.04611v2", "error": null}
+{"ts": "2026-02-25T19:35:18.468116+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04662v1", "last_id": "http://arxiv.org/abs/1804.04641v1"}
+{"ts": "2026-02-25T19:35:49.404901+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.04663v1", "last_id": "http://arxiv.org/abs/1804.04662v1", "error": null}
+{"ts": "2026-02-25T19:36:25.160126+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04664v1", "last_id": "http://arxiv.org/abs/1804.04663v1"}
+{"ts": "2026-02-25T19:37:11.179435+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04666v1", "last_id": "http://arxiv.org/abs/1804.04664v1"}
+{"ts": "2026-02-25T19:37:55.488096+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04667v3", "last_id": "http://arxiv.org/abs/1804.04666v1"}
+{"ts": "2026-02-25T19:39:08.224363+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.04668v1", "last_id": "http://arxiv.org/abs/1804.04667v3", "error": null}
+{"ts": "2026-02-25T19:40:00.924804+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04670v2", "last_id": "http://arxiv.org/abs/1804.04668v1"}
+{"ts": "2026-02-25T19:40:35.470103+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04673v1", "last_id": "http://arxiv.org/abs/1804.04670v2"}
+{"ts": "2026-02-25T19:41:24.225842+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04675v1", "last_id": "http://arxiv.org/abs/1804.04673v1"}
+{"ts": "2026-02-25T19:42:34.307454+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04682v2", "last_id": "http://arxiv.org/abs/1804.04675v1"}
+{"ts": "2026-02-25T19:42:51.240271+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04688v1", "last_id": "http://arxiv.org/abs/1804.04682v2"}
+{"ts": "2026-02-25T19:43:34.613328+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04689v3", "last_id": "http://arxiv.org/abs/1804.04688v1"}
+{"ts": "2026-02-25T19:44:34.098232+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04692v1", "last_id": "http://arxiv.org/abs/1804.04689v3"}
+{"ts": "2026-02-25T19:45:17.542530+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04707v1", "last_id": "http://arxiv.org/abs/1804.04692v1"}
+{"ts": "2026-02-25T19:45:36.141264+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04708v1", "last_id": "http://arxiv.org/abs/1804.04707v1"}
+{"ts": "2026-02-25T19:46:33.733731+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.04709v1", "last_id": "http://arxiv.org/abs/1804.04708v1", "error": null}
+{"ts": "2026-02-25T19:47:10.152774+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04722v1", "last_id": "http://arxiv.org/abs/1804.04709v1"}
+{"ts": "2026-02-25T19:47:47.836963+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.04727v2", "last_id": "http://arxiv.org/abs/1804.04722v1", "error": null}
+{"ts": "2026-02-25T19:48:48.041215+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.04738v2", "last_id": "http://arxiv.org/abs/1804.04727v2", "error": null}
+{"ts": "2026-02-25T19:49:55.884649+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.04772v1", "last_id": "http://arxiv.org/abs/1804.04738v2", "error": null}
+{"ts": "2026-02-25T19:50:10.076709+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04788v1", "last_id": "http://arxiv.org/abs/1804.04772v1"}
+{"ts": "2026-02-25T19:50:59.803671+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04801v1", "last_id": "http://arxiv.org/abs/1804.04788v1"}
+{"ts": "2026-02-25T19:51:35.873177+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04814v1", "last_id": "http://arxiv.org/abs/1804.04801v1"}
+{"ts": "2026-02-25T19:52:16.136735+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04816v2", "last_id": "http://arxiv.org/abs/1804.04814v1"}
+{"ts": "2026-02-25T19:53:17.537190+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04825v1", "last_id": "http://arxiv.org/abs/1804.04816v2"}
+{"ts": "2026-02-25T19:54:13.250712+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04842v2", "last_id": "http://arxiv.org/abs/1804.04825v1"}
+{"ts": "2026-02-25T19:54:49.015867+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04845v2", "last_id": "http://arxiv.org/abs/1804.04842v2"}
+{"ts": "2026-02-25T19:55:28.809041+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04856v2", "last_id": "http://arxiv.org/abs/1804.04845v2"}
+{"ts": "2026-02-25T19:55:59.678802+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04864v1", "last_id": "http://arxiv.org/abs/1804.04856v2"}
+{"ts": "2026-02-25T19:56:37.322330+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04919v2", "last_id": "http://arxiv.org/abs/1804.04864v1"}
+{"ts": "2026-02-25T19:57:30.653115+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.04923v1", "last_id": "http://arxiv.org/abs/1804.04919v2", "error": null}
+{"ts": "2026-02-25T19:58:09.119305+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04931v1", "last_id": "http://arxiv.org/abs/1804.04923v1"}
+{"ts": "2026-02-25T19:59:13.335389+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04935v1", "last_id": "http://arxiv.org/abs/1804.04931v1"}
+{"ts": "2026-02-25T20:00:17.652259+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.04936v2", "last_id": "http://arxiv.org/abs/1804.04935v1", "error": null}
+{"ts": "2026-02-25T20:01:01.285658+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04937v1", "last_id": "http://arxiv.org/abs/1804.04936v2"}
+{"ts": "2026-02-25T20:01:40.696329+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04940v1", "last_id": "http://arxiv.org/abs/1804.04937v1"}
+{"ts": "2026-02-25T20:02:18.128804+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.04942v1", "last_id": "http://arxiv.org/abs/1804.04940v1", "error": null}
+{"ts": "2026-02-25T20:02:35.034143+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04952v1", "last_id": "http://arxiv.org/abs/1804.04942v1"}
+{"ts": "2026-02-25T20:03:15.045262+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04955v1", "last_id": "http://arxiv.org/abs/1804.04952v1"}
+{"ts": "2026-02-25T20:03:52.277385+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04961v2", "last_id": "http://arxiv.org/abs/1804.04955v1"}
+{"ts": "2026-02-25T20:05:00.350144+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04965v2", "last_id": "http://arxiv.org/abs/1804.04961v2"}
+{"ts": "2026-02-25T20:05:45.005540+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04971v1", "last_id": "http://arxiv.org/abs/1804.04965v2"}
+{"ts": "2026-02-25T20:06:04.106127+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04989v1", "last_id": "http://arxiv.org/abs/1804.04971v1"}
+{"ts": "2026-02-25T20:07:00.917573+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.04994v1", "last_id": "http://arxiv.org/abs/1804.04989v1", "error": null}
+{"ts": "2026-02-25T20:08:27.958298+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.04995v1", "last_id": "http://arxiv.org/abs/1804.04994v1"}
+{"ts": "2026-02-25T20:09:39.931218+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05008v3", "last_id": "http://arxiv.org/abs/1804.04995v1"}
+{"ts": "2026-02-25T20:10:15.934844+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05010v1", "last_id": "http://arxiv.org/abs/1804.05008v3"}
+{"ts": "2026-02-25T20:11:02.560682+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05050v2", "last_id": "http://arxiv.org/abs/1804.05010v1"}
+{"ts": "2026-02-25T20:11:44.895557+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05051v1", "last_id": "http://arxiv.org/abs/1804.05050v2"}
+{"ts": "2026-02-25T20:12:29.171808+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05052v2", "last_id": "http://arxiv.org/abs/1804.05051v1"}
+{"ts": "2026-02-25T20:13:21.254058+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05054v1", "last_id": "http://arxiv.org/abs/1804.05052v2"}
+{"ts": "2026-02-25T20:13:55.463931+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05056v2", "last_id": "http://arxiv.org/abs/1804.05054v1"}
+{"ts": "2026-02-25T20:14:32.401527+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05060v1", "last_id": "http://arxiv.org/abs/1804.05056v2"}
+{"ts": "2026-02-25T20:15:17.260658+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05063v1", "last_id": "http://arxiv.org/abs/1804.05060v1"}
+{"ts": "2026-02-25T20:15:38.618620+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05064v2", "last_id": "http://arxiv.org/abs/1804.05063v1"}
+{"ts": "2026-02-25T20:16:23.748762+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05065v1", "last_id": "http://arxiv.org/abs/1804.05064v2"}
+{"ts": "2026-02-25T20:17:05.013342+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05067v1", "last_id": "http://arxiv.org/abs/1804.05065v1"}
+{"ts": "2026-02-25T20:18:11.385439+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05069v2", "last_id": "http://arxiv.org/abs/1804.05067v1"}
+{"ts": "2026-02-25T20:18:55.949292+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05070v3", "last_id": "http://arxiv.org/abs/1804.05069v2"}
+{"ts": "2026-02-25T20:19:45.281644+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05071v1", "last_id": "http://arxiv.org/abs/1804.05070v3"}
+{"ts": "2026-02-25T20:21:08.239861+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.05074v1", "last_id": "http://arxiv.org/abs/1804.05071v1", "error": null}
+{"ts": "2026-02-25T20:21:51.626435+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05075v1", "last_id": "http://arxiv.org/abs/1804.05074v1"}
+{"ts": "2026-02-25T20:22:33.437481+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05076v1", "last_id": "http://arxiv.org/abs/1804.05075v1"}
+{"ts": "2026-02-25T20:23:22.925048+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05077v1", "last_id": "http://arxiv.org/abs/1804.05076v1"}
+{"ts": "2026-02-25T20:24:04.603910+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05080v2", "last_id": "http://arxiv.org/abs/1804.05077v1"}
+{"ts": "2026-02-25T20:24:44.568837+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05081v1", "last_id": "http://arxiv.org/abs/1804.05080v2"}
+{"ts": "2026-02-25T20:25:20.392258+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05085v1", "last_id": "http://arxiv.org/abs/1804.05081v1"}
+{"ts": "2026-02-25T20:25:58.752212+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05094v1", "last_id": "http://arxiv.org/abs/1804.05085v1"}
+{"ts": "2026-02-25T20:26:18.299923+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05110v1", "last_id": "http://arxiv.org/abs/1804.05094v1"}
+{"ts": "2026-02-25T20:27:03.645022+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05115v2", "last_id": "http://arxiv.org/abs/1804.05110v1"}
+{"ts": "2026-02-25T20:28:22.144897+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.05122v1", "last_id": "http://arxiv.org/abs/1804.05115v2", "error": null}
+{"ts": "2026-02-25T20:29:05.147310+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05145v2", "last_id": "http://arxiv.org/abs/1804.05122v1"}
+{"ts": "2026-02-25T20:30:11.585431+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05148v2", "last_id": "http://arxiv.org/abs/1804.05145v2"}
+{"ts": "2026-02-25T20:30:51.731528+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05155v2", "last_id": "http://arxiv.org/abs/1804.05148v2"}
+{"ts": "2026-02-25T20:31:43.784460+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05167v3", "last_id": "http://arxiv.org/abs/1804.05155v2"}
+{"ts": "2026-02-25T20:32:53.891001+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05173v2", "last_id": "http://arxiv.org/abs/1804.05167v3"}
+{"ts": "2026-02-25T20:34:06.905131+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05191v2", "last_id": "http://arxiv.org/abs/1804.05173v2"}
+{"ts": "2026-02-25T20:34:48.626444+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05198v1", "last_id": "http://arxiv.org/abs/1804.05191v2"}
+{"ts": "2026-02-25T20:35:32.656591+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05200v1", "last_id": "http://arxiv.org/abs/1804.05198v1"}
+{"ts": "2026-02-25T20:36:06.281465+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05203v1", "last_id": "http://arxiv.org/abs/1804.05200v1"}
+{"ts": "2026-02-25T20:36:48.511940+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05205v2", "last_id": "http://arxiv.org/abs/1804.05203v1"}
+{"ts": "2026-02-25T20:37:22.605504+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05215v1", "last_id": "http://arxiv.org/abs/1804.05205v2"}
+{"ts": "2026-02-25T20:38:07.428368+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05245v2", "last_id": "http://arxiv.org/abs/1804.05215v1"}
+{"ts": "2026-02-25T20:38:39.986257+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05248v1", "last_id": "http://arxiv.org/abs/1804.05245v2"}
+{"ts": "2026-02-25T20:38:59.742885+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05308v1", "last_id": "http://arxiv.org/abs/1804.05248v1"}
+{"ts": "2026-02-25T20:39:38.561773+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05315v1", "last_id": "http://arxiv.org/abs/1804.05308v1"}
+{"ts": "2026-02-25T20:40:49.507197+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.05324v1", "last_id": "http://arxiv.org/abs/1804.05315v1", "error": null}
+{"ts": "2026-02-25T20:41:27.757747+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05328v2", "last_id": "http://arxiv.org/abs/1804.05324v1"}
+{"ts": "2026-02-25T20:42:10.212883+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05334v2", "last_id": "http://arxiv.org/abs/1804.05328v2"}
+{"ts": "2026-02-25T20:42:50.370301+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05335v1", "last_id": "http://arxiv.org/abs/1804.05334v2"}
+{"ts": "2026-02-25T20:43:34.146178+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05342v2", "last_id": "http://arxiv.org/abs/1804.05335v1"}
+{"ts": "2026-02-25T20:43:52.224740+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05343v2", "last_id": "http://arxiv.org/abs/1804.05342v2"}
+{"ts": "2026-02-25T20:45:10.269249+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05377v1", "last_id": "http://arxiv.org/abs/1804.05343v2"}
+{"ts": "2026-02-25T20:45:59.085893+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05387v2", "last_id": "http://arxiv.org/abs/1804.05377v1"}
+{"ts": "2026-02-25T20:46:43.054485+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05397v1", "last_id": "http://arxiv.org/abs/1804.05387v2"}
+{"ts": "2026-02-25T20:47:12.547917+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05428v2", "last_id": "http://arxiv.org/abs/1804.05397v1"}
+{"ts": "2026-02-25T20:47:50.888225+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05458v1", "last_id": "http://arxiv.org/abs/1804.05428v2"}
+{"ts": "2026-02-25T20:48:28.381802+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05485v2", "last_id": "http://arxiv.org/abs/1804.05458v1"}
+{"ts": "2026-02-25T20:49:14.973594+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05501v1", "last_id": "http://arxiv.org/abs/1804.05485v2"}
+{"ts": "2026-02-25T20:50:26.776170+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05510v1", "last_id": "http://arxiv.org/abs/1804.05501v1"}
+{"ts": "2026-02-25T20:51:11.407216+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05520v2", "last_id": "http://arxiv.org/abs/1804.05510v1"}
+{"ts": "2026-02-25T20:51:50.829352+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05551v1", "last_id": "http://arxiv.org/abs/1804.05520v2"}
+{"ts": "2026-02-25T20:52:27.430727+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05566v2", "last_id": "http://arxiv.org/abs/1804.05551v1"}
+{"ts": "2026-02-25T20:53:43.773046+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05576v2", "last_id": "http://arxiv.org/abs/1804.05566v2"}
+{"ts": "2026-02-25T20:54:19.767713+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05586v2", "last_id": "http://arxiv.org/abs/1804.05576v2"}
+{"ts": "2026-02-25T20:55:27.331511+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05591v3", "last_id": "http://arxiv.org/abs/1804.05586v2"}
+{"ts": "2026-02-25T20:56:02.787272+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05596v1", "last_id": "http://arxiv.org/abs/1804.05591v3"}
+{"ts": "2026-02-25T20:56:57.930571+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.05600v1", "last_id": "http://arxiv.org/abs/1804.05596v1", "error": null}
+{"ts": "2026-02-25T20:57:56.955568+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.05603v3", "last_id": "http://arxiv.org/abs/1804.05600v1", "error": null}
+{"ts": "2026-02-25T20:58:30.331965+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05607v1", "last_id": "http://arxiv.org/abs/1804.05603v3"}
+{"ts": "2026-02-25T20:58:48.504814+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05613v2", "last_id": "http://arxiv.org/abs/1804.05607v1"}
+{"ts": "2026-02-25T20:59:28.965594+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05614v1", "last_id": "http://arxiv.org/abs/1804.05613v2"}
+{"ts": "2026-02-25T21:00:12.732487+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05617v1", "last_id": "http://arxiv.org/abs/1804.05614v1"}
+{"ts": "2026-02-25T21:00:52.321897+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05631v2", "last_id": "http://arxiv.org/abs/1804.05617v1"}
+{"ts": "2026-02-25T21:01:46.725301+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05634v2", "last_id": "http://arxiv.org/abs/1804.05631v2"}
+{"ts": "2026-02-25T21:02:52.830868+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05640v2", "last_id": "http://arxiv.org/abs/1804.05634v2"}
+{"ts": "2026-02-25T21:04:15.593422+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05645v2", "last_id": "http://arxiv.org/abs/1804.05640v2"}
+{"ts": "2026-02-25T21:05:10.094225+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.05652v1", "last_id": "http://arxiv.org/abs/1804.05645v2", "error": null}
+{"ts": "2026-02-25T21:05:41.387240+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05657v1", "last_id": "http://arxiv.org/abs/1804.05652v1"}
+{"ts": "2026-02-25T21:06:18.777693+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05672v1", "last_id": "http://arxiv.org/abs/1804.05657v1"}
+{"ts": "2026-02-25T21:07:12.843503+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05679v1", "last_id": "http://arxiv.org/abs/1804.05672v1"}
+{"ts": "2026-02-25T21:07:53.489536+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05684v2", "last_id": "http://arxiv.org/abs/1804.05679v1"}
+{"ts": "2026-02-25T21:08:40.325960+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05708v1", "last_id": "http://arxiv.org/abs/1804.05684v2"}
+{"ts": "2026-02-25T21:09:19.016675+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05709v2", "last_id": "http://arxiv.org/abs/1804.05708v1"}
+{"ts": "2026-02-25T21:10:27.258689+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05717v1", "last_id": "http://arxiv.org/abs/1804.05709v2"}
+{"ts": "2026-02-25T21:10:45.443841+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05749v1", "last_id": "http://arxiv.org/abs/1804.05717v1"}
+{"ts": "2026-02-25T21:11:45.836617+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.05750v2", "last_id": "http://arxiv.org/abs/1804.05749v1", "error": null}
+{"ts": "2026-02-25T21:12:20.350376+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05781v1", "last_id": "http://arxiv.org/abs/1804.05750v2"}
+{"ts": "2026-02-25T21:13:44.512256+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.05791v1", "last_id": "http://arxiv.org/abs/1804.05781v1", "error": null}
+{"ts": "2026-02-25T21:14:36.586615+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.05792v2", "last_id": "http://arxiv.org/abs/1804.05791v1", "error": null}
+{"ts": "2026-02-25T21:15:21.791657+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05801v1", "last_id": "http://arxiv.org/abs/1804.05792v2"}
+{"ts": "2026-02-25T21:16:24.533272+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05812v1", "last_id": "http://arxiv.org/abs/1804.05801v1"}
+{"ts": "2026-02-25T21:17:50.391177+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05815v1", "last_id": "http://arxiv.org/abs/1804.05812v1"}
+{"ts": "2026-02-25T21:18:29.792631+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05820v1", "last_id": "http://arxiv.org/abs/1804.05815v1"}
+{"ts": "2026-02-25T21:19:16.283055+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05826v2", "last_id": "http://arxiv.org/abs/1804.05820v1"}
+{"ts": "2026-02-25T21:19:35.412475+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05833v1", "last_id": "http://arxiv.org/abs/1804.05826v2"}
+{"ts": "2026-02-25T21:20:09.346348+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05840v3", "last_id": "http://arxiv.org/abs/1804.05833v1"}
+{"ts": "2026-02-25T21:20:46.738821+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05843v3", "last_id": "http://arxiv.org/abs/1804.05840v3"}
+{"ts": "2026-02-25T21:21:06.615297+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05846v3", "last_id": "http://arxiv.org/abs/1804.05843v3"}
+{"ts": "2026-02-25T21:22:18.957378+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05847v1", "last_id": "http://arxiv.org/abs/1804.05846v3"}
+{"ts": "2026-02-25T21:22:58.722238+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05848v1", "last_id": "http://arxiv.org/abs/1804.05847v1"}
+{"ts": "2026-02-25T21:24:10.554192+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.05849v1", "last_id": "http://arxiv.org/abs/1804.05848v1", "error": null}
+{"ts": "2026-02-25T21:24:55.371529+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05850v1", "last_id": "http://arxiv.org/abs/1804.05849v1"}
+{"ts": "2026-02-25T21:25:41.657448+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05851v1", "last_id": "http://arxiv.org/abs/1804.05850v1"}
+{"ts": "2026-02-25T21:26:47.896011+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05853v2", "last_id": "http://arxiv.org/abs/1804.05851v1"}
+{"ts": "2026-02-25T21:27:07.355012+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05857v2", "last_id": "http://arxiv.org/abs/1804.05853v2"}
+{"ts": "2026-02-25T21:27:54.158280+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05860v2", "last_id": "http://arxiv.org/abs/1804.05857v2"}
+{"ts": "2026-02-25T21:28:23.027745+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05861v2", "last_id": "http://arxiv.org/abs/1804.05860v2"}
+{"ts": "2026-02-25T21:29:03.381445+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05864v2", "last_id": "http://arxiv.org/abs/1804.05861v2"}
+{"ts": "2026-02-25T21:30:23.781686+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.05865v1", "last_id": "http://arxiv.org/abs/1804.05864v2", "error": null}
+{"ts": "2026-02-25T21:30:45.173286+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05866v1", "last_id": "http://arxiv.org/abs/1804.05865v1"}
+{"ts": "2026-02-25T21:31:30.097564+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05867v2", "last_id": "http://arxiv.org/abs/1804.05866v1"}
+{"ts": "2026-02-25T21:32:24.936438+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05869v2", "last_id": "http://arxiv.org/abs/1804.05867v2"}
+{"ts": "2026-02-25T21:33:32.063049+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05873v1", "last_id": "http://arxiv.org/abs/1804.05869v2"}
+{"ts": "2026-02-25T21:34:42.460443+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.05877v1", "last_id": "http://arxiv.org/abs/1804.05873v1", "error": null}
+{"ts": "2026-02-25T21:35:24.976806+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05889v1", "last_id": "http://arxiv.org/abs/1804.05877v1"}
+{"ts": "2026-02-25T21:36:07.775566+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05894v2", "last_id": "http://arxiv.org/abs/1804.05889v1"}
+{"ts": "2026-02-25T21:36:27.504997+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05897v1", "last_id": "http://arxiv.org/abs/1804.05894v2"}
+{"ts": "2026-02-25T21:37:02.880261+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05900v2", "last_id": "http://arxiv.org/abs/1804.05897v1"}
+{"ts": "2026-02-25T21:37:41.173062+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05903v1", "last_id": "http://arxiv.org/abs/1804.05900v2"}
+{"ts": "2026-02-25T21:38:10.683419+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05904v1", "last_id": "http://arxiv.org/abs/1804.05903v1"}
+{"ts": "2026-02-25T21:39:14.146808+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.05911v1", "last_id": "http://arxiv.org/abs/1804.05904v1", "error": null}
+{"ts": "2026-02-25T21:39:54.688260+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05914v1", "last_id": "http://arxiv.org/abs/1804.05911v1"}
+{"ts": "2026-02-25T21:40:40.409533+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05921v2", "last_id": "http://arxiv.org/abs/1804.05914v1"}
+{"ts": "2026-02-25T21:41:11.377116+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05934v2", "last_id": "http://arxiv.org/abs/1804.05921v2"}
+{"ts": "2026-02-25T21:41:54.275478+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05968v3", "last_id": "http://arxiv.org/abs/1804.05934v2"}
+{"ts": "2026-02-25T21:43:26.092624+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.05970v1", "last_id": "http://arxiv.org/abs/1804.05968v3", "error": null}
+{"ts": "2026-02-25T21:44:23.984754+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05976v1", "last_id": "http://arxiv.org/abs/1804.05970v1"}
+{"ts": "2026-02-25T21:45:03.483229+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.05983v1", "last_id": "http://arxiv.org/abs/1804.05976v1"}
+{"ts": "2026-02-25T21:45:58.404291+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06014v1", "last_id": "http://arxiv.org/abs/1804.05983v1"}
+{"ts": "2026-02-25T21:46:14.907528+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06019v1", "last_id": "http://arxiv.org/abs/1804.06014v1"}
+{"ts": "2026-02-25T21:46:38.333472+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06030v1", "last_id": "http://arxiv.org/abs/1804.06019v1"}
+{"ts": "2026-02-25T21:47:40.045263+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.06041v1", "last_id": "http://arxiv.org/abs/1804.06030v1", "error": null}
+{"ts": "2026-02-25T21:48:48.401943+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.06046v1", "last_id": "http://arxiv.org/abs/1804.06041v1", "error": null}
+{"ts": "2026-02-25T21:50:17.443441+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06060v1", "last_id": "http://arxiv.org/abs/1804.06046v1"}
+{"ts": "2026-02-25T21:51:03.073457+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06065v1", "last_id": "http://arxiv.org/abs/1804.06060v1"}
+{"ts": "2026-02-25T21:52:11.388994+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06073v1", "last_id": "http://arxiv.org/abs/1804.06065v1"}
+{"ts": "2026-02-25T21:53:03.161570+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06079v1", "last_id": "http://arxiv.org/abs/1804.06073v1"}
+{"ts": "2026-02-25T21:53:40.293799+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06085v2", "last_id": "http://arxiv.org/abs/1804.06079v1"}
+{"ts": "2026-02-25T21:54:22.363840+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.06086v1", "last_id": "http://arxiv.org/abs/1804.06085v2", "error": null}
+{"ts": "2026-02-25T21:55:44.799464+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06093v1", "last_id": "http://arxiv.org/abs/1804.06086v1"}
+{"ts": "2026-02-25T21:56:25.916235+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06115v3", "last_id": "http://arxiv.org/abs/1804.06093v1"}
+{"ts": "2026-02-25T21:57:49.096697+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.06116v1", "last_id": "http://arxiv.org/abs/1804.06115v3", "error": null}
+{"ts": "2026-02-25T21:58:23.603799+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06117v1", "last_id": "http://arxiv.org/abs/1804.06116v1"}
+{"ts": "2026-02-25T21:58:59.035555+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06149v1", "last_id": "http://arxiv.org/abs/1804.06117v1"}
+{"ts": "2026-02-25T21:59:43.386849+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06150v1", "last_id": "http://arxiv.org/abs/1804.06149v1"}
+{"ts": "2026-02-25T22:00:02.245573+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06176v1", "last_id": "http://arxiv.org/abs/1804.06150v1"}
+{"ts": "2026-02-25T22:01:00.461698+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06179v1", "last_id": "http://arxiv.org/abs/1804.06176v1"}
+{"ts": "2026-02-25T22:01:32.835351+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06199v1", "last_id": "http://arxiv.org/abs/1804.06179v1"}
+{"ts": "2026-02-25T22:02:10.131682+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06206v1", "last_id": "http://arxiv.org/abs/1804.06199v1"}
+{"ts": "2026-02-25T22:02:50.672204+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06212v2", "last_id": "http://arxiv.org/abs/1804.06206v1"}
+{"ts": "2026-02-25T22:03:36.345772+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06241v2", "last_id": "http://arxiv.org/abs/1804.06212v2"}
+{"ts": "2026-02-25T22:03:55.725218+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06255v1", "last_id": "http://arxiv.org/abs/1804.06241v2"}
+{"ts": "2026-02-25T22:04:13.009185+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06269v1", "last_id": "http://arxiv.org/abs/1804.06255v1"}
+{"ts": "2026-02-25T22:04:57.254226+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06272v1", "last_id": "http://arxiv.org/abs/1804.06269v1"}
+{"ts": "2026-02-25T22:05:38.375787+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06284v3", "last_id": "http://arxiv.org/abs/1804.06272v1"}
+{"ts": "2026-02-25T22:06:11.386985+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06293v1", "last_id": "http://arxiv.org/abs/1804.06284v3"}
+{"ts": "2026-02-25T22:06:43.956595+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06298v2", "last_id": "http://arxiv.org/abs/1804.06293v1"}
+{"ts": "2026-02-25T22:07:02.389736+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06308v1", "last_id": "http://arxiv.org/abs/1804.06298v2"}
+{"ts": "2026-02-25T22:07:54.159939+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.06315v2", "last_id": "http://arxiv.org/abs/1804.06308v1", "error": null}
+{"ts": "2026-02-25T22:08:31.875594+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06330v2", "last_id": "http://arxiv.org/abs/1804.06315v2"}
+{"ts": "2026-02-25T22:09:33.434740+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06344v2", "last_id": "http://arxiv.org/abs/1804.06330v2"}
+{"ts": "2026-02-25T22:10:42.564653+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.06346v1", "last_id": "http://arxiv.org/abs/1804.06344v2", "error": null}
+{"ts": "2026-02-25T22:11:22.241486+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06365v2", "last_id": "http://arxiv.org/abs/1804.06346v1"}
+{"ts": "2026-02-25T22:11:57.867975+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06377v1", "last_id": "http://arxiv.org/abs/1804.06365v2"}
+{"ts": "2026-02-25T22:12:42.145095+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06379v1", "last_id": "http://arxiv.org/abs/1804.06377v1"}
+{"ts": "2026-02-25T22:13:16.067846+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06394v2", "last_id": "http://arxiv.org/abs/1804.06379v1"}
+{"ts": "2026-02-25T22:14:24.830947+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06399v2", "last_id": "http://arxiv.org/abs/1804.06394v2"}
+{"ts": "2026-02-25T22:15:39.004871+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06403v2", "last_id": "http://arxiv.org/abs/1804.06399v2"}
+{"ts": "2026-02-25T22:16:15.741567+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06406v3", "last_id": "http://arxiv.org/abs/1804.06403v2"}
+{"ts": "2026-02-25T22:17:26.442923+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.06409v1", "last_id": "http://arxiv.org/abs/1804.06406v3", "error": null}
+{"ts": "2026-02-25T22:18:05.793504+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06410v2", "last_id": "http://arxiv.org/abs/1804.06409v1"}
+{"ts": "2026-02-25T22:18:46.687940+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06411v1", "last_id": "http://arxiv.org/abs/1804.06410v2"}
+{"ts": "2026-02-25T22:19:21.496746+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06412v1", "last_id": "http://arxiv.org/abs/1804.06411v1"}
+{"ts": "2026-02-25T22:20:06.833254+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06413v2", "last_id": "http://arxiv.org/abs/1804.06412v1"}
+{"ts": "2026-02-25T22:21:15.712272+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06414v2", "last_id": "http://arxiv.org/abs/1804.06413v2"}
+{"ts": "2026-02-25T22:22:04.426187+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06416v2", "last_id": "http://arxiv.org/abs/1804.06414v2"}
+{"ts": "2026-02-25T22:23:05.866946+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06417v1", "last_id": "http://arxiv.org/abs/1804.06416v2"}
+{"ts": "2026-02-25T22:23:49.084203+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06421v2", "last_id": "http://arxiv.org/abs/1804.06417v1"}
+{"ts": "2026-02-25T22:24:45.813121+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06430v1", "last_id": "http://arxiv.org/abs/1804.06421v2"}
+{"ts": "2026-02-25T22:25:31.815893+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06431v1", "last_id": "http://arxiv.org/abs/1804.06430v1"}
+{"ts": "2026-02-25T22:26:11.483696+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06441v2", "last_id": "http://arxiv.org/abs/1804.06431v1"}
+{"ts": "2026-02-25T22:27:25.626884+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.06457v2", "last_id": "http://arxiv.org/abs/1804.06441v2", "error": null}
+{"ts": "2026-02-25T22:28:12.108667+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06475v1", "last_id": "http://arxiv.org/abs/1804.06457v2"}
+{"ts": "2026-02-25T22:29:23.339824+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06477v2", "last_id": "http://arxiv.org/abs/1804.06475v1"}
+{"ts": "2026-02-25T22:30:27.462658+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06479v2", "last_id": "http://arxiv.org/abs/1804.06477v2"}
+{"ts": "2026-02-25T22:31:14.973244+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06482v1", "last_id": "http://arxiv.org/abs/1804.06479v2"}
+{"ts": "2026-02-25T22:32:00.869600+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06484v2", "last_id": "http://arxiv.org/abs/1804.06482v1"}
+{"ts": "2026-02-25T22:32:57.669316+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06491v1", "last_id": "http://arxiv.org/abs/1804.06484v2"}
+{"ts": "2026-02-25T22:33:52.229312+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06492v2", "last_id": "http://arxiv.org/abs/1804.06491v1"}
+{"ts": "2026-02-25T22:34:52.760826+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.06493v1", "last_id": "http://arxiv.org/abs/1804.06492v2", "error": null}
+{"ts": "2026-02-25T22:35:59.127368+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.06519v2", "last_id": "http://arxiv.org/abs/1804.06493v1", "error": null}
+{"ts": "2026-02-25T22:36:19.302641+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06544v2", "last_id": "http://arxiv.org/abs/1804.06519v2"}
+{"ts": "2026-02-25T22:37:04.510522+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06547v1", "last_id": "http://arxiv.org/abs/1804.06544v2"}
+{"ts": "2026-02-25T22:38:16.844387+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.06563v1", "last_id": "http://arxiv.org/abs/1804.06547v1", "error": null}
+{"ts": "2026-02-25T22:39:03.419970+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06565v1", "last_id": "http://arxiv.org/abs/1804.06563v1"}
+{"ts": "2026-02-25T22:39:53.265699+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06576v1", "last_id": "http://arxiv.org/abs/1804.06565v1"}
+{"ts": "2026-02-25T22:40:46.003507+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06578v1", "last_id": "http://arxiv.org/abs/1804.06576v1"}
+{"ts": "2026-02-25T22:42:25.752635+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06581v2", "last_id": "http://arxiv.org/abs/1804.06578v1"}
+{"ts": "2026-02-25T22:43:10.860420+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06595v1", "last_id": "http://arxiv.org/abs/1804.06581v2"}
+{"ts": "2026-02-25T22:43:30.691541+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06597v3", "last_id": "http://arxiv.org/abs/1804.06595v1"}
+{"ts": "2026-02-25T22:44:37.762939+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.06599v2", "last_id": "http://arxiv.org/abs/1804.06597v3", "error": null}
+{"ts": "2026-02-25T22:45:14.228922+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06603v2", "last_id": "http://arxiv.org/abs/1804.06599v2"}
+{"ts": "2026-02-25T22:45:53.595503+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06606v1", "last_id": "http://arxiv.org/abs/1804.06603v2"}
+{"ts": "2026-02-25T22:46:40.822952+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06624v4", "last_id": "http://arxiv.org/abs/1804.06606v1"}
+{"ts": "2026-02-25T22:47:19.768341+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06635v2", "last_id": "http://arxiv.org/abs/1804.06624v4"}
+{"ts": "2026-02-25T22:47:58.027569+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06669v1", "last_id": "http://arxiv.org/abs/1804.06635v2"}
+{"ts": "2026-02-25T22:48:54.041483+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.06696v3", "last_id": "http://arxiv.org/abs/1804.06669v1", "error": null}
+{"ts": "2026-02-25T22:49:38.210496+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06714v1", "last_id": "http://arxiv.org/abs/1804.06696v3"}
+{"ts": "2026-02-25T22:50:15.282340+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06717v2", "last_id": "http://arxiv.org/abs/1804.06714v1"}
+{"ts": "2026-02-25T22:51:01.169872+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06718v1", "last_id": "http://arxiv.org/abs/1804.06717v2"}
+{"ts": "2026-02-25T22:51:35.295022+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06740v1", "last_id": "http://arxiv.org/abs/1804.06718v1"}
+{"ts": "2026-02-25T22:52:40.751781+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06768v2", "last_id": "http://arxiv.org/abs/1804.06740v1"}
+{"ts": "2026-02-25T22:53:22.553324+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06795v1", "last_id": "http://arxiv.org/abs/1804.06768v2"}
+{"ts": "2026-02-25T22:53:54.972225+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06804v1", "last_id": "http://arxiv.org/abs/1804.06795v1"}
+{"ts": "2026-02-25T22:54:40.494667+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06807v1", "last_id": "http://arxiv.org/abs/1804.06804v1"}
+{"ts": "2026-02-25T22:55:17.322866+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06841v1", "last_id": "http://arxiv.org/abs/1804.06807v1"}
+{"ts": "2026-02-25T22:55:56.428684+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06844v4", "last_id": "http://arxiv.org/abs/1804.06841v1"}
+{"ts": "2026-02-25T22:57:04.170541+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.06845v1", "last_id": "http://arxiv.org/abs/1804.06844v4", "error": null}
+{"ts": "2026-02-25T22:57:52.073551+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06846v2", "last_id": "http://arxiv.org/abs/1804.06845v1"}
+{"ts": "2026-02-25T22:58:38.032491+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06849v2", "last_id": "http://arxiv.org/abs/1804.06846v2"}
+{"ts": "2026-02-25T22:59:39.033697+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06851v2", "last_id": "http://arxiv.org/abs/1804.06849v2"}
+{"ts": "2026-02-25T23:00:40.424623+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.06852v1", "last_id": "http://arxiv.org/abs/1804.06851v2", "error": null}
+{"ts": "2026-02-25T23:01:26.689280+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06854v1", "last_id": "http://arxiv.org/abs/1804.06852v1"}
+{"ts": "2026-02-25T23:02:13.293311+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06855v2", "last_id": "http://arxiv.org/abs/1804.06854v1"}
+{"ts": "2026-02-25T23:03:21.141767+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.06856v2", "last_id": "http://arxiv.org/abs/1804.06855v2", "error": null}
+{"ts": "2026-02-25T23:03:59.237576+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06859v2", "last_id": "http://arxiv.org/abs/1804.06856v2"}
+{"ts": "2026-02-25T23:06:06.009034+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.06875v1", "last_id": "http://arxiv.org/abs/1804.06859v2", "error": null}
+{"ts": "2026-02-25T23:06:52.254289+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06878v1", "last_id": "http://arxiv.org/abs/1804.06875v1"}
+{"ts": "2026-02-25T23:07:37.313232+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06880v2", "last_id": "http://arxiv.org/abs/1804.06878v1"}
+{"ts": "2026-02-25T23:08:50.552579+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06888v2", "last_id": "http://arxiv.org/abs/1804.06880v2"}
+{"ts": "2026-02-25T23:09:05.779289+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06908v1", "last_id": "http://arxiv.org/abs/1804.06888v2"}
+{"ts": "2026-02-25T23:10:12.233274+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06915v2", "last_id": "http://arxiv.org/abs/1804.06908v1"}
+{"ts": "2026-02-25T23:11:28.001210+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06917v1", "last_id": "http://arxiv.org/abs/1804.06915v2"}
+{"ts": "2026-02-25T23:11:48.427428+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06920v2", "last_id": "http://arxiv.org/abs/1804.06917v1"}
+{"ts": "2026-02-25T23:12:34.819769+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.06930v1", "last_id": "http://arxiv.org/abs/1804.06920v2", "error": null}
+{"ts": "2026-02-25T23:13:15.147080+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06938v2", "last_id": "http://arxiv.org/abs/1804.06930v1"}
+{"ts": "2026-02-25T23:13:48.921214+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06942v1", "last_id": "http://arxiv.org/abs/1804.06938v2"}
+{"ts": "2026-02-25T23:14:57.501610+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.06956v1", "last_id": "http://arxiv.org/abs/1804.06942v1", "error": null}
+{"ts": "2026-02-25T23:15:31.265444+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06961v1", "last_id": "http://arxiv.org/abs/1804.06956v1"}
+{"ts": "2026-02-25T23:16:19.801897+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06982v1", "last_id": "http://arxiv.org/abs/1804.06961v1"}
+{"ts": "2026-02-25T23:17:18.854438+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06985v1", "last_id": "http://arxiv.org/abs/1804.06982v1"}
+{"ts": "2026-02-25T23:18:26.004106+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06986v2", "last_id": "http://arxiv.org/abs/1804.06985v1"}
+{"ts": "2026-02-25T23:19:34.433186+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06997v1", "last_id": "http://arxiv.org/abs/1804.06986v2"}
+{"ts": "2026-02-25T23:20:21.827181+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.06999v1", "last_id": "http://arxiv.org/abs/1804.06997v1"}
+{"ts": "2026-02-25T23:21:29.534326+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07037v1", "last_id": "http://arxiv.org/abs/1804.06999v1"}
+{"ts": "2026-02-25T23:22:04.011892+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07038v1", "last_id": "http://arxiv.org/abs/1804.07037v1"}
+{"ts": "2026-02-25T23:22:46.615125+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07039v2", "last_id": "http://arxiv.org/abs/1804.07038v1"}
+{"ts": "2026-02-25T23:23:06.297294+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07049v1", "last_id": "http://arxiv.org/abs/1804.07039v2"}
+{"ts": "2026-02-25T23:23:32.629804+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07050v3", "last_id": "http://arxiv.org/abs/1804.07049v1"}
+{"ts": "2026-02-25T23:24:44.195993+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.07060v1", "last_id": "http://arxiv.org/abs/1804.07050v3", "error": null}
+{"ts": "2026-02-25T23:25:23.218345+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07063v3", "last_id": "http://arxiv.org/abs/1804.07060v1"}
+{"ts": "2026-02-25T23:26:29.597111+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.07072v1", "last_id": "http://arxiv.org/abs/1804.07063v3", "error": null}
+{"ts": "2026-02-25T23:27:10.297124+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07081v1", "last_id": "http://arxiv.org/abs/1804.07072v1"}
+{"ts": "2026-02-25T23:27:49.989285+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07083v1", "last_id": "http://arxiv.org/abs/1804.07081v1"}
+{"ts": "2026-02-25T23:29:02.074025+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07086v2", "last_id": "http://arxiv.org/abs/1804.07083v1"}
+{"ts": "2026-02-25T23:30:42.278290+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07089v1", "last_id": "http://arxiv.org/abs/1804.07086v2"}
+{"ts": "2026-02-25T23:31:50.557654+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07092v2", "last_id": "http://arxiv.org/abs/1804.07089v1"}
+{"ts": "2026-02-25T23:32:36.087637+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07120v1", "last_id": "http://arxiv.org/abs/1804.07092v2"}
+{"ts": "2026-02-25T23:33:12.068596+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07122v1", "last_id": "http://arxiv.org/abs/1804.07120v1"}
+{"ts": "2026-02-25T23:34:00.664218+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.07124v3", "last_id": "http://arxiv.org/abs/1804.07122v1", "error": null}
+{"ts": "2026-02-25T23:35:14.560937+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07126v1", "last_id": "http://arxiv.org/abs/1804.07124v3"}
+{"ts": "2026-02-25T23:36:31.536704+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07137v3", "last_id": "http://arxiv.org/abs/1804.07126v1"}
+{"ts": "2026-02-25T23:37:39.153748+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07138v1", "last_id": "http://arxiv.org/abs/1804.07137v3"}
+{"ts": "2026-02-25T23:38:48.095123+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07140v1", "last_id": "http://arxiv.org/abs/1804.07138v1"}
+{"ts": "2026-02-25T23:39:24.652395+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07154v1", "last_id": "http://arxiv.org/abs/1804.07140v1"}
+{"ts": "2026-02-25T23:39:38.899366+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07162v1", "last_id": "http://arxiv.org/abs/1804.07154v1"}
+{"ts": "2026-02-25T23:40:17.964961+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07180v3", "last_id": "http://arxiv.org/abs/1804.07162v1"}
+{"ts": "2026-02-25T23:41:24.945419+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.07186v1", "last_id": "http://arxiv.org/abs/1804.07180v3", "error": null}
+{"ts": "2026-02-25T23:42:54.494163+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07200v1", "last_id": "http://arxiv.org/abs/1804.07186v1"}
+{"ts": "2026-02-25T23:44:06.778033+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.07216v1", "last_id": "http://arxiv.org/abs/1804.07200v1", "error": null}
+{"ts": "2026-02-25T23:44:53.158774+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07217v2", "last_id": "http://arxiv.org/abs/1804.07216v1"}
+{"ts": "2026-02-25T23:45:31.938465+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07222v1", "last_id": "http://arxiv.org/abs/1804.07217v2"}
+{"ts": "2026-02-25T23:46:32.554355+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07229v1", "last_id": "http://arxiv.org/abs/1804.07222v1"}
+{"ts": "2026-02-25T23:48:19.777693+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.07235v2", "last_id": "http://arxiv.org/abs/1804.07229v1", "error": null}
+{"ts": "2026-02-25T23:48:57.362628+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07245v1", "last_id": "http://arxiv.org/abs/1804.07235v2"}
+{"ts": "2026-02-25T23:50:20.247007+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.07255v2", "last_id": "http://arxiv.org/abs/1804.07245v1", "error": null}
+{"ts": "2026-02-25T23:51:24.438554+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.07260v1", "last_id": "http://arxiv.org/abs/1804.07255v2", "error": null}
+{"ts": "2026-02-25T23:52:06.825119+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07261v2", "last_id": "http://arxiv.org/abs/1804.07260v1"}
+{"ts": "2026-02-25T23:53:39.548063+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.07264v2", "last_id": "http://arxiv.org/abs/1804.07261v2", "error": null}
+{"ts": "2026-02-25T23:54:18.867868+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07291v2", "last_id": "http://arxiv.org/abs/1804.07264v2"}
+{"ts": "2026-02-25T23:54:58.044075+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.07292v1", "last_id": "http://arxiv.org/abs/1804.07291v2", "error": null}
+{"ts": "2026-02-25T23:55:29.096666+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07295v2", "last_id": "http://arxiv.org/abs/1804.07292v1"}
+{"ts": "2026-02-25T23:56:44.494816+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07299v1", "last_id": "http://arxiv.org/abs/1804.07295v2"}
+{"ts": "2026-02-25T23:57:34.309217+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07301v2", "last_id": "http://arxiv.org/abs/1804.07299v1"}
+{"ts": "2026-02-25T23:58:22.001427+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07305v2", "last_id": "http://arxiv.org/abs/1804.07301v2"}
+{"ts": "2026-02-25T23:59:02.149630+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07306v1", "last_id": "http://arxiv.org/abs/1804.07305v2"}
+{"ts": "2026-02-25T23:59:38.829687+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07307v1", "last_id": "http://arxiv.org/abs/1804.07306v1"}
+{"ts": "2026-02-26T00:00:24.576433+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07309v1", "last_id": "http://arxiv.org/abs/1804.07307v1"}
+{"ts": "2026-02-26T00:01:43.821815+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07311v1", "last_id": "http://arxiv.org/abs/1804.07309v1"}
+{"ts": "2026-02-26T00:02:25.406961+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07312v2", "last_id": "http://arxiv.org/abs/1804.07311v1"}
+{"ts": "2026-02-26T00:03:05.556691+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07315v3", "last_id": "http://arxiv.org/abs/1804.07312v2"}
+{"ts": "2026-02-26T00:03:25.612122+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07317v1", "last_id": "http://arxiv.org/abs/1804.07315v3"}
+{"ts": "2026-02-26T00:05:00.536042+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07318v2", "last_id": "http://arxiv.org/abs/1804.07317v1"}
+{"ts": "2026-02-26T00:05:41.716779+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07325v2", "last_id": "http://arxiv.org/abs/1804.07318v2"}
+{"ts": "2026-02-26T00:06:26.532394+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07326v1", "last_id": "http://arxiv.org/abs/1804.07325v2"}
+{"ts": "2026-02-26T00:07:11.086641+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.07327v2", "last_id": "http://arxiv.org/abs/1804.07326v1", "error": null}
+{"ts": "2026-02-26T00:07:52.976350+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07336v1", "last_id": "http://arxiv.org/abs/1804.07327v2"}
+{"ts": "2026-02-26T00:08:34.900014+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07337v3", "last_id": "http://arxiv.org/abs/1804.07336v1"}
+{"ts": "2026-02-26T00:09:10.715320+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07339v1", "last_id": "http://arxiv.org/abs/1804.07337v3"}
+{"ts": "2026-02-26T00:09:38.940822+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07340v3", "last_id": "http://arxiv.org/abs/1804.07339v1"}
+{"ts": "2026-02-26T00:10:12.290871+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07341v2", "last_id": "http://arxiv.org/abs/1804.07340v3"}
+{"ts": "2026-02-26T00:11:23.966047+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07343v1", "last_id": "http://arxiv.org/abs/1804.07341v2"}
+{"ts": "2026-02-26T00:12:09.056708+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07357v1", "last_id": "http://arxiv.org/abs/1804.07343v1"}
+{"ts": "2026-02-26T00:13:28.983939+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.07361v2", "last_id": "http://arxiv.org/abs/1804.07357v1", "error": null}
+{"ts": "2026-02-26T00:14:34.736502+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07365v2", "last_id": "http://arxiv.org/abs/1804.07361v2"}
+{"ts": "2026-02-26T00:15:07.902170+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07369v1", "last_id": "http://arxiv.org/abs/1804.07365v2"}
+{"ts": "2026-02-26T00:16:14.852181+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07372v2", "last_id": "http://arxiv.org/abs/1804.07369v1"}
+{"ts": "2026-02-26T00:17:05.668494+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07377v1", "last_id": "http://arxiv.org/abs/1804.07372v2"}
+{"ts": "2026-02-26T00:17:58.857298+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07380v2", "last_id": "http://arxiv.org/abs/1804.07377v1"}
+{"ts": "2026-02-26T00:18:36.572530+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07400v1", "last_id": "http://arxiv.org/abs/1804.07380v2"}
+{"ts": "2026-02-26T00:19:30.489906+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07401v2", "last_id": "http://arxiv.org/abs/1804.07400v1"}
+{"ts": "2026-02-26T00:20:08.404829+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07403v1", "last_id": "http://arxiv.org/abs/1804.07401v2"}
+{"ts": "2026-02-26T00:21:03.170299+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07441v1", "last_id": "http://arxiv.org/abs/1804.07403v1"}
+{"ts": "2026-02-26T00:22:07.446803+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.07460v3", "last_id": "http://arxiv.org/abs/1804.07441v1", "error": null}
+{"ts": "2026-02-26T00:22:52.927226+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07471v1", "last_id": "http://arxiv.org/abs/1804.07460v3"}
+{"ts": "2026-02-26T00:23:32.763410+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07482v1", "last_id": "http://arxiv.org/abs/1804.07471v1"}
+{"ts": "2026-02-26T00:25:01.041830+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07486v1", "last_id": "http://arxiv.org/abs/1804.07482v1"}
+{"ts": "2026-02-26T00:25:42.772382+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07495v1", "last_id": "http://arxiv.org/abs/1804.07486v1"}
+{"ts": "2026-02-26T00:26:34.123615+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.07501v2", "last_id": "http://arxiv.org/abs/1804.07495v1", "error": null}
+{"ts": "2026-02-26T00:27:40.736934+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.07503v1", "last_id": "http://arxiv.org/abs/1804.07501v2", "error": null}
+{"ts": "2026-02-26T00:28:48.905301+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.07513v1", "last_id": "http://arxiv.org/abs/1804.07503v1", "error": null}
+{"ts": "2026-02-26T00:29:59.408708+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07515v1", "last_id": "http://arxiv.org/abs/1804.07513v1"}
+{"ts": "2026-02-26T00:30:45.444333+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07516v2", "last_id": "http://arxiv.org/abs/1804.07515v1"}
+{"ts": "2026-02-26T00:31:19.937370+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07528v2", "last_id": "http://arxiv.org/abs/1804.07516v2"}
+{"ts": "2026-02-26T00:32:05.183264+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07530v2", "last_id": "http://arxiv.org/abs/1804.07528v2"}
+{"ts": "2026-02-26T00:32:40.468488+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07535v1", "last_id": "http://arxiv.org/abs/1804.07530v2"}
+{"ts": "2026-02-26T00:33:38.478804+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.07537v2", "last_id": "http://arxiv.org/abs/1804.07535v1", "error": null}
+{"ts": "2026-02-26T00:34:35.152051+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07541v1", "last_id": "http://arxiv.org/abs/1804.07537v2"}
+{"ts": "2026-02-26T00:34:54.370460+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07542v4", "last_id": "http://arxiv.org/abs/1804.07541v1"}
+{"ts": "2026-02-26T00:35:34.811599+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07590v1", "last_id": "http://arxiv.org/abs/1804.07542v4"}
+{"ts": "2026-02-26T00:36:02.155305+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07592v1", "last_id": "http://arxiv.org/abs/1804.07590v1"}
+{"ts": "2026-02-26T00:37:03.283359+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.07594v1", "last_id": "http://arxiv.org/abs/1804.07592v1", "error": null}
+{"ts": "2026-02-26T00:37:50.323837+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07629v1", "last_id": "http://arxiv.org/abs/1804.07594v1"}
+{"ts": "2026-02-26T00:38:47.620813+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.07637v2", "last_id": "http://arxiv.org/abs/1804.07629v1", "error": null}
+{"ts": "2026-02-26T00:39:58.247012+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07674v1", "last_id": "http://arxiv.org/abs/1804.07637v2"}
+{"ts": "2026-02-26T00:40:33.437794+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07676v1", "last_id": "http://arxiv.org/abs/1804.07674v1"}
+{"ts": "2026-02-26T00:41:09.521721+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07692v1", "last_id": "http://arxiv.org/abs/1804.07676v1"}
+{"ts": "2026-02-26T00:41:26.984079+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07700v1", "last_id": "http://arxiv.org/abs/1804.07692v1"}
+{"ts": "2026-02-26T00:42:29.423701+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07704v4", "last_id": "http://arxiv.org/abs/1804.07700v1"}
+{"ts": "2026-02-26T00:43:15.070892+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07713v2", "last_id": "http://arxiv.org/abs/1804.07704v4"}
+{"ts": "2026-02-26T00:44:05.389887+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07727v1", "last_id": "http://arxiv.org/abs/1804.07713v2"}
+{"ts": "2026-02-26T00:45:47.147607+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07730v1", "last_id": "http://arxiv.org/abs/1804.07727v1"}
+{"ts": "2026-02-26T00:46:26.330874+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07731v1", "last_id": "http://arxiv.org/abs/1804.07730v1"}
+{"ts": "2026-02-26T00:47:51.943749+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.07732v3", "last_id": "http://arxiv.org/abs/1804.07731v1", "error": null}
+{"ts": "2026-02-26T00:48:38.459985+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07741v2", "last_id": "http://arxiv.org/abs/1804.07732v3"}
+{"ts": "2026-02-26T00:49:04.547066+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07760v2", "last_id": "http://arxiv.org/abs/1804.07741v2"}
+{"ts": "2026-02-26T00:50:11.742134+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.07761v2", "last_id": "http://arxiv.org/abs/1804.07760v2", "error": null}
+{"ts": "2026-02-26T00:50:37.669545+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07762v1", "last_id": "http://arxiv.org/abs/1804.07761v2"}
+{"ts": "2026-02-26T00:51:25.106755+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07763v1", "last_id": "http://arxiv.org/abs/1804.07762v1"}
+{"ts": "2026-02-26T00:52:37.196229+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07764v1", "last_id": "http://arxiv.org/abs/1804.07763v1"}
+{"ts": "2026-02-26T00:53:24.371383+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07765v2", "last_id": "http://arxiv.org/abs/1804.07764v1"}
+{"ts": "2026-02-26T00:54:25.535473+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.07766v1", "last_id": "http://arxiv.org/abs/1804.07765v2", "error": null}
+{"ts": "2026-02-26T00:55:10.976849+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07767v2", "last_id": "http://arxiv.org/abs/1804.07766v1"}
+{"ts": "2026-02-26T00:56:32.576239+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07769v1", "last_id": "http://arxiv.org/abs/1804.07767v2"}
+{"ts": "2026-02-26T00:57:11.510624+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07770v2", "last_id": "http://arxiv.org/abs/1804.07769v1"}
+{"ts": "2026-02-26T00:57:57.838407+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07771v1", "last_id": "http://arxiv.org/abs/1804.07770v2"}
+{"ts": "2026-02-26T00:58:42.220326+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07772v2", "last_id": "http://arxiv.org/abs/1804.07771v1"}
+{"ts": "2026-02-26T00:59:24.019551+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07774v1", "last_id": "http://arxiv.org/abs/1804.07772v2"}
+{"ts": "2026-02-26T00:59:46.488901+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07785v1", "last_id": "http://arxiv.org/abs/1804.07774v1"}
+{"ts": "2026-02-26T01:01:00.409270+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.07788v1", "last_id": "http://arxiv.org/abs/1804.07785v1", "error": null}
+{"ts": "2026-02-26T01:02:07.939359+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07791v1", "last_id": "http://arxiv.org/abs/1804.07788v1"}
+{"ts": "2026-02-26T01:02:51.523539+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07798v2", "last_id": "http://arxiv.org/abs/1804.07791v1"}
+{"ts": "2026-02-26T01:04:08.364260+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.07825v1", "last_id": "http://arxiv.org/abs/1804.07798v2", "error": null}
+{"ts": "2026-02-26T01:04:25.556519+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07845v1", "last_id": "http://arxiv.org/abs/1804.07825v1"}
+{"ts": "2026-02-26T01:05:06.052503+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07866v2", "last_id": "http://arxiv.org/abs/1804.07845v1"}
+{"ts": "2026-02-26T01:05:50.279768+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07914v1", "last_id": "http://arxiv.org/abs/1804.07866v2"}
+{"ts": "2026-02-26T01:06:15.986426+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07916v2", "last_id": "http://arxiv.org/abs/1804.07914v1"}
+{"ts": "2026-02-26T01:06:59.276727+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07932v1", "last_id": "http://arxiv.org/abs/1804.07916v2"}
+{"ts": "2026-02-26T01:08:01.752859+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07934v3", "last_id": "http://arxiv.org/abs/1804.07932v1"}
+{"ts": "2026-02-26T01:08:43.316807+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07943v1", "last_id": "http://arxiv.org/abs/1804.07934v3"}
+{"ts": "2026-02-26T01:09:32.243305+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07947v1", "last_id": "http://arxiv.org/abs/1804.07943v1"}
+{"ts": "2026-02-26T01:10:19.197320+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07953v2", "last_id": "http://arxiv.org/abs/1804.07947v1"}
+{"ts": "2026-02-26T01:10:36.794343+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07955v2", "last_id": "http://arxiv.org/abs/1804.07953v2"}
+{"ts": "2026-02-26T01:11:14.911062+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07962v1", "last_id": "http://arxiv.org/abs/1804.07955v2"}
+{"ts": "2026-02-26T01:12:20.225267+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07964v1", "last_id": "http://arxiv.org/abs/1804.07962v1"}
+{"ts": "2026-02-26T01:13:52.462883+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07967v2", "last_id": "http://arxiv.org/abs/1804.07964v1"}
+{"ts": "2026-02-26T01:14:36.905802+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07968v1", "last_id": "http://arxiv.org/abs/1804.07967v2"}
+{"ts": "2026-02-26T01:14:55.150709+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.07993v3", "last_id": "http://arxiv.org/abs/1804.07968v1"}
+{"ts": "2026-02-26T01:15:12.410089+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08026v3", "last_id": "http://arxiv.org/abs/1804.07993v3"}
+{"ts": "2026-02-26T01:15:55.082521+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08030v3", "last_id": "http://arxiv.org/abs/1804.08026v3"}
+{"ts": "2026-02-26T01:16:36.774338+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08035v3", "last_id": "http://arxiv.org/abs/1804.08030v3"}
+{"ts": "2026-02-26T01:17:50.103456+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.08061v2", "last_id": "http://arxiv.org/abs/1804.08035v3", "error": null}
+{"ts": "2026-02-26T01:18:29.924749+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.08075v2", "last_id": "http://arxiv.org/abs/1804.08061v2", "error": null}
+{"ts": "2026-02-26T01:19:45.810154+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08079v1", "last_id": "http://arxiv.org/abs/1804.08075v2"}
+{"ts": "2026-02-26T01:20:33.481855+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08098v1", "last_id": "http://arxiv.org/abs/1804.08079v1"}
+{"ts": "2026-02-26T01:21:04.992555+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08143v3", "last_id": "http://arxiv.org/abs/1804.08098v1"}
+{"ts": "2026-02-26T01:21:48.232732+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08146v1", "last_id": "http://arxiv.org/abs/1804.08143v3"}
+{"ts": "2026-02-26T01:22:21.635370+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08149v1", "last_id": "http://arxiv.org/abs/1804.08146v1"}
+{"ts": "2026-02-26T01:22:39.936470+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08195v2", "last_id": "http://arxiv.org/abs/1804.08149v1"}
+{"ts": "2026-02-26T01:23:22.425100+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08200v2", "last_id": "http://arxiv.org/abs/1804.08195v2"}
+{"ts": "2026-02-26T01:24:32.764417+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.08225v1", "last_id": "http://arxiv.org/abs/1804.08200v2", "error": null}
+{"ts": "2026-02-26T01:25:20.017960+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08245v1", "last_id": "http://arxiv.org/abs/1804.08225v1"}
+{"ts": "2026-02-26T01:25:54.465456+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08249v3", "last_id": "http://arxiv.org/abs/1804.08245v1"}
+{"ts": "2026-02-26T01:27:07.975801+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.08255v1", "last_id": "http://arxiv.org/abs/1804.08249v3", "error": null}
+{"ts": "2026-02-26T01:27:47.951635+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08277v1", "last_id": "http://arxiv.org/abs/1804.08255v1"}
+{"ts": "2026-02-26T01:28:32.229313+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08304v1", "last_id": "http://arxiv.org/abs/1804.08277v1"}
+{"ts": "2026-02-26T01:29:27.389951+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.08310v2", "last_id": "http://arxiv.org/abs/1804.08304v1", "error": null}
+{"ts": "2026-02-26T01:30:13.565674+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08321v2", "last_id": "http://arxiv.org/abs/1804.08310v2"}
+{"ts": "2026-02-26T01:31:04.634440+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08322v1", "last_id": "http://arxiv.org/abs/1804.08321v2"}
+{"ts": "2026-02-26T01:31:21.396173+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08324v1", "last_id": "http://arxiv.org/abs/1804.08322v1"}
+{"ts": "2026-02-26T01:32:15.242911+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08329v1", "last_id": "http://arxiv.org/abs/1804.08324v1"}
+{"ts": "2026-02-26T01:32:56.694436+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08332v1", "last_id": "http://arxiv.org/abs/1804.08329v1"}
+{"ts": "2026-02-26T01:33:30.154888+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08340v1", "last_id": "http://arxiv.org/abs/1804.08332v1"}
+{"ts": "2026-02-26T01:34:43.712884+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.08344v1", "last_id": "http://arxiv.org/abs/1804.08340v1", "error": null}
+{"ts": "2026-02-26T01:35:37.765018+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08351v2", "last_id": "http://arxiv.org/abs/1804.08344v1"}
+{"ts": "2026-02-26T01:36:17.380553+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08354v1", "last_id": "http://arxiv.org/abs/1804.08351v2"}
+{"ts": "2026-02-26T01:36:57.518459+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08357v1", "last_id": "http://arxiv.org/abs/1804.08354v1"}
+{"ts": "2026-02-26T01:37:34.082853+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08359v2", "last_id": "http://arxiv.org/abs/1804.08357v1"}
+{"ts": "2026-02-26T01:38:10.054457+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08360v1", "last_id": "http://arxiv.org/abs/1804.08359v2"}
+{"ts": "2026-02-26T01:38:27.089240+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08368v1", "last_id": "http://arxiv.org/abs/1804.08360v1"}
+{"ts": "2026-02-26T01:39:18.918998+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08371v1", "last_id": "http://arxiv.org/abs/1804.08368v1"}
+{"ts": "2026-02-26T01:39:45.818728+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08379v3", "last_id": "http://arxiv.org/abs/1804.08371v1"}
+{"ts": "2026-02-26T01:40:24.677044+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08390v2", "last_id": "http://arxiv.org/abs/1804.08379v3"}
+{"ts": "2026-02-26T01:41:02.123279+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08402v2", "last_id": "http://arxiv.org/abs/1804.08390v2"}
+{"ts": "2026-02-26T01:41:58.459680+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.08406v1", "last_id": "http://arxiv.org/abs/1804.08402v2", "error": null}
+{"ts": "2026-02-26T01:43:17.353118+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.08431v1", "last_id": "http://arxiv.org/abs/1804.08406v1", "error": null}
+{"ts": "2026-02-26T01:43:50.822563+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.08435v1", "last_id": "http://arxiv.org/abs/1804.08431v1", "error": null}
+{"ts": "2026-02-26T01:44:27.860527+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08437v4", "last_id": "http://arxiv.org/abs/1804.08435v1"}
+{"ts": "2026-02-26T01:45:37.924776+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.08455v3", "last_id": "http://arxiv.org/abs/1804.08437v4", "error": null}
+{"ts": "2026-02-26T01:46:10.916042+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08476v2", "last_id": "http://arxiv.org/abs/1804.08455v3"}
+{"ts": "2026-02-26T01:46:53.900043+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08499v1", "last_id": "http://arxiv.org/abs/1804.08476v2"}
+{"ts": "2026-02-26T01:47:42.167670+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08532v3", "last_id": "http://arxiv.org/abs/1804.08499v1"}
+{"ts": "2026-02-26T01:48:56.086959+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08549v3", "last_id": "http://arxiv.org/abs/1804.08532v3"}
+{"ts": "2026-02-26T01:49:32.358412+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.08558v3", "last_id": "http://arxiv.org/abs/1804.08549v3", "error": null}
+{"ts": "2026-02-26T01:50:22.593541+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.08565v1", "last_id": "http://arxiv.org/abs/1804.08558v3", "error": null}
+{"ts": "2026-02-26T01:51:16.592701+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.08574v2", "last_id": "http://arxiv.org/abs/1804.08565v1", "error": null}
+{"ts": "2026-02-26T01:51:35.218237+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08577v2", "last_id": "http://arxiv.org/abs/1804.08574v2"}
+{"ts": "2026-02-26T01:52:13.054567+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.08578v1", "last_id": "http://arxiv.org/abs/1804.08577v2", "error": null}
+{"ts": "2026-02-26T01:52:55.488282+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08581v1", "last_id": "http://arxiv.org/abs/1804.08578v1"}
+{"ts": "2026-02-26T01:53:55.456327+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.08583v4", "last_id": "http://arxiv.org/abs/1804.08581v1", "error": null}
+{"ts": "2026-02-26T01:54:17.193811+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08590v2", "last_id": "http://arxiv.org/abs/1804.08583v4"}
+{"ts": "2026-02-26T01:55:31.956888+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08600v1", "last_id": "http://arxiv.org/abs/1804.08590v2"}
+{"ts": "2026-02-26T01:56:09.116897+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08601v4", "last_id": "http://arxiv.org/abs/1804.08600v1"}
+{"ts": "2026-02-26T01:56:43.557498+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.08614v1", "last_id": "http://arxiv.org/abs/1804.08601v4", "error": null}
+{"ts": "2026-02-26T01:57:19.338862+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08618v1", "last_id": "http://arxiv.org/abs/1804.08614v1"}
+{"ts": "2026-02-26T01:58:23.997893+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.08622v3", "last_id": "http://arxiv.org/abs/1804.08618v1", "error": null}
+{"ts": "2026-02-26T01:58:55.892736+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08624v1", "last_id": "http://arxiv.org/abs/1804.08622v3"}
+{"ts": "2026-02-26T02:00:08.507908+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08627v2", "last_id": "http://arxiv.org/abs/1804.08624v1"}
+{"ts": "2026-02-26T02:01:24.800309+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.08631v1", "last_id": "http://arxiv.org/abs/1804.08627v2", "error": null}
+{"ts": "2026-02-26T02:01:44.385666+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08632v2", "last_id": "http://arxiv.org/abs/1804.08631v1"}
+{"ts": "2026-02-26T02:02:17.672019+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08633v3", "last_id": "http://arxiv.org/abs/1804.08632v2"}
+{"ts": "2026-02-26T02:03:57.276560+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.08636v1", "last_id": "http://arxiv.org/abs/1804.08633v3", "error": null}
+{"ts": "2026-02-26T02:04:52.719889+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08639v2", "last_id": "http://arxiv.org/abs/1804.08636v1"}
+{"ts": "2026-02-26T02:05:47.207317+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08652v2", "last_id": "http://arxiv.org/abs/1804.08639v2"}
+{"ts": "2026-02-26T02:06:48.631824+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.08657v2", "last_id": "http://arxiv.org/abs/1804.08652v2", "error": null}
+{"ts": "2026-02-26T02:07:37.955163+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08678v1", "last_id": "http://arxiv.org/abs/1804.08657v2"}
+{"ts": "2026-02-26T02:08:24.648917+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.08716v2", "last_id": "http://arxiv.org/abs/1804.08678v1", "error": null}
+{"ts": "2026-02-26T02:09:01.244487+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08720v1", "last_id": "http://arxiv.org/abs/1804.08716v2"}
+{"ts": "2026-02-26T02:09:19.254392+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08735v1", "last_id": "http://arxiv.org/abs/1804.08720v1"}
+{"ts": "2026-02-26T02:09:59.327360+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08770v1", "last_id": "http://arxiv.org/abs/1804.08735v1"}
+{"ts": "2026-02-26T02:10:47.184187+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08781v1", "last_id": "http://arxiv.org/abs/1804.08770v1"}
+{"ts": "2026-02-26T02:11:27.830978+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08784v2", "last_id": "http://arxiv.org/abs/1804.08781v1"}
+{"ts": "2026-02-26T02:12:14.536630+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08797v2", "last_id": "http://arxiv.org/abs/1804.08784v2"}
+{"ts": "2026-02-26T02:13:03.910875+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08801v2", "last_id": "http://arxiv.org/abs/1804.08797v2"}
+{"ts": "2026-02-26T02:13:50.669553+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08812v1", "last_id": "http://arxiv.org/abs/1804.08801v2"}
+{"ts": "2026-02-26T02:14:09.998302+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08818v1", "last_id": "http://arxiv.org/abs/1804.08812v1"}
+{"ts": "2026-02-26T02:14:59.590597+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08821v2", "last_id": "http://arxiv.org/abs/1804.08818v1"}
+{"ts": "2026-02-26T02:15:31.791650+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08840v1", "last_id": "http://arxiv.org/abs/1804.08821v2"}
+{"ts": "2026-02-26T02:16:19.835518+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08842v1", "last_id": "http://arxiv.org/abs/1804.08840v1"}
+{"ts": "2026-02-26T02:16:46.789566+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08843v2", "last_id": "http://arxiv.org/abs/1804.08842v1"}
+{"ts": "2026-02-26T02:17:23.451671+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08858v1", "last_id": "http://arxiv.org/abs/1804.08843v2"}
+{"ts": "2026-02-26T02:18:03.368886+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08869v1", "last_id": "http://arxiv.org/abs/1804.08858v1"}
+{"ts": "2026-02-26T02:19:14.074657+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.08874v1", "last_id": "http://arxiv.org/abs/1804.08869v1", "error": null}
+{"ts": "2026-02-26T02:20:02.395812+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08877v2", "last_id": "http://arxiv.org/abs/1804.08874v1"}
+{"ts": "2026-02-26T02:21:00.807364+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.08889v2", "last_id": "http://arxiv.org/abs/1804.08877v2", "error": null}
+{"ts": "2026-02-26T02:21:31.225334+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.08907v1", "last_id": "http://arxiv.org/abs/1804.08889v2", "error": null}
+{"ts": "2026-02-26T02:22:39.401216+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08932v2", "last_id": "http://arxiv.org/abs/1804.08907v1"}
+{"ts": "2026-02-26T02:23:23.487606+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08935v2", "last_id": "http://arxiv.org/abs/1804.08932v2"}
+{"ts": "2026-02-26T02:24:04.750833+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08950v1", "last_id": "http://arxiv.org/abs/1804.08935v2"}
+{"ts": "2026-02-26T02:25:12.308816+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08971v1", "last_id": "http://arxiv.org/abs/1804.08950v1"}
+{"ts": "2026-02-26T02:26:00.721539+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08975v2", "last_id": "http://arxiv.org/abs/1804.08971v1"}
+{"ts": "2026-02-26T02:26:16.344072+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08979v2", "last_id": "http://arxiv.org/abs/1804.08975v2"}
+{"ts": "2026-02-26T02:26:46.337630+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.08988v1", "last_id": "http://arxiv.org/abs/1804.08979v2"}
+{"ts": "2026-02-26T02:27:54.465580+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.08989v1", "last_id": "http://arxiv.org/abs/1804.08988v1", "error": null}
+{"ts": "2026-02-26T02:28:32.718899+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09054v1", "last_id": "http://arxiv.org/abs/1804.08989v1"}
+{"ts": "2026-02-26T02:28:53.980637+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09058v2", "last_id": "http://arxiv.org/abs/1804.09054v1"}
+{"ts": "2026-02-26T02:29:12.792186+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09059v1", "last_id": "http://arxiv.org/abs/1804.09058v2"}
+{"ts": "2026-02-26T02:29:48.206606+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09064v2", "last_id": "http://arxiv.org/abs/1804.09059v1"}
+{"ts": "2026-02-26T02:30:07.636433+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09071v1", "last_id": "http://arxiv.org/abs/1804.09064v2"}
+{"ts": "2026-02-26T02:31:28.387948+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09075v1", "last_id": "http://arxiv.org/abs/1804.09071v1"}
+{"ts": "2026-02-26T02:32:08.228856+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09079v3", "last_id": "http://arxiv.org/abs/1804.09075v1"}
+{"ts": "2026-02-26T02:32:51.260964+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09082v3", "last_id": "http://arxiv.org/abs/1804.09079v3"}
+{"ts": "2026-02-26T02:33:33.615027+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09085v1", "last_id": "http://arxiv.org/abs/1804.09082v3"}
+{"ts": "2026-02-26T02:34:17.649527+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09087v1", "last_id": "http://arxiv.org/abs/1804.09085v1"}
+{"ts": "2026-02-26T02:35:12.801504+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.09092v3", "last_id": "http://arxiv.org/abs/1804.09087v1", "error": null}
+{"ts": "2026-02-26T02:36:15.493874+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.09128v1", "last_id": "http://arxiv.org/abs/1804.09092v3", "error": null}
+{"ts": "2026-02-26T02:36:48.991390+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09140v1", "last_id": "http://arxiv.org/abs/1804.09128v1"}
+{"ts": "2026-02-26T02:38:01.942962+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09159v1", "last_id": "http://arxiv.org/abs/1804.09140v1"}
+{"ts": "2026-02-26T02:39:07.608443+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.09164v2", "last_id": "http://arxiv.org/abs/1804.09159v1", "error": null}
+{"ts": "2026-02-26T02:40:19.980287+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09175v2", "last_id": "http://arxiv.org/abs/1804.09164v2"}
+{"ts": "2026-02-26T02:41:22.854065+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09178v2", "last_id": "http://arxiv.org/abs/1804.09175v2"}
+{"ts": "2026-02-26T02:42:13.900998+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09180v1", "last_id": "http://arxiv.org/abs/1804.09178v2"}
+{"ts": "2026-02-26T02:42:53.562763+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09181v1", "last_id": "http://arxiv.org/abs/1804.09180v1"}
+{"ts": "2026-02-26T02:44:00.388232+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09183v1", "last_id": "http://arxiv.org/abs/1804.09181v1"}
+{"ts": "2026-02-26T02:44:46.348554+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09186v1", "last_id": "http://arxiv.org/abs/1804.09183v1"}
+{"ts": "2026-02-26T02:46:02.242095+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.09187v1", "last_id": "http://arxiv.org/abs/1804.09186v1", "error": null}
+{"ts": "2026-02-26T02:47:26.316824+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09189v1", "last_id": "http://arxiv.org/abs/1804.09187v1"}
+{"ts": "2026-02-26T02:48:06.782636+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09190v2", "last_id": "http://arxiv.org/abs/1804.09189v1"}
+{"ts": "2026-02-26T02:48:50.586676+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09199v1", "last_id": "http://arxiv.org/abs/1804.09190v2"}
+{"ts": "2026-02-26T02:49:58.800370+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.09204v1", "last_id": "http://arxiv.org/abs/1804.09199v1", "error": null}
+{"ts": "2026-02-26T02:51:07.647994+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.09206v2", "last_id": "http://arxiv.org/abs/1804.09204v1", "error": null}
+{"ts": "2026-02-26T02:51:53.474882+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09210v1", "last_id": "http://arxiv.org/abs/1804.09206v2"}
+{"ts": "2026-02-26T02:52:12.893718+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09225v1", "last_id": "http://arxiv.org/abs/1804.09210v1"}
+{"ts": "2026-02-26T02:53:04.183552+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09231v1", "last_id": "http://arxiv.org/abs/1804.09225v1"}
+{"ts": "2026-02-26T02:53:41.870150+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09239v1", "last_id": "http://arxiv.org/abs/1804.09231v1"}
+{"ts": "2026-02-26T02:54:34.839736+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09283v1", "last_id": "http://arxiv.org/abs/1804.09239v1"}
+{"ts": "2026-02-26T02:55:16.112877+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09289v1", "last_id": "http://arxiv.org/abs/1804.09283v1"}
+{"ts": "2026-02-26T02:55:55.828963+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09294v1", "last_id": "http://arxiv.org/abs/1804.09289v1"}
+{"ts": "2026-02-26T02:57:08.967158+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09296v1", "last_id": "http://arxiv.org/abs/1804.09294v1"}
+{"ts": "2026-02-26T02:57:28.447885+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09309v2", "last_id": "http://arxiv.org/abs/1804.09296v1"}
+{"ts": "2026-02-26T02:57:47.673360+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09313v1", "last_id": "http://arxiv.org/abs/1804.09309v2"}
+{"ts": "2026-02-26T02:59:00.375385+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.09333v1", "last_id": "http://arxiv.org/abs/1804.09313v1", "error": null}
+{"ts": "2026-02-26T02:59:37.414704+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09345v2", "last_id": "http://arxiv.org/abs/1804.09333v1"}
+{"ts": "2026-02-26T03:00:15.660581+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09350v3", "last_id": "http://arxiv.org/abs/1804.09345v2"}
+{"ts": "2026-02-26T03:01:23.020358+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09358v2", "last_id": "http://arxiv.org/abs/1804.09350v3"}
+{"ts": "2026-02-26T03:02:07.496136+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09365v2", "last_id": "http://arxiv.org/abs/1804.09358v2"}
+{"ts": "2026-02-26T03:03:22.543195+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09366v1", "last_id": "http://arxiv.org/abs/1804.09365v2"}
+{"ts": "2026-02-26T03:04:04.249925+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09367v1", "last_id": "http://arxiv.org/abs/1804.09366v1"}
+{"ts": "2026-02-26T03:05:03.242510+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.09368v3", "last_id": "http://arxiv.org/abs/1804.09367v1", "error": null}
+{"ts": "2026-02-26T03:05:37.157789+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09369v1", "last_id": "http://arxiv.org/abs/1804.09368v3"}
+{"ts": "2026-02-26T03:06:19.270830+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09370v1", "last_id": "http://arxiv.org/abs/1804.09369v1"}
+{"ts": "2026-02-26T03:06:57.109972+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09371v1", "last_id": "http://arxiv.org/abs/1804.09370v1"}
+{"ts": "2026-02-26T03:07:50.792958+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09372v1", "last_id": "http://arxiv.org/abs/1804.09371v1"}
+{"ts": "2026-02-26T03:08:32.648296+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09373v8", "last_id": "http://arxiv.org/abs/1804.09372v1"}
+{"ts": "2026-02-26T03:10:01.038557+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.09374v1", "last_id": "http://arxiv.org/abs/1804.09373v8", "error": null}
+{"ts": "2026-02-26T03:10:32.188400+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09375v1", "last_id": "http://arxiv.org/abs/1804.09374v1"}
+{"ts": "2026-02-26T03:11:03.573231+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09376v2", "last_id": "http://arxiv.org/abs/1804.09375v1"}
+{"ts": "2026-02-26T03:12:13.811765+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09377v1", "last_id": "http://arxiv.org/abs/1804.09376v2"}
+{"ts": "2026-02-26T03:12:54.531489+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09378v2", "last_id": "http://arxiv.org/abs/1804.09377v1"}
+{"ts": "2026-02-26T03:14:03.756873+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.09379v1", "last_id": "http://arxiv.org/abs/1804.09378v2", "error": null}
+{"ts": "2026-02-26T03:14:40.657108+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09380v1", "last_id": "http://arxiv.org/abs/1804.09379v1"}
+{"ts": "2026-02-26T03:15:33.561360+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09381v3", "last_id": "http://arxiv.org/abs/1804.09380v1"}
+{"ts": "2026-02-26T03:16:22.188272+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09382v2", "last_id": "http://arxiv.org/abs/1804.09381v3"}
+{"ts": "2026-02-26T03:17:21.836730+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09390v2", "last_id": "http://arxiv.org/abs/1804.09382v2"}
+{"ts": "2026-02-26T03:17:54.166687+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09406v1", "last_id": "http://arxiv.org/abs/1804.09390v2"}
+{"ts": "2026-02-26T03:18:14.201289+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09413v1", "last_id": "http://arxiv.org/abs/1804.09406v1"}
+{"ts": "2026-02-26T03:19:03.706764+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09435v1", "last_id": "http://arxiv.org/abs/1804.09413v1"}
+{"ts": "2026-02-26T03:19:46.401868+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09443v3", "last_id": "http://arxiv.org/abs/1804.09435v1"}
+{"ts": "2026-02-26T03:20:33.994823+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09445v2", "last_id": "http://arxiv.org/abs/1804.09443v3"}
+{"ts": "2026-02-26T03:21:18.766060+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09475v1", "last_id": "http://arxiv.org/abs/1804.09445v2"}
+{"ts": "2026-02-26T03:22:00.352363+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09549v1", "last_id": "http://arxiv.org/abs/1804.09475v1"}
+{"ts": "2026-02-26T03:23:02.281363+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09573v1", "last_id": "http://arxiv.org/abs/1804.09549v1"}
+{"ts": "2026-02-26T03:24:07.857777+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.09575v2", "last_id": "http://arxiv.org/abs/1804.09573v1", "error": null}
+{"ts": "2026-02-26T03:24:54.321904+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09579v2", "last_id": "http://arxiv.org/abs/1804.09575v2"}
+{"ts": "2026-02-26T03:25:39.262271+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09581v4", "last_id": "http://arxiv.org/abs/1804.09579v2"}
+{"ts": "2026-02-26T03:26:21.661346+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09591v1", "last_id": "http://arxiv.org/abs/1804.09581v4"}
+{"ts": "2026-02-26T03:27:06.276972+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09596v2", "last_id": "http://arxiv.org/abs/1804.09591v1"}
+{"ts": "2026-02-26T03:28:01.745105+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09625v1", "last_id": "http://arxiv.org/abs/1804.09596v2"}
+{"ts": "2026-02-26T03:28:45.068388+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09647v2", "last_id": "http://arxiv.org/abs/1804.09625v1"}
+{"ts": "2026-02-26T03:29:30.806303+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09652v1", "last_id": "http://arxiv.org/abs/1804.09647v2"}
+{"ts": "2026-02-26T03:30:16.313886+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09654v2", "last_id": "http://arxiv.org/abs/1804.09652v1"}
+{"ts": "2026-02-26T03:31:13.085280+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09656v1", "last_id": "http://arxiv.org/abs/1804.09654v2"}
+{"ts": "2026-02-26T03:31:59.663754+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09659v3", "last_id": "http://arxiv.org/abs/1804.09656v1"}
+{"ts": "2026-02-26T03:33:17.237652+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.09660v2", "last_id": "http://arxiv.org/abs/1804.09659v3", "error": null}
+{"ts": "2026-02-26T03:34:18.175558+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.09665v1", "last_id": "http://arxiv.org/abs/1804.09660v2", "error": null}
+{"ts": "2026-02-26T03:35:28.169775+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.09677v2", "last_id": "http://arxiv.org/abs/1804.09665v1", "error": null}
+{"ts": "2026-02-26T03:36:36.991509+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09678v1", "last_id": "http://arxiv.org/abs/1804.09677v2"}
+{"ts": "2026-02-26T03:37:09.842135+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09679v1", "last_id": "http://arxiv.org/abs/1804.09678v1"}
+{"ts": "2026-02-26T03:37:51.650811+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09687v2", "last_id": "http://arxiv.org/abs/1804.09679v1"}
+{"ts": "2026-02-26T03:38:58.995295+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09695v1", "last_id": "http://arxiv.org/abs/1804.09687v2"}
+{"ts": "2026-02-26T03:40:09.119980+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.09715v1", "last_id": "http://arxiv.org/abs/1804.09695v1", "error": null}
+{"ts": "2026-02-26T03:40:47.580450+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09716v4", "last_id": "http://arxiv.org/abs/1804.09715v1"}
+{"ts": "2026-02-26T03:41:24.242063+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09721v1", "last_id": "http://arxiv.org/abs/1804.09716v4"}
+{"ts": "2026-02-26T03:41:59.064495+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09724v1", "last_id": "http://arxiv.org/abs/1804.09721v1"}
+{"ts": "2026-02-26T03:42:14.669985+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09731v3", "last_id": "http://arxiv.org/abs/1804.09724v1"}
+{"ts": "2026-02-26T03:42:48.940843+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09748v1", "last_id": "http://arxiv.org/abs/1804.09731v3"}
+{"ts": "2026-02-26T03:43:49.570984+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09755v1", "last_id": "http://arxiv.org/abs/1804.09748v1"}
+{"ts": "2026-02-26T03:45:52.267185+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09761v2", "last_id": "http://arxiv.org/abs/1804.09755v1"}
+{"ts": "2026-02-26T03:46:58.805965+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.09814v1", "last_id": "http://arxiv.org/abs/1804.09761v2", "error": null}
+{"ts": "2026-02-26T03:48:05.723366+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09819v2", "last_id": "http://arxiv.org/abs/1804.09814v1"}
+{"ts": "2026-02-26T03:48:51.311070+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09823v1", "last_id": "http://arxiv.org/abs/1804.09819v2"}
+{"ts": "2026-02-26T03:49:32.839170+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09824v1", "last_id": "http://arxiv.org/abs/1804.09823v1"}
+{"ts": "2026-02-26T03:49:52.880113+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09830v1", "last_id": "http://arxiv.org/abs/1804.09824v1"}
+{"ts": "2026-02-26T03:50:42.727118+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09852v1", "last_id": "http://arxiv.org/abs/1804.09830v1"}
+{"ts": "2026-02-26T03:51:38.858461+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09861v2", "last_id": "http://arxiv.org/abs/1804.09852v1"}
+{"ts": "2026-02-26T03:52:40.180167+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09871v2", "last_id": "http://arxiv.org/abs/1804.09861v2"}
+{"ts": "2026-02-26T03:53:48.762040+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09886v1", "last_id": "http://arxiv.org/abs/1804.09871v2"}
+{"ts": "2026-02-26T03:54:42.802533+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09894v3", "last_id": "http://arxiv.org/abs/1804.09886v1"}
+{"ts": "2026-02-26T03:56:55.691237+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.09899v2", "last_id": "http://arxiv.org/abs/1804.09894v3", "error": null}
+{"ts": "2026-02-26T03:57:58.605153+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09906v2", "last_id": "http://arxiv.org/abs/1804.09899v2"}
+{"ts": "2026-02-26T03:58:24.434371+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09910v1", "last_id": "http://arxiv.org/abs/1804.09906v2"}
+{"ts": "2026-02-26T03:59:54.327308+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09913v1", "last_id": "http://arxiv.org/abs/1804.09910v1"}
+{"ts": "2026-02-26T04:00:21.410345+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09917v1", "last_id": "http://arxiv.org/abs/1804.09913v1"}
+{"ts": "2026-02-26T04:01:32.036267+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09954v2", "last_id": "http://arxiv.org/abs/1804.09917v1"}
+{"ts": "2026-02-26T04:03:04.831448+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09958v1", "last_id": "http://arxiv.org/abs/1804.09954v2"}
+{"ts": "2026-02-26T04:04:08.358383+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.09960v1", "last_id": "http://arxiv.org/abs/1804.09958v1", "error": null}
+{"ts": "2026-02-26T04:05:16.464143+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09969v1", "last_id": "http://arxiv.org/abs/1804.09960v1"}
+{"ts": "2026-02-26T04:07:03.490776+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09978v2", "last_id": "http://arxiv.org/abs/1804.09969v1"}
+{"ts": "2026-02-26T04:08:24.213144+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.09982v1", "last_id": "http://arxiv.org/abs/1804.09978v2"}
+{"ts": "2026-02-26T04:10:20.696396+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.09983v1", "last_id": "http://arxiv.org/abs/1804.09982v1", "error": null}
+{"ts": "2026-02-26T04:11:30.886370+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10033v1", "last_id": "http://arxiv.org/abs/1804.09983v1"}
+{"ts": "2026-02-26T04:12:47.720439+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10038v1", "last_id": "http://arxiv.org/abs/1804.10033v1"}
+{"ts": "2026-02-26T04:13:33.916068+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10045v2", "last_id": "http://arxiv.org/abs/1804.10038v1"}
+{"ts": "2026-02-26T04:14:22.554948+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10047v1", "last_id": "http://arxiv.org/abs/1804.10045v2"}
+{"ts": "2026-02-26T04:15:53.704164+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.10054v2", "last_id": "http://arxiv.org/abs/1804.10047v1", "error": null}
+{"ts": "2026-02-26T04:16:44.925530+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10059v2", "last_id": "http://arxiv.org/abs/1804.10054v2"}
+{"ts": "2026-02-26T04:17:47.329518+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.10072v1", "last_id": "http://arxiv.org/abs/1804.10059v2", "error": null}
+{"ts": "2026-02-26T04:18:47.323317+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10089v1", "last_id": "http://arxiv.org/abs/1804.10072v1"}
+{"ts": "2026-02-26T04:19:38.860967+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10096v1", "last_id": "http://arxiv.org/abs/1804.10089v1"}
+{"ts": "2026-02-26T04:20:55.118534+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10105v2", "last_id": "http://arxiv.org/abs/1804.10096v1"}
+{"ts": "2026-02-26T04:21:58.167805+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10106v1", "last_id": "http://arxiv.org/abs/1804.10105v2"}
+{"ts": "2026-02-26T04:23:53.352880+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10107v1", "last_id": "http://arxiv.org/abs/1804.10106v1"}
+{"ts": "2026-02-26T04:25:25.211374+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10108v2", "last_id": "http://arxiv.org/abs/1804.10107v1"}
+{"ts": "2026-02-26T04:26:09.480209+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.10116v1", "last_id": "http://arxiv.org/abs/1804.10108v2", "error": null}
+{"ts": "2026-02-26T04:27:28.024292+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10119v2", "last_id": "http://arxiv.org/abs/1804.10116v1"}
+{"ts": "2026-02-26T04:28:22.666437+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10121v2", "last_id": "http://arxiv.org/abs/1804.10119v2"}
+{"ts": "2026-02-26T04:29:58.536799+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.10126v1", "last_id": "http://arxiv.org/abs/1804.10121v2", "error": null}
+{"ts": "2026-02-26T04:31:31.063064+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.10130v2", "last_id": "http://arxiv.org/abs/1804.10126v1", "error": null}
+{"ts": "2026-02-26T04:33:04.703110+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10135v1", "last_id": "http://arxiv.org/abs/1804.10130v2"}
+{"ts": "2026-02-26T04:34:01.425898+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10136v2", "last_id": "http://arxiv.org/abs/1804.10135v1"}
+{"ts": "2026-02-26T04:35:02.238635+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.10138v1", "last_id": "http://arxiv.org/abs/1804.10136v2", "error": null}
+{"ts": "2026-02-26T04:36:13.090293+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10143v2", "last_id": "http://arxiv.org/abs/1804.10138v1"}
+{"ts": "2026-02-26T04:37:42.182527+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.10157v2", "last_id": "http://arxiv.org/abs/1804.10143v2", "error": null}
+{"ts": "2026-02-26T04:38:02.227693+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10170v2", "last_id": "http://arxiv.org/abs/1804.10157v2"}
+{"ts": "2026-02-26T04:39:13.985768+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10175v2", "last_id": "http://arxiv.org/abs/1804.10170v2"}
+{"ts": "2026-02-26T04:40:08.163968+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10179v3", "last_id": "http://arxiv.org/abs/1804.10175v2"}
+{"ts": "2026-02-26T04:41:28.514659+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10180v2", "last_id": "http://arxiv.org/abs/1804.10179v3"}
+{"ts": "2026-02-26T04:42:18.074540+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10182v1", "last_id": "http://arxiv.org/abs/1804.10180v2"}
+{"ts": "2026-02-26T04:42:56.719438+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10192v1", "last_id": "http://arxiv.org/abs/1804.10182v1"}
+{"ts": "2026-02-26T04:43:46.992302+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10196v2", "last_id": "http://arxiv.org/abs/1804.10192v1"}
+{"ts": "2026-02-26T04:45:01.133251+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.10197v1", "last_id": "http://arxiv.org/abs/1804.10196v2", "error": null}
+{"ts": "2026-02-26T04:45:49.882388+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10199v2", "last_id": "http://arxiv.org/abs/1804.10197v1"}
+{"ts": "2026-02-26T04:46:44.515740+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10206v1", "last_id": "http://arxiv.org/abs/1804.10199v2"}
+{"ts": "2026-02-26T04:47:44.161759+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10207v1", "last_id": "http://arxiv.org/abs/1804.10206v1"}
+{"ts": "2026-02-26T04:48:37.638953+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10208v1", "last_id": "http://arxiv.org/abs/1804.10207v1"}
+{"ts": "2026-02-26T04:49:50.691014+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.10210v2", "last_id": "http://arxiv.org/abs/1804.10208v1", "error": null}
+{"ts": "2026-02-26T04:50:45.892864+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10211v1", "last_id": "http://arxiv.org/abs/1804.10210v2"}
+{"ts": "2026-02-26T04:51:56.217171+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.10214v2", "last_id": "http://arxiv.org/abs/1804.10211v1", "error": null}
+{"ts": "2026-02-26T04:52:56.870223+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10216v1", "last_id": "http://arxiv.org/abs/1804.10214v2"}
+{"ts": "2026-02-26T04:53:50.001666+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10218v1", "last_id": "http://arxiv.org/abs/1804.10216v1"}
+{"ts": "2026-02-26T04:55:08.419963+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.10219v1", "last_id": "http://arxiv.org/abs/1804.10218v1", "error": null}
+{"ts": "2026-02-26T04:55:58.457311+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10220v2", "last_id": "http://arxiv.org/abs/1804.10219v1"}
+{"ts": "2026-02-26T04:57:22.098048+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.10230v3", "last_id": "http://arxiv.org/abs/1804.10220v2", "error": null}
+{"ts": "2026-02-26T04:58:15.425450+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10232v1", "last_id": "http://arxiv.org/abs/1804.10230v3"}
+{"ts": "2026-02-26T04:59:34.373916+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10240v1", "last_id": "http://arxiv.org/abs/1804.10232v1"}
+{"ts": "2026-02-26T05:00:23.876942+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10244v1", "last_id": "http://arxiv.org/abs/1804.10240v1"}
+{"ts": "2026-02-26T05:00:45.054672+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10245v1", "last_id": "http://arxiv.org/abs/1804.10244v1"}
+{"ts": "2026-02-26T05:02:09.657310+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.10249v2", "last_id": "http://arxiv.org/abs/1804.10245v1", "error": null}
+{"ts": "2026-02-26T05:03:03.642059+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10250v1", "last_id": "http://arxiv.org/abs/1804.10249v2"}
+{"ts": "2026-02-26T05:04:34.907670+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.10265v1", "last_id": "http://arxiv.org/abs/1804.10250v1", "error": null}
+{"ts": "2026-02-26T05:05:28.917775+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10274v7", "last_id": "http://arxiv.org/abs/1804.10265v1"}
+{"ts": "2026-02-26T05:05:47.688754+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10291v2", "last_id": "http://arxiv.org/abs/1804.10274v7"}
+{"ts": "2026-02-26T05:07:13.797200+00:00", "status": "fail", "id": "http://arxiv.org/abs/1804.10295v1", "last_id": "http://arxiv.org/abs/1804.10291v2", "error": null}
+{"ts": "2026-02-26T05:07:36.498285+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10302v1", "last_id": "http://arxiv.org/abs/1804.10295v1"}
+{"ts": "2026-02-26T05:08:17.981550+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10314v1", "last_id": "http://arxiv.org/abs/1804.10302v1"}
+{"ts": "2026-02-26T05:08:56.885544+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10320v1", "last_id": "http://arxiv.org/abs/1804.10314v1"}
+{"ts": "2026-02-26T05:10:20.872559+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10321v2", "last_id": "http://arxiv.org/abs/1804.10320v1"}
+{"ts": "2026-02-26T05:11:15.672050+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10340v1", "last_id": "http://arxiv.org/abs/1804.10321v2"}
+{"ts": "2026-02-26T05:12:03.786895+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10351v1", "last_id": "http://arxiv.org/abs/1804.10340v1"}
+{"ts": "2026-02-26T05:12:40.001324+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10356v1", "last_id": "http://arxiv.org/abs/1804.10351v1"}
+{"ts": "2026-02-26T05:13:47.015715+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10374v5", "last_id": "http://arxiv.org/abs/1804.10356v1"}
+{"ts": "2026-02-26T05:14:24.634679+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10378v2", "last_id": "http://arxiv.org/abs/1804.10374v5"}
+{"ts": "2026-02-26T05:15:27.447102+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10380v2", "last_id": "http://arxiv.org/abs/1804.10378v2"}
+{"ts": "2026-02-26T05:16:10.578661+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10382v3", "last_id": "http://arxiv.org/abs/1804.10380v2"}
+{"ts": "2026-02-26T05:16:53.551821+00:00", "status": "ok", "id": "http://arxiv.org/abs/1804.10385v2", "last_id": "http://arxiv.org/abs/1804.10382v3"}
