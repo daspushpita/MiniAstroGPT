@@ -35,6 +35,7 @@ class MockLLMClient(LLMClient):
             ),
             "critic": '{"passed": true, "failures": [], "fix_instructions": []}',
             "glossary": '{"redshift": "Change in wavelength due to relative motion or expansion."}',
+            "revise": "This is a placeholder revised draft, which should be an improved version of the initial draft based on the critique and glossary."
         }
         text = responses.get(stage, "Unsupported stage.")
         return LLMResult(text=text, model="mock", usage=LLMUsage())

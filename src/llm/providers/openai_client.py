@@ -1,6 +1,7 @@
 from openai import OpenAI
 import os
 from src.llm.base import LLMClient, LLMResult, LLMUsage
+from dotenv import load_dotenv
 
 GOOGLE_SEARCH_SCHEMA = {
     "type": "function",
@@ -17,6 +18,7 @@ GOOGLE_SEARCH_SCHEMA = {
     }
 }
 
+load_dotenv()
 class OpenAIClient(LLMClient):
     """Open AI client for the LLMClient
 

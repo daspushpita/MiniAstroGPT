@@ -28,7 +28,7 @@ class HFLLMClient(LLMClient):
     Args:
         LLMClient: The base LLMClient class that defines the interface for generating text.
     """
-    def __init__(self, model_name: str,
+    def __init__(self, model_name: str = "meta-llama/Meta-Llama-3.1-8B-Instruct",
                 *,
                 torch_dtype=torch.float16,
                 device_map: str = "auto",

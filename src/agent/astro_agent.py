@@ -170,7 +170,7 @@ class AstroAgent:
             mode="final",
             plan=plan,
             draft=draft,
-            glossary=glossary,
             critic=critic,
+            glossary=glossary,
             revised_draft=revised_draft
         )
