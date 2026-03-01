@@ -82,13 +82,55 @@ python -m miniastrolm.student.infer --config configs/generation.yaml --model_dir
 
 ---
 
-## Recruiter-Facing Skills Demonstrated
+## Technical Highlights
 
-- End-to-end LLM system design (data -> supervision -> model -> eval -> artifacts)
-- Distillation pipeline engineering with explicit quality filtering
-- Multi-stage agent orchestration with tool integration and validation gates
-- Production-minded pipeline controls (`--max-abstracts`, `--delete-raw`, append-only outputs)
-- Multi-provider inference abstraction (`openai`, `hf`, `llama`, `mock`)
+### 1. Explicit Supervision Construction
+Teacher outputs follow a strict JSON schema:
+
+- `id`
+- `title`
+- `abstract`
+- `target_explanation`
+- `judge_feedback`
+- `accepted`
+
+Only samples meeting scoring thresholds are used for student training.  
+This keeps supervision high-signal and reduces style drift before fine-tuning.
+
+### 2. Masked Causal LM Training
+Training format:
+
+```text
+[prompt tokens] -> masked (-100)
+[target tokens] -> supervised
+```
+
+The student learns conditional explanation generation without being penalized on prefix tokens.
+
+### 3. Agentic Writing Pipeline with Validation Gates
+Implemented a staged generation flow:
+
+`plan -> write -> validate -> critic -> glossary -> revise`
+
+Validation is enforced as an explicit control point (word count, paragraph structure, forbidden phrasing), with a structured `validation_failed` path instead of silent failure.
+
+### 4. Production-Ready Pipeline Controls and Artifacts
+- Loop-level agent reuse (single initialization across abstracts)
+- Run controls: `--max-abstracts`, `--delete-raw`
+- Machine-readable outputs: `agent_runs_YYYYMMDD.jsonl`
+- Human-review outputs: `agent_runs_YYYYMMDD.md`
+
+This supports reproducible runs, lightweight ops, and fast debugging.
+
+### 5. Provider-Agnostic LLM Integration
+The same pipeline supports multiple backends:
+
+- `mock` (smoke tests)
+- `openai`
+- `hf`
+- `llama`
+
+This enables easy model/backend swapping without changing core orchestration logic.
 
 ---
 
