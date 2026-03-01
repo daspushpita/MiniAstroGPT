@@ -18,42 +18,46 @@ Builds scientific explanations for astrophysics abstracts with two complementary
 
 ## System Schematic (Both Tracks)
 
+### Finetuned Track
+
 ```mermaid
-flowchart LR
-  subgraph A["Distilled Track (main)"]
+flowchart TD
+  subgraph A["Distilled (main)"]
+    direction TD
     A1["arXiv Abstracts"] --> A2["Teacher LLM"]
     A2 --> A3["Judge + Filter"]
     A3 --> A4["Curated Dataset"]
-    A4 --> A5["Student Fine-Tune"]
+    A4 --> A5["Student Fine-tune"]
     A5 --> A6["Compact Inference Model"]
   end
 
-  subgraph B["Agentic Track (agentic-astrogpt)"]
-    B1["arXiv Fetch + Clean"] --> B2["Planner"]
+  subgraph B["Agentic (agentic-astrogpt)"]
+    direction TD
+    B1["Fetch+Clean"] --> B2["Plan"]
     B2 --> B3["Writer"]
-    B3 --> B4["Validator"]
+    B3 --> B4["Validate"]
     B4 --> B5["Critic"]
-    B5 --> B6["Glossary Tooling"]
-    B6 --> B7["Reviser"]
-    B7 --> B8["JSONL + Markdown Outputs"]
+    B5 --> B6["Glossary"]
+    B6 --> B7["Revise"]
+    B7 --> B8["JSONL+MD"]
   end
 ```
 
 ---
 
-## Agentic Track (Current Branch) in 1 Minute
+### Agentic Track
 
 ```mermaid
 flowchart TD
-  I["Daily Input (arXiv)"] --> C["cleaned_arxiv_YYYYMMDD.jsonl"]
-  C --> R["For each abstract"]
+  I["arXiv"] --> C["cleaned_abstracts.jsonl"]
+  C --> R["each abstract"]
   R --> P["plan"]
   P --> W["draft"]
-  W --> V{"validator pass?"}
-  V -- "no" --> F["mode=validation_failed"]
-  V -- "yes" --> K["critic + glossary + revise"]
-  F --> O["append output row"]
-  K --> O["append output row"]
+  W --> V{"valid?"}
+  V -- "no" --> F["validation_failed"]
+  V -- "yes" --> K["critic+glossary+revise"]
+  F --> O["append row"]
+  K --> O["append row"]
 ```
 
 Outputs written per run:
@@ -120,4 +124,3 @@ src/
 
 **Pushpita Das**  
 Computational Astrophysicist -> Generative AI Systems Research
-
