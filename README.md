@@ -7,7 +7,7 @@ Builds scientific explanations for astrophysics abstracts with two complementary
 
 ---
 
-## 30-Second Overview
+## Brief Overview
 
 | Branch | What It Is | Why It Matters |
 |---|---|---|
@@ -16,48 +16,33 @@ Builds scientific explanations for astrophysics abstracts with two complementary
 
 ---
 
-## System Schematic (Both Tracks)
+## System Schematics
 
-### Finetuned Track
+### Distilled Track (`main`)
 
 ```mermaid
 flowchart TD
-  subgraph A["Distilled (main)"]
-    direction TD
-    A1["arXiv Abstracts"] --> A2["Teacher LLM"]
-    A2 --> A3["Judge + Filter"]
-    A3 --> A4["Curated Dataset"]
-    A4 --> A5["Student Fine-tune"]
-    A5 --> A6["Compact Inference Model"]
-  end
-
-  subgraph B["Agentic (agentic-astrogpt)"]
-    direction TD
-    B1["Fetch+Clean"] --> B2["Plan"]
-    B2 --> B3["Writer"]
-    B3 --> B4["Validate"]
-    B4 --> B5["Critic"]
-    B5 --> B6["Glossary"]
-    B6 --> B7["Revise"]
-    B7 --> B8["JSONL+MD"]
-  end
+  A["arXiv Abstracts"] --> B["Teacher LLM"]
+  B --> C["Judge Filter"]
+  C --> D["Curated Dataset"]
+  D --> E["Student Fine-tune"]
+  E --> F["Compact Model"]
 ```
 
 ---
 
-### Agentic Track
+### Agentic Track (`agentic-astrogpt`)
 
 ```mermaid
 flowchart TD
-  I["arXiv"] --> C["cleaned_abstracts.jsonl"]
-  C --> R["each abstract"]
-  R --> P["plan"]
-  P --> W["draft"]
-  W --> V{"valid?"}
-  V -- "no" --> F["validation_failed"]
-  V -- "yes" --> K["critic+glossary+revise"]
-  F --> O["append row"]
-  K --> O["append row"]
+  A["arXiv Fetch"] --> B["Clean JSONL"]
+  B --> C["Plan"]
+  C --> D["Write"]
+  D --> E["Validate"]
+  E --> F["Critic"]
+  F --> G["Glossary"]
+  G --> H["Revise"]
+  H --> I["JSONL and MD Outputs"]
 ```
 
 Outputs written per run:
