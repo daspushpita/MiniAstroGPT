@@ -2,6 +2,7 @@ from dataclasses import dataclass
 import json
 from .prompts import Prompts
 from src.llm.base import LLMClient
+from src.agent.validators import Validator
 
 @dataclass
 class AgentRun:
@@ -140,6 +141,24 @@ class AstroAgent:
                                                 max_new_tokens=800,
                                                 json_mode=False)
         draft = writer_result.text.strip()
+        validate = Validator(draft=draft, min_words=180, max_words=250, required_paragraphs=4).validate()
+        if not validate.passed:
+            return AgentRun(
+                mode="validation_failed",
+                plan=plan,
+                draft=draft,
+                glossary="",
+                critic=json.dumps(
+                    {
+                        "validation_failures": validate.failures,
+                        "word_count": validate.word_count,
+                        "paragraph_count": validate.paragraph_count,
+                        "forbidden_hits": validate.forbidden_hits,
+                    },
+                    ensure_ascii=False,
+                ),
+                revised_draft=draft,
+            )
         
         # Generate the critique
         critic_prompt = Prompts(mode="critic").build_critic_prompt(abstract, draft)
