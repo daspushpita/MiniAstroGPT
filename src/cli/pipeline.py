@@ -2,21 +2,26 @@ import json, argparse
 from src.agent.astro_agent import AstroAgent
 from src.data.arxiv_daily_fetch import ArxivDownloader, Clean_Jsonl_Files, SQLITE_Database_Builder
 from src.cli.app import build_client, build_parser
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
 RAW_DIR = ROOT / "agent_data" / "raw"
 PROCESSED_DIR = ROOT / "agent_data" / "processed"
+OUTPUT_DIR = ROOT / "agent_data" / "output"
 
 RAW_DIR.mkdir(parents=True, exist_ok=True)
 PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 today = date.today()
 formatted_date = today.strftime("%Y%m%d")
-formatted_date_start = today.strftime("%Y%m%d000000")
-formatted_date_end = today.strftime("%Y%m%d235959")
+# formatted_date_start = today.strftime("%Y%m%d000000")
+# formatted_date_end = today.strftime("%Y%m%d235959")
+
+formatted_date_start = today.strftime("20260224000000")
+formatted_date_end = today.strftime("20260224235959")
 
 
 def build_database(db_path: str, sql_database: bool) -> None:
@@ -55,7 +60,7 @@ def build_database(db_path: str, sql_database: bool) -> None:
     return "Database build complete at " + str(cleaned_path)
     
 
-def run_agent(agent: AstroAgent, abstract: str, debug: bool) -> None:
+def run_agent(agent: AstroAgent, abstract: str, debug: bool):
     run_result = agent.run(abstract=abstract)
     if debug:
         print(run_result.plan)
@@ -63,6 +68,7 @@ def run_agent(agent: AstroAgent, abstract: str, debug: bool) -> None:
         print(run_result.glossary)
         print(run_result.critic)
         print(run_result.revised_draft)
+    return run_result
 
 def main():
 
@@ -80,16 +86,55 @@ def main():
     # Open the JSONL database and read records in one pass.
     with open(PROCESSED_DIR / f"cleaned_arxiv_{formatted_date}.jsonl", "r", encoding="utf-8") as fin:
         records = [json.loads(line) for line in fin]
+
+    output_path = OUTPUT_DIR / f"agent_runs_{formatted_date}.jsonl"
+    md_output_path = OUTPUT_DIR / f"agent_runs_{formatted_date}.md"
+    run_ts = datetime.now().isoformat(timespec="seconds")
+    print(f"Writing agent outputs to: {output_path}")
+    print(f"Writing human-readable report to: {md_output_path}")
     
     #Initialize the agent and run it on the abstracts.
     records_to_run = records if args.max_abstracts is None else records[: max(0, args.max_abstracts)]
-    for record in records_to_run:
-        abstract = record.get("abstract_clean", "")
-        title = record.get("title_clean", "")
-        if not abstract:
-            continue
-        print(f"Running agent on abstract with title {title}...")
-        run_agent(agent=agent, abstract=abstract, debug=True)
+    with output_path.open("a", encoding="utf-8") as fout, md_output_path.open("a", encoding="utf-8") as mdout:
+        if md_output_path.stat().st_size == 0:
+            mdout.write(f"# Agent Runs - {formatted_date}\n\n")
+        for record in records_to_run:
+            paper_id = record.get("id", "")
+            title = record.get("title_clean", "")
+            abstract = record.get("abstract_clean", "")
+            if not abstract:
+                continue
+            print(f"Running agent on abstract with title {title}...")
+            run_result = run_agent(agent=agent, abstract=abstract, debug=True)
+            out_row = {
+                "run_ts": run_ts,
+                "provider": args.provider,
+                "id": paper_id,
+                "title": title,
+                "mode": run_result.mode,
+                "plan": run_result.plan,
+                "draft": run_result.draft,
+                "glossary": run_result.glossary,
+                "critic": run_result.critic,
+                "revised_draft": run_result.revised_draft,
+            }
+            fout.write(json.dumps(out_row, ensure_ascii=False) + "\n")
+            mdout.write(f"## {title or 'Untitled'}\n\n")
+            mdout.write(f"- Run Timestamp: `{run_ts}`\n")
+            mdout.write(f"- Provider: `{args.provider}`\n")
+            mdout.write(f"- ID: `{paper_id}`\n")
+            mdout.write(f"- Mode: `{run_result.mode}`\n\n")
+            mdout.write("### Plan\n\n")
+            mdout.write(f"{run_result.plan}\n\n")
+            mdout.write("### Draft\n\n")
+            mdout.write(f"{run_result.draft}\n\n")
+            mdout.write("### Glossary\n\n")
+            mdout.write(f"{run_result.glossary}\n\n")
+            mdout.write("### Critic\n\n")
+            mdout.write(f"{run_result.critic}\n\n")
+            mdout.write("### Revised Draft\n\n")
+            mdout.write(f"{run_result.revised_draft}\n\n")
+            mdout.write("---\n\n")
 
     if args.delete_raw:
         raw_path = RAW_DIR / f"arxiv_{formatted_date}.jsonl"
