@@ -1,221 +1,123 @@
-# AstroGPT  
-### Controlled Distillation of Mechanism-Focused Scientific Explanations
+# AstroGPT / MiniAstroLM
+### Two LLM Systems in One Repo: Distilled (`main`) + Agentic (`agentic-astrogpt`)
 
-MiniAstroLM v1 is a research-oriented teacher–judge–student distillation pipeline for generating structured, mechanism-focused explanations of astrophysics abstracts.
-
-This project investigates a focused modeling question:
-
-> Can a small causal language model reliably reproduce a constrained scientific explanation style when supervision is generated and filtered systematically?
-
-Rather than relying on prompt engineering alone, MiniAstroLM constructs supervision explicitly and distills it into GPT-2 under controlled training conditions.
+Builds scientific explanations for astrophysics abstracts with two complementary approaches:
+- `main`: fine-tuned compact model via controlled distillation
+- `agentic-astrogpt`: staged agent pipeline with validation + artifacts
 
 ---
 
-## Research Motivation
+## 30-Second Overview
 
-Astrophysics abstracts compress physical mechanisms, observational constraints, and inference chains into dense prose.
-
-Large language models can unpack this effectively — but:
-
-- Prompt-only approaches are unstable
-- Style drift is common
-- Faithfulness is difficult to enforce
-- Inference cost is high
-
-MiniAstroLM treats explanation generation as a **controlled distillation problem under constraints**, not as a generic summarization task.
+| Branch | What It Is | Why It Matters |
+|---|---|---|
+| `main` | Teacher -> Judge -> Student (GPT-2 family fine-tune) | Low-cost, repeatable, style-constrained generation |
+| `agentic-astrogpt` | Planner -> Writer -> Validator -> Critic -> Reviser | Inspectable reasoning flow with quality gates |
 
 ---
 
-## v1 Task Definition
-
-Given an astrophysics abstract, generate an explanation that:
-
-- Is 180–220 words
-- Rewrites the abstract from scratch (no structural copying)
-- Focuses on physical mechanism and inference
-- Avoids academic reporting phrases
-- Maintains structured paragraph flow
-
-This creates a tightly constrained output distribution suitable for small-model distillation experiments.
-
----
-
-## System Overview
-
----
-
-## System Overview
-```
-Raw arXiv abstracts
-    -> SQLite ingestion + batching
-    -> Teacher-generated explanations
-    -> Filtering + validation
-    -> Curated JSONL dataset
-    -> Student fine-tuning: GPT-2
-    -> Clean, readable explanations
-```
-
----
-
-## Architecture
+## System Schematic (Both Tracks)
 
 ```mermaid
 flowchart LR
-
-  %% ===== Supervision Stage =====
-  subgraph S[Supervision Pipeline]
-    direction LR
-    A[Astrophysics Abstracts]
-    B[Teacher LLM<br/>Strict Prompt Schema]
-    C[Structured JSON Output]
-    D[Judge Model<br/>Scoring + Filtering]
-    E[Curated Dataset<br/>accepted = true]
-    A --> B --> C --> D --> E
+  subgraph A["Distilled Track (main)"]
+    A1["arXiv Abstracts"] --> A2["Teacher LLM"]
+    A2 --> A3["Judge + Filter"]
+    A3 --> A4["Curated Dataset"]
+    A4 --> A5["Student Fine-Tune"]
+    A5 --> A6["Compact Inference Model"]
   end
 
-  %% ===== Distillation Stage =====
-  subgraph T[Student Distillation]
-    direction LR
-    F[Tokenizer + Causal LM Collator<br/>Prefix Masked]
-    G[GPT-2 Fine-Tuning]
-    H[Student Checkpoint]
-    E --> F --> G --> H
-  end
-
-  %% ===== Inference Stage =====
-  subgraph I[Inference]
-    direction LR
-    X[New Abstract]
-    Y[Greedy Decoding]
-    Z[Mechanism-Focused Explanation]
-    X --> Y --> Z
-    H --> Y
+  subgraph B["Agentic Track (agentic-astrogpt)"]
+    B1["arXiv Fetch + Clean"] --> B2["Planner"]
+    B2 --> B3["Writer"]
+    B3 --> B4["Validator"]
+    B4 --> B5["Critic"]
+    B5 --> B6["Glossary Tooling"]
+    B6 --> B7["Reviser"]
+    B7 --> B8["JSONL + Markdown Outputs"]
   end
 ```
----
-
-## Technical Highlights
-
-### 1. Explicit Supervision Construction
-
-Teacher outputs follow a strict JSON schema:
--	id
--	title
--	abstract
--	target_explanation
--	judge_feedback
--	accepted
-
-Only samples meeting scoring thresholds are used for student training.
 
 ---
 
-### 2. Masked Causal LM Training
+## Agentic Track (Current Branch) in 1 Minute
 
-Training format:
-``` 
-    [prompt tokens]  → masked (-100)
-    [target tokens]  → supervised
+```mermaid
+flowchart TD
+  I["Daily Input (arXiv)"] --> C["cleaned_arxiv_YYYYMMDD.jsonl"]
+  C --> R["For each abstract"]
+  R --> P["plan"]
+  P --> W["draft"]
+  W --> V{"validator pass?"}
+  V -- "no" --> F["mode=validation_failed"]
+  V -- "yes" --> K["critic + glossary + revise"]
+  F --> O["append output row"]
+  K --> O["append output row"]
 ```
 
-The student learns conditional generation of explanations without being penalized for the prefix.
+Outputs written per run:
+- `agent_data/output/agent_runs_YYYYMMDD.jsonl`
+- `agent_data/output/agent_runs_YYYYMMDD.md`
 
 ---
 
-### 3. Overfitting Validation
+## Quick Start
 
-Before scaling experiments, the pipeline is validated through:
--	Single-sample overfit verification
--	20-sample memorization confirmation
--	EOS supervision debugging
--	Repetition collapse mitigation
--	Controlled greedy decoding
-
-This validates:
--	Dataset formatting
--	Label masking correctness
--	Optimization stability
--	Stop-condition learning
-
----
-
-### 4. Small-Model Realism
-
-GPT-2 small (124M parameters) is used intentionally:
--	Runs on consumer hardware (MPS-compatible)
--	Exposes training pathologies clearly
--	Forces careful supervision design
--	Emphasizes signal quality over model scale
-
----
-
-Experimental Observations (v1)
--	Small curated datasets (≤20 samples) are fully memorized.
--	Repetition collapse occurs without explicit EOS supervision.
--	Generation stability depends strongly on decoding configuration.
--	Structured style constraints are learnable via distillation.
-
-These observations provide insight into small-model conditional generation under tight stylistic control.
----
-
-## Repository Structure
+### 1) Install
+```bash
+pip install -r requirements.txt
 ```
-MiniAstroLM/
-├── configs/                  # Training + generation configs
-├── prompts/                  # Teacher prompt definitions
-├── data/                     # Curated datasets + checkpoints
-├── src/miniastrolm/
-│   ├── llm/                  # Teacher & judge modules
-│   ├── data_scripts/         # Dataset construction
-│   ├── student/
-│   │   ├── data.py
-│   │   ├── collate.py
-│   │   ├── train.py
-│   │   ├── infer.py
-│   │   └── model.py
-│   └── eval/                 # Evaluation utilities
-└── README.md
-```
-## Running the Student
-### Train
 
-```python -m miniastrolm.student.train \
-    --config configs/student_train.yaml
+### 2) Run agentic smoke test
+```bash
+python3 -m src.cli.pipeline --provider mock --max-abstracts 1 --delete-raw
 ```
----
-### Inference
-```
-python -m miniastrolm.student.infer \
-    --config configs/generation.yaml \
-    --model_dir data/student/checkpoint \
-    --abstract "Abstract text"
-```
----
-## Research Directions
 
-Planned next steps:
--	Scale curated dataset to 5k–10k samples.
--	Quantitative teacher–student alignment metrics.
--	Faithfulness verification via entity anchoring.
--	LoRA vs full fine-tuning comparison.
--	Robust decoding under style constraints.
--	Cross-domain generalization experiments.
+### 3) Run with real provider
+```bash
+python3 -m src.cli.pipeline --provider openai --max-abstracts 5 --delete-raw
+```
+
+Provider options: `mock`, `openai`, `hf`, `llama`
 
 ---
 
-## Positioning
+## Fine-Tuned Track (`main` branch)
 
-MiniAstroLM is not a summarization demo.
-
-It is a controlled experiment in:
--	Structured supervision design
--	Small-model distillation
--	Style-constrained scientific generation
--	Training dynamics under explicit output rules
+```bash
+git checkout main
+python -m miniastrolm.student.train --config configs/student_train.yaml
+python -m miniastrolm.student.infer --config configs/generation.yaml --model_dir data/student/checkpoint --abstract "Abstract text"
+```
 
 ---
 
-Author
+## Recruiter-Facing Skills Demonstrated
 
-Pushpita Das
-Computational Astrophysicist → Generative AI Systems Research
+- End-to-end LLM system design (data -> supervision -> model -> eval -> artifacts)
+- Distillation pipeline engineering with explicit quality filtering
+- Multi-stage agent orchestration with tool integration and validation gates
+- Production-minded pipeline controls (`--max-abstracts`, `--delete-raw`, append-only outputs)
+- Multi-provider inference abstraction (`openai`, `hf`, `llama`, `mock`)
+
+---
+
+## Repo Layout
+
+```text
+src/
+  agent/      # prompts, orchestration, validators
+  cli/        # app + end-to-end pipeline runners
+  data/       # arXiv ingest, cleaning, optional SQLite utilities
+  llm/        # provider abstraction and adapters
+  tools/      # external tools (search)
+```
+
+---
+
+## Author
+
+**Pushpita Das**  
+Computational Astrophysicist -> Generative AI Systems Research
+
