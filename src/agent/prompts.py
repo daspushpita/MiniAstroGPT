@@ -21,7 +21,7 @@ class Prompts:
         Paragraph 1 — Introduce the central problem in an engaging but simple way.
         Paragraph 2 — Explain what the researchers did, avoiding heavy jargon.
         Paragraph 3 — Present the key findings clearly and accurately.
-        Paragraph 4 — Explain why the results matter or what they change.
+        Paragraph 4 — State implications only if explicitly supported by abstract; otherwise state limitations/uncertainty from abstract.
 
         PLAN RULES:
         1. Stay strictly anchored to the abstract.
@@ -81,34 +81,35 @@ class Prompts:
         DRAFT TO REVIEW:
         {draft}
 
-        Your task is to check whether the draft satisfies all constraints and stays fully supported by the abstract.
+        Evaluate semantic quality only:
+        - Faithfulness to the abstract (no invented facts or implications)
+        - Logical structure (problem → method → findings → implications)
+        - Clarity for general science readers
 
-        Check the following:
+        Do NOT evaluate formatting constraints like paragraph count, word count, or forbidden phrases; those are handled elsewhere.
 
-        1. Exactly 4 paragraphs separated by a blank line.
-        2. Total length between 180 and 250 words.
-        3. No invented facts, numbers, claims, or implications not present in the abstract.
-        4. Follows logical structure: problem → method → findings → implications.
-        5. Clear, accessible language for general science readers.
-        6. Does NOT use phrases such as "this paper", "we present", or "in this study".
+        SCORING (integers 0-5):
+        - scores.hallucination: 0 = fully supported by abstract, 5 = many unsupported claims
+        - scores.structure: 0 = excellent problem→method→findings→implications flow, 5 = poor or jumbled flow
+        - scores.clarity: 0 = very clear and accessible, 5 = confusing or too technical
 
-        If the draft contains information (other than basic background information) not clearly supported by the abstract, mark it as a hallucination.
+        If the draft contains any non-trivial statement not clearly supported by the abstract, list it in hallucinated_claims and increase scores.hallucination.
 
-        OUTPUT FORMAT:
-        Return ONLY valid JSON with this exact structure:
+        OUTPUT:
+        Return ONLY valid JSON. No markdown. No code fences. No extra keys.
+        If there are no hallucinated claims, return an empty list [].
+        If no fixes are needed, return an empty list [].
 
+        JSON SCHEMA (must match exactly):
         {{
-        "passed": true or false,
-        "failures": ["word_count", "paragraph_count", "hallucination", "structure", "clarity", "forbidden_phrases"],
-        "hallucinated_claims": ["claim 1", "claim 2"],
-        "fix_instructions": [
-            "specific instruction 1",
-            "specific instruction 2"
-        ]
+        "scores": {{
+            "hallucination": 0,
+            "structure": 0,
+            "clarity": 0
+        }},
+        "fix_instructions": [],
+        "hallucinated_claims": []
         }}
-
-        Do NOT rewrite the draft.
-        Do NOT include any text outside the JSON.
         """
         return prompt
     
@@ -149,6 +150,8 @@ class Prompts:
         5. Use clear, engaging language for general science readers (not academic, not hype).
         6. Do NOT use phrases such as “this paper”, “we present”, or “in this study”.
         7. Do NOT include titles, bullet points, or extra commentary.
+        8. Never introduce any claim that is not directly supported by the abstract.
+        9. If CRITIQUE contains "hallucinated_claims", explicitly remove those claims from the revised draft.
 
         OUTPUT:
         Return only the revised 4-paragraph explanation (no JSON, no notes).
@@ -164,7 +167,9 @@ class Prompts:
         {abstract}
 
         TASK:
-        Identify technical terms in the abstract that may be unfamiliar to scientifically curious general readers.
+        1. Identify 3-5 domain-specific noun phrases that are required to understand the abstract.
+        2. A term must name a thing/concept/method/instrument/physical quantity (noun or noun phrase).
+        3. Do not include: adverbs, adjectives, or generic academic phrasing.
 
         If needed, you may use the web_search tool to find reliable definitions.
         Use trustworthy sources (e.g., NASA, ESA, university pages, Wikipedia, arXiv).
@@ -174,8 +179,11 @@ class Prompts:
         2. Provide concise definitions (1-2 sentences).
         3. Definitions must be written in plain language.
         4. Do NOT include scientific results or new claims.
-        5. If a term is already widely known (e.g., galaxy, black hole), do NOT include it.
+        5. If a term is already widely known (e.g., galaxy, black hole), DO NOT include it.
         6. If no technical terms require explanation, return an empty JSON object {{}}.
+        7. Each key must be a noun phrase (e.g., “Lyman continuum”, “integral-field spectroscopy”). Never include adverbs/adjectives like “phenomenologically”, “kinematically”, “robust”, “consistent”.
+        8. For each candidate term, silently apply this test: If removing the term would not block a general reader from following the story, exclude it.
+        9. Output must contain 0 keys or 3-5 keys. Never never >5.
 
         OUTPUT FORMAT:
         Return ONLY valid JSON:

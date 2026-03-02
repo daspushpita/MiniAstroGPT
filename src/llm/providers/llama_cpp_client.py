@@ -45,7 +45,7 @@ char ::= [^"\\] | "\\" (["\\/bfnrt] | "u" hex hex hex hex)
 number ::= "-"? int frac? exp?
 int ::= "0" | [1-9] [0-9]*
 frac ::= "." [0-9]+
-exp ::= [eE] [+\-]? [0-9]+
+exp ::= [eE] ("+" | "-")? [0-9]+
 hex ::= [0-9a-fA-F]
 ws ::= [ \t\n\r]*
 """
@@ -63,7 +63,7 @@ class LlamaCppConfig:
     seed: int = 42
     default_temperature: float = 0.2
     default_max_new_tokens: int = 400
-    enable_grammar: bool = True
+    enable_grammar: bool = False
 
 
 class LlamaCppClient(LLMClient):
@@ -80,7 +80,7 @@ class LlamaCppClient(LLMClient):
         seed: int = 42,
         default_temperature: float = 0.2,
         default_max_new_tokens: int = 400,
-        enable_grammar: bool = True,
+        enable_grammar: bool = False,
         device: str | None = None,
     ):
         if Llama is None:
@@ -117,7 +117,11 @@ class LlamaCppClient(LLMClient):
         )
 
         if self.cfg.enable_grammar and LlamaGrammar is not None:
-            self.json_grammar = LlamaGrammar.from_string(JSON_SCHEMA_GBNF)
+            try:
+                self.json_grammar = LlamaGrammar.from_string(JSON_SCHEMA_GBNF)
+            except Exception:
+                # Fallback to unconstrained generation if grammar parsing fails.
+                self.json_grammar = None
         else:
             self.json_grammar = None
 

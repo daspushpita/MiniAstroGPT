@@ -81,7 +81,10 @@ def main():
     build_database(db_path=PROCESSED_DIR / f"mini_astrolm_agentic_{formatted_date}.db", sql_database=False)
     
     client = build_client(provider=args.provider, llama_model_path=args.llama_model_path)
-    agent = AstroAgent(llm_client=client, max_turns=3)
+    agent = AstroAgent(llm_client=client, max_turns=3,max_revision_attempts=3,
+                        threshold_hallucination=1, 
+                        threshold_clarity=2,
+                        threshold_structure=2)
     
     # Open the JSONL database and read records in one pass.
     with open(PROCESSED_DIR / f"cleaned_arxiv_{formatted_date}.jsonl", "r", encoding="utf-8") as fin:
@@ -105,7 +108,7 @@ def main():
             if not abstract:
                 continue
             print(f"Running agent on abstract with title {title}...")
-            run_result = run_agent(agent=agent, abstract=abstract, debug=True)
+            run_result = run_agent(agent=agent, abstract=abstract, debug=False)
             out_row = {
                 "run_ts": run_ts,
                 "provider": args.provider,
