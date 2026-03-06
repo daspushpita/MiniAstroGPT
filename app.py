@@ -17,6 +17,18 @@ BASE_DIR = Path(__file__).parent
 DATA_DIR = BASE_DIR / "data"
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
+
+def _env_flag(name: str, default: str = "0") -> bool:
+    return os.getenv(name, default).strip().lower() in {"1", "true", "yes", "on"}
+
+
+def _env_int(name: str, default: int) -> int:
+    raw = os.getenv(name, str(default)).strip()
+    try:
+        return int(raw)
+    except ValueError:
+        return default
+
 # --- CONFIG: set these once ---
 CFG = AgentConfig(
     provider=os.getenv("ASTRO_PROVIDER", "openai"),
@@ -26,6 +38,8 @@ CFG = AgentConfig(
     threshold_clarity=2,
     threshold_structure=2,
     llama_model_path=os.getenv("LLAMA_MODEL_PATH"),
+    fast_mode=_env_flag("ASTRO_FAST_MODE", "1"),
+    fast_max_new_tokens=_env_int("ASTRO_FAST_MAX_NEW_TOKENS", 700),
 )
 
 start_time = time.time()

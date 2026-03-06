@@ -21,6 +21,8 @@ class AgentConfig:
     threshold_clarity: int
     threshold_structure: int
     llama_model_path: Optional[Path] = None  
+    fast_mode: bool = False
+    fast_max_new_tokens: int = 700
 
 
 # === A) Daily data ===
@@ -171,7 +173,9 @@ def build_agent(config: AgentConfig):
                     max_revision_attempts=config.max_revision_attempts,
                     threshold_hallucination=config.threshold_hallucination, 
                     threshold_clarity=config.threshold_clarity,
-                    threshold_structure=config.threshold_structure)
+                    threshold_structure=config.threshold_structure,
+                    fast_mode=config.fast_mode,
+                    fast_max_new_tokens=config.fast_max_new_tokens)
     ts = datetime.now().isoformat(timespec="seconds")
     print(f"[TIMING] {ts} | agent_creation | end | {time.perf_counter() - t0:.2f}s")
     return agent

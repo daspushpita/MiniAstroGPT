@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 import json
+import os
 import re
 import time
 from datetime import datetime
@@ -38,7 +39,9 @@ class AstroAgent:
                 max_revision_attempts: int,
                 threshold_hallucination: int, 
                 threshold_clarity: int,
-                threshold_structure: int) -> None:
+                threshold_structure: int,
+                fast_mode: bool | None = None,
+                fast_max_new_tokens: int = 700) -> None:
         
         self.llm_client = llm_client
         self.max_turns = max_turns
@@ -49,6 +52,11 @@ class AstroAgent:
         self.threshold_clarity = threshold_clarity
         self.threshold_structure = threshold_structure
         self.max_revision_attempts = max_revision_attempts
+        env_fast_mode = os.getenv("ASTRO_FAST_MODE")
+        if fast_mode is None:
+            fast_mode = str(env_fast_mode or "").strip().lower() in {"1", "true", "yes", "on"}
+        self.fast_mode = bool(fast_mode)
+        self.fast_max_new_tokens = fast_max_new_tokens
 
     @staticmethod
     def _google_search_tool(query: str) -> str:
@@ -314,6 +322,42 @@ class AstroAgent:
                 print(f"[TIMING] {ts} | {stage} | {event} | {elapsed:.2f}s")
 
         _log_timing("run", "start")
+
+        # ----------------------------
+        # FAST MODE: single prompt + single LLM call
+        # ----------------------------
+        if self.fast_mode:
+            _log_timing("fast_mode", "enabled")
+            stage_t0 = time.perf_counter()
+            _log_timing("prompt", "start")
+            fast_prompt = Prompts(mode="write").build_fast_explanation_prompt(abstract)
+            _log_timing("prompt", "end", time.perf_counter() - stage_t0)
+
+            stage_t0 = time.perf_counter()
+            _log_timing("revised_draft", "start")
+            system_writer_prompt = (
+                "You are an expert astronomer and science communicator. "
+                "Write a clear, concise magazine-style explanation of the abstract."
+            )
+            fast_result = self.llm_client.generate(
+                prompt=fast_prompt,
+                stage="write",
+                system_prompt=system_writer_prompt,
+                temperature=0.2,
+                max_new_tokens=self.fast_max_new_tokens,
+                json_mode=False,
+            )
+            explanation = (fast_result.text or "").strip()
+            _log_timing("revised_draft", "end", time.perf_counter() - stage_t0)
+            _log_timing("run", "end")
+            return AgentRun(
+                mode="fast",
+                plan="",
+                draft=explanation,
+                glossary="{}",
+                critic="{}",
+                revised_draft=explanation,
+            )
 
         # ----------------------------
         # 1) Plan
