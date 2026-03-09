@@ -113,34 +113,21 @@ class Prompts:
         """
         return prompt
     
-    def build_reviser_prompt(self, abstract: str, plan: str, draft: str, critique_json: str, glossary: str = "") -> str:
+    def build_reviser_prompt(self, abstract: str, draft: str, critique_json: str) -> str:
         """Build a prompt for the revise stage."""
 
-        prompt = f"""You are revising a short magazine-style explanation of an astronomy abstract.
-        ABSTRACT (source of truth):
+        prompt = f"""
+        ABSTRACT (source of truth)
         {abstract}
 
-        PLAN (intended structure; follow the same order):
-        {plan}
-
-        DRAFT (to revise):
+        DRAFT
         {draft}
 
         CRITIQUE (JSON; must address all fix_instructions):
         {critique_json}
-        """
-        if glossary.strip():
-            prompt += f"""
-        GLOSSARY (definitions only; use only to explain terms already in the abstract):
-        {glossary}
-
-        Important rule about the glossary:
-        - Use it ONLY to explain terms that appear in the abstract.
-        - Do NOT use it to add new results, numbers, or claims beyond the abstract.
-        """
-
-        prompt += """
-        Your task is to produce a revised final version that fixes all issues in the critique.
+        
+        TASK
+        Rewrite the draft so that it fixes all issues mentioned in the critique.
 
         HARD CONSTRAINTS:
         1. Exactly 4 paragraphs separated by a blank line.
@@ -195,8 +182,8 @@ class Prompts:
         return prompt
     
     
-    def build_fast_explanation_prompt(self, abstract: str) -> str:
-        prompt = """You are AstroGPT, an assistant that explains astrophysics papers for non-experts.
+    def build_fast_explanation_prompt(self, title: str, abstract: str) -> str:
+        prompt = f"""You are AstroGPT, an assistant that explains astrophysics papers for non-experts.
 
         TASK
         Read the title and abstract, then produce:

@@ -3,6 +3,19 @@ from miniastrolm.agent.explain import AstroAgent
 import os
 
 
+def _env_int(name: str, default: int) -> int:
+    raw = os.getenv(name, str(default)).strip()
+    try:
+        return int(raw)
+    except ValueError:
+        return default
+
+
+def _env_bool(name: str, default: bool) -> bool:
+    raw = os.getenv(name, "1" if default else "0").strip().lower()
+    return raw in {"1", "true", "yes", "on"}
+
+
 def build_client(provider: str, llama_model_path: str | None):
     if provider == "mock":
         from miniastrolm.llm.mock_client import MockLLMClient
@@ -21,7 +34,15 @@ def build_client(provider: str, llama_model_path: str | None):
         model_path = llama_model_path or os.getenv("LLAMA_MODEL_PATH")
         if not model_path:
             raise ValueError("For --provider llama, pass --llama-model-path or set LLAMA_MODEL_PATH.")
-        return LlamaCppClient(model_path=model_path)
+        return LlamaCppClient(
+            model_path=model_path,
+            n_gpu_layers=_env_int("LLAMA_N_GPU_LAYERS", -1),
+            n_ctx=_env_int("LLAMA_N_CTX", 4096),
+            n_batch=_env_int("LLAMA_N_BATCH", 512),
+            n_threads=_env_int("LLAMA_N_THREADS", 4),
+            flash_attn=_env_bool("LLAMA_FLASH_ATTN", True),
+            verbose=_env_bool("LLAMA_VERBOSE", False),
+        )
 
     raise ValueError(f"Unsupported provider: {provider}")
 

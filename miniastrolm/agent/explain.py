@@ -427,10 +427,8 @@ class AstroAgent:
 
             repair_prompt = Prompts(mode="revise").build_reviser_prompt(
                 abstract=abstract,
-                plan=plan,
                 draft=current_draft,
                 critique_json=synthetic_critique_json,
-                glossary=glossary,
             )
             repair_system_prompt = (
                 "You are an expert astronomer and science communicator. "
@@ -517,10 +515,8 @@ class AstroAgent:
         for attempt in range(self.max_revision_attempts):
             revision_prompt = Prompts(mode="revise").build_reviser_prompt(
                 abstract=abstract,
-                plan=plan,
                 draft=current_draft,
                 critique_json=current_critic_json,
-                glossary=glossary,
             )
             system_revision_prompt = (
                 "You are an expert astronomer and science communicator. "

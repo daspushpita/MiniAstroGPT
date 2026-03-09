@@ -1,7 +1,7 @@
 import json, argparse
 from miniastrolm.agent.explain import AstroAgent
 from miniastrolm.daily.fetch import ArxivDownloader, Clean_Jsonl_Files
-from miniastrolm.db import SQLITE_Database_Builder
+from miniastrolm.scripts.db import SQLITE_Database_Builder
 from miniastrolm.cli.app import build_client, build_parser
 from datetime import date, datetime
 from pathlib import Path
