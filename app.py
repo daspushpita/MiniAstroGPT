@@ -1,64 +1,197 @@
-import os
+import json
+import random
+import html
 from pathlib import Path
-
-from miniastrolm.scripts.utils import (
-    AgentConfig,
-    get_daily_paths_and_date,
-    run_fetch_and_build,
-    get_random_papers,
-    orchestration,
-    cleanup_session_artifacts,
-)
+import gradio as gr
+import base64
 
 BASE_DIR = Path(__file__).parent
-DATA_DIR = BASE_DIR / "data"
+DATA_PATH = BASE_DIR / "data" / "cache" / "papers.jsonl"
+ASSETS_DIR = BASE_DIR / "assets"
+BG_FILE = ASSETS_DIR / "NGC602.jpg"
+
+with open(BG_FILE, "rb") as f:
+    bg_base64 = base64.b64encode(f.read()).decode("utf-8")
 
 
-# --- CONFIG ---
-my_config = AgentConfig(
-    provider=os.getenv("ASTRO_PROVIDER", "llama"),
-    num_days = 3,
-    max_turns=3,
-    max_revision_attempts=1,
-    threshold_hallucination=2,
-    threshold_clarity=2,
-    threshold_structure=2,
-    llama_model_path=Path("/Users/pushpita/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf"),
-    fast_mode=False,
-    fast_max_new_tokens=1024,
-    write_mode = True
-)
+def read_papers(path: Path):
+    with open(path, "r", encoding="utf-8") as f_in:
+        return [json.loads(line) for line in f_in if line.strip()]
 
-def main():
-    cleanup_after_run = os.getenv("ASTRO_CLEANUP_AFTER_RUN", "1").strip().lower() in {"1", "true", "yes", "on"}
-    raw_path, merged_path, cleaned_path, db_output_path, json_output_path, cache_path, date_from, date_to = get_daily_paths_and_date(my_config)
+
+def format_glossary_markdown(glossary_data) -> str:
+    if not glossary_data:
+        return "<em>No glossary available for this paper.</em>"
+
+    glossary_dict = json.loads(glossary_data)
+    parts = ["<h3>Glossary</h3>"]
+
+    for term, definition in glossary_dict.items():
+        safe_term = html.escape(str(term))
+        safe_definition = html.escape(str(definition))
+        parts.append(
+            f"<div class='glossary-item'>"
+            f"<strong>{safe_term}</strong><br>{safe_definition}</div>"
+        )
+
+    return "\n".join(parts)
+
+
+def load_random():
+    data = read_papers(DATA_PATH)
+
+    if not data:
+        return "", "No papers found", "", "", "", "", "", ""
+
+    paper = random.choice(data)
+
+    # paper_id = str(paper.get("id", ""))
+    # title = f"## {str(paper.get('title', ''))}"
+    paper_id = str(paper.get("id", ""))
+    raw_title = str(paper.get("title", ""))
+
+    arxiv_url = paper_id
+    short_id = paper_id.split("/")[-1] if paper_id else "unknown"
+
+    title = f"""## {raw_title}
+
+    <span style="color:#93c5fd; font-size: 14px;">
+    arXiv: <a href="{arxiv_url}" target="_blank" style="color:#93c5fd; text-decoration:none;">{short_id}</a>
+    </span>
+    """
+
+    abstract = str(paper.get("abstract", ""))
+    explanation = str(paper.get("final_explanation", ""))
+
+    glossary = format_glossary_markdown(paper.get("glossary", ""))
+
+    plan = f"### Plan\n\n{str(paper.get('plan', ''))}"
+    draft = f"### Draft\n\n{str(paper.get('draft', ''))}"
+
+    critic_raw = str(paper.get("critic", ""))
     try:
-        info = run_fetch_and_build(date_from=date_from, date_to=date_to, 
-                                    raw_path = raw_path, merged_path=merged_path, 
-                                    cleaned_path=cleaned_path, db_output_path=db_output_path, 
-                                    json_output_path=json_output_path,
-                                    force = False)
-        all_abstracts = get_random_papers(db_output_path, n_samples=2)
-        if not all_abstracts:
-            return "", "No papers available", "Refresh papers to build/populate the daily DB first."
-            
-        final_text = orchestration(my_config,
-                                    mode="batch",
-                                    batch_items=all_abstracts,
-                                    debug=False,
-                                    cache_path=cache_path)
-        print(final_text)
-        return final_text
-    finally:
-        if cleanup_after_run:
-            cleanup_session_artifacts(
-                raw_path=raw_path,
-                merged_path=merged_path,
-                cleaned_path=cleaned_path,
-                db_output_path=db_output_path,
-                json_output_path=json_output_path,
-                extra_dirs=[raw_path.parent.parent / "output"],
-            )
+        critic_pretty = json.dumps(json.loads(critic_raw), indent=2)
+    except Exception:
+        critic_pretty = critic_raw
 
-if __name__ == "__main__":
-    main()
+    critic = f"### Critic\n\n```json\n{critic_pretty}\n```"
+
+    return paper_id, title, abstract, explanation, glossary, plan, draft, critic
+
+
+css = f"""
+html, body {{
+    margin: 0;
+    min-height: 100%;
+}}
+
+#app_bg {{
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: url("data:image/jpeg;base64,{bg_base64}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}}
+
+#app_bg::after {{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(2, 6, 23, 0.28);
+}}
+
+.gradio-container {{
+    position: relative;
+    z-index: 1;
+    background: transparent !important;
+    max-width: 1100px;
+    margin: 24px auto !important;
+    padding: 20px !important;
+}}
+
+.gradio-container > div,
+.gradio-container .main,
+.gradio-container .block {{
+    background: transparent !important;
+}}
+
+#paper_card {{
+    background: rgba(2, 6, 23, 0.62);
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    max-width: 900px;
+    margin: 20px auto;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}}
+
+textarea, input {{
+    background: rgba(15, 23, 42, 0.75) !important;
+}}
+
+footer {{
+    display: none !important;
+}}
+.glossary-item {{
+    background: rgba(15, 23, 42, 0.92);
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    line-height: 1.6;
+    transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}}
+
+.glossary-item strong {{
+    color: #93c5fd;
+}}
+
+.glossary-item:hover {{
+    transform: translateY(-2px);
+    border-color: #60a5fa;
+    box-shadow: 0 8px 22px rgba(96, 165, 250, 0.12);
+}}
+
+"""
+
+print("Background exists:", BG_FILE.exists(), BG_FILE)
+
+with gr.Blocks(css=css) as demo:
+    gr.HTML("<div id='app_bg'></div>")
+
+    gr.Markdown("""
+    # AstroGPT
+    ### Daily astronomy arXiv
+    """)    
+    state_paper_id = gr.State("")
+
+    with gr.Row():
+        btn_random = gr.Button("Discover another paper")
+
+    with gr.Column(elem_id="paper_card"):
+        title_box = gr.Markdown()
+        out_box = gr.Markdown()
+        glossary_box = gr.HTML(label="Glossary")
+
+        with gr.Accordion("Abstract", open=False):
+            abstract_box = gr.Markdown()
+
+        with gr.Accordion("Generation Trace", open=False):
+            plan_box = gr.Markdown()
+            draft_box = gr.Markdown()
+            critic_box = gr.Markdown()
+
+    btn_random.click(
+        fn=load_random,
+        inputs=[],
+        outputs=[state_paper_id, title_box, abstract_box, out_box, 
+                glossary_box, plan_box, draft_box, critic_box,],
+        )
+
+demo.launch(share=True,show_error=True)
