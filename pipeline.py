@@ -38,7 +38,7 @@ def main():
                                     cleaned_path=cleaned_path, db_output_path=db_output_path, 
                                     json_output_path=json_output_path,
                                     force = False)
-        all_abstracts = get_random_papers(db_output_path, n_samples=2)
+        all_abstracts = get_random_papers(db_output_path, n_samples=20)
         if not all_abstracts:
             return "", "No papers available", "Refresh papers to build/populate the daily DB first."
             
