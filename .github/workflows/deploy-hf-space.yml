@@ -1,0 +1,51 @@
+name: Deploy demo-ui to Hugging Face Space
+
+on:
+  push:
+    branches: [demo-ui]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout demo-ui
+        uses: actions/checkout@v4
+        with:
+          ref: demo-ui
+          fetch-depth: 0
+          lfs: true
+
+      - name: Push branch contents to Hugging Face Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_SPACE_REPO: pudas96/AstroGPT
+        run: |
+          set -euo pipefail
+
+          if [ -z "${HF_TOKEN:-}" ]; then
+            echo "HF_TOKEN is not set"
+            exit 1
+          fi
+
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+          git clone "https://user:${HF_TOKEN}@huggingface.co/spaces/${HF_SPACE_REPO}" hf_space
+
+          rsync -av --delete \
+            --exclude ".git" \
+            --exclude ".github" \
+            ./ hf_space/
+
+          cd hf_space
+          git add .
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+
+          git commit -m "Deploy from GitHub demo-ui"
+          git push
