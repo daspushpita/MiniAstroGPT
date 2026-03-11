@@ -1,8 +1,8 @@
 ---
 title: AstroGPT
 emoji: 🔭
-colorFrom: black
-colorTo: black
+colorFrom: indigo
+colorTo: indigo
 sdk: gradio
 app_file: app.py
 python_version: "3.12.12"
