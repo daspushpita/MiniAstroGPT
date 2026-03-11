@@ -20,6 +20,7 @@ Try the deployed version:
 
 🔭 **Hugging Face Space:**  
 [![Open In Hugging Face](https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-sm.svg)](https://huggingface.co/spaces/pudas96/AstroGPT)
+
 The interface lets users:
 
 - browse astronomy papers
@@ -86,7 +87,9 @@ flowchart LR
     E --> F["Student Fine-Tuning (GPT-2 + LoRA)"]
     F --> G["Compact Explainer Model"]
   end
-
+```
+```mermaid
+flowchart LR
   subgraph P["Production Track (agentic_pipeline)"]
     X["Abstract Input"] --> Y["Plan"]
     Y --> Z["Draft"]
