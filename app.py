@@ -208,7 +208,7 @@ with gr.Blocks(css=css) as demo:
     with gr.Column(elem_id="hero_box"):
         gr.Markdown("""
 # AstroGPT
-### Astronomy papers explained in plain language
+### Daily Astronomy ArXiv
 """)
         with gr.Row():
             btn_random = gr.Button("Discover another paper")
