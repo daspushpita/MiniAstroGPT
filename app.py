@@ -30,17 +30,7 @@ def format_glossary_markdown(glossary_data) -> str:
 
     return "\n".join(parts)
 
-
-def load_random():
-    data = read_papers(DATA_PATH)
-
-    if not data:
-        return "", "No papers found", "", "", "", "", "", ""
-
-    paper = random.choice(data)
-
-    # paper_id = str(paper.get("id", ""))
-    # title = f"## {str(paper.get('title', ''))}"
+def format_paper(paper):
     paper_id = str(paper.get("id", ""))
     raw_title = str(paper.get("title", ""))
 
@@ -48,11 +38,10 @@ def load_random():
     short_id = paper_id.split("/")[-1] if paper_id else "unknown"
 
     title = f"""## {raw_title}
-
-    <span style="color:#93c5fd; font-size: 14px;">
-    arXiv: <a href="{arxiv_url}" target="_blank" style="color:#93c5fd; text-decoration:none;">{short_id}</a>
-    </span>
-    """
+<span style="color:#93c5fd; font-size: 14px;">
+arXiv: <a href="{arxiv_url}" target="_blank" style="color:#93c5fd; text-decoration:none;">{short_id}</a>
+</span>
+"""
 
     abstract = str(paper.get("abstract", ""))
     explanation = str(paper.get("final_explanation", ""))
@@ -73,13 +62,31 @@ def load_random():
     return paper_id, title, abstract, explanation, glossary, plan, draft, critic
 
 
+def initial_paper():
+    data = read_papers(DATA_PATH)
+    if not data:
+        return "", "No papers found", "", "", "", "", "", ""
+    initial_paper = data[20]
+    return format_paper(initial_paper)
+
+def load_random():
+    data = read_papers(DATA_PATH)
+
+    if not data:
+        return "", "No papers found", "", "", "", "", "", ""
+
+    paper = random.choice(data)
+    return format_paper(paper)
+
+
 css = f"""
 html, body {{
     margin: 0;
     min-height: 100%;
 }}
 
-#app_bg {{
+body::before {{
+    content: "";
     position: fixed;
     inset: 0;
     z-index: 0;
@@ -91,10 +98,12 @@ html, body {{
     background-attachment: fixed;
 }}
 
-#app_bg::after {{
+body::after {{
     content: "";
-    position: absolute;
+    position: fixed;
     inset: 0;
+    z-index: 0;
+    pointer-events: none;
     background: rgba(2, 6, 23, 0.28);
 }}
 
@@ -123,6 +132,19 @@ html, body {{
     margin: 20px auto;
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
+}}
+
+#paper_card p {{
+    line-height: 1.7;
+    font-size: 16px;
+}}
+
+#paper_card h2 {{
+    margin-bottom: 0.4rem;
+}}
+
+#paper_card h3 {{
+    margin-top: 1.2rem;
 }}
 
 textarea, input {{
@@ -155,7 +177,7 @@ footer {{
 """
 
 with gr.Blocks(css=css) as demo:
-    gr.HTML("<div id='app_bg'></div>")
+    # gr.HTML("<div id='app_bg'></div>")
 
     gr.Markdown("""
     # AstroGPT
@@ -186,5 +208,11 @@ with gr.Blocks(css=css) as demo:
                 glossary_box, plan_box, draft_box, critic_box,],
         )
 
+    demo.load(
+        fn=initial_paper,
+        inputs=[],
+        outputs=[state_paper_id, title_box, abstract_box, out_box, 
+                glossary_box, plan_box, draft_box, critic_box,],
+    )
 if __name__ == "__main__":
     demo.launch(show_error=True)
