@@ -5,8 +5,8 @@ colorFrom: blue
 colorTo: indigo
 sdk: gradio
 app_file: app.py
-python_version: 3.10
-sdk_version: 5.49.1
+python_version: "3.12.12"
+sdk_version: "5.49.1"
 ---
 
 # AstroGPT
