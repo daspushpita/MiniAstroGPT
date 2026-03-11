@@ -92,14 +92,15 @@ def load_random():
 
 startup_paper_id, startup_title, startup_abstract, startup_explanation, startup_glossary, startup_plan, startup_draft, startup_critic = initial_paper()
 
-css = f"""
-html, body {{
+css = """
+html, body {
     margin: 0;
     min-height: 100%;
     background: #020617;
-}}
+}
 
-#app_bg {{
+body::before {
+    content: "";
     position: fixed;
     inset: 0;
     z-index: 0;
@@ -109,79 +110,80 @@ html, body {{
     background-position: center;
     background-repeat: no-repeat;
     transform: translateZ(0);
-}}
+}
 
-#app_bg::after {{
+body::after {
     content: "";
-    position: absolute;
+    position: fixed;
     inset: 0;
-    background: rgba(2, 6, 23, 0.28);
-}}
+    z-index: 0;
+    pointer-events: none;
+    background: rgba(2, 6, 23, 0.40);
+}
 
-.gradio-container {{
+.gradio-container {
     position: relative;
     z-index: 1;
     background: transparent !important;
     max-width: 1100px;
     margin: 24px auto !important;
     padding: 20px !important;
-}}
+}
 
 .gradio-container > div,
 .gradio-container .main,
-.gradio-container .block {{
+.gradio-container .block {
     background: transparent !important;
-}}
+}
 
-#hero_box {{
+#hero_box {
     max-width: 900px;
     margin: 0 auto 16px auto;
     padding: 10px 6px;
-}}
+}
 
-#hero_box h1 {{
+#hero_box h1 {
     margin-bottom: 0.2rem;
-}}
+}
 
-#hero_box h3 {{
+#hero_box h3 {
     margin-top: 0;
     color: #dbeafe;
     font-weight: 500;
-}}
+}
 
-#paper_card {{
-    background: rgba(2, 6, 23, 0.62);
+#paper_card {
+    background: rgba(2, 6, 23, 0.72);
     border: 1px solid rgba(148, 163, 184, 0.18);
     border-radius: 18px;
     padding: 24px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
     max-width: 900px;
     margin: 20px auto;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-}}
+}
 
-#paper_card p {{
+#paper_card p {
     line-height: 1.7;
     font-size: 16px;
-}}
+}
 
-#paper_card h2 {{
+#paper_card h2 {
     margin-bottom: 0.4rem;
-}}
+}
 
-#paper_card h3 {{
+#paper_card h3 {
     margin-top: 1.2rem;
-}}
+}
 
-textarea, input {{
+textarea, input {
     background: rgba(15, 23, 42, 0.75) !important;
-}}
+}
 
-footer {{
+footer {
     display: none !important;
-}}
-.glossary-item {{
+}
+
+.glossary-item {
     background: rgba(15, 23, 42, 0.92);
     border: 1px solid #334155;
     border-radius: 12px;
@@ -189,29 +191,25 @@ footer {{
     margin-bottom: 10px;
     line-height: 1.6;
     transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
-}}
+}
 
-.glossary-item strong {{
+.glossary-item strong {
     color: #93c5fd;
-}}
+}
 
-.glossary-item:hover {{
+.glossary-item:hover {
     transform: translateY(-2px);
     border-color: #60a5fa;
     box-shadow: 0 8px 22px rgba(96, 165, 250, 0.12);
-}}
-
+}
 """
 
 with gr.Blocks(css=css) as demo:
-    gr.HTML("<div id='app_bg'></div>")
-
     with gr.Column(elem_id="hero_box"):
         gr.Markdown("""
 # AstroGPT
 ### Astronomy papers explained in plain language
 """)
-
         with gr.Row():
             btn_random = gr.Button("Discover another paper")
 
