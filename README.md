@@ -168,8 +168,10 @@ pip install -r requirements.txt
 python app.py
 ```
 
-Then open:  
+Then open:
+```  
 http://localhost:7860
+```
 
 ## Author
 
