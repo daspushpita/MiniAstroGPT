@@ -88,38 +88,7 @@ Parallel production track:
 -> Hugging Face Space deployment
 ```
 
-```mermaid
-flowchart LR
-  subgraph D["Distillation Track (main)"]
-    direction LR
-
-    A["arXiv Abstracts"] --> B["Teacher LLM"]
-    C["Validation + Judge Filter"] --> E["Curated JSONL Supervision"]
-    F["Student Fine-Tuning (GPT-2 + LoRA)"] --> G["Compact Explainer Model"]
-
-    B --> C
-    E --> F
-
-    A ~~~ C ~~~ F
-    B ~~~ E ~~~ G
-  end
-```
-```mermaid
-flowchart LR
-  subgraph P["Production Track (agentic_pipeline)"]
-    direction LR
-
-    X["Abstract Input"] --> Y["Plan"]
-    Z["Draft"] --> U["Validate"]
-    V["Critic + Revise"] --> W["Gradio UI (HF Space)"]
-
-    Y --> Z
-    U --> V
-
-    X ~~~ Z ~~~ V
-    Y ~~~ U ~~~ W
-  end
-```
+![AstroGPT architecture](assets/architecture.svg)
 
 ## Repository Structure
 
