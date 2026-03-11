@@ -90,7 +90,7 @@ html, body {{
     inset: 0;
     z-index: 0;
     pointer-events: none;
-    background-image: url("data:image/jpeg;base64,{bg_base64}");
+    background-image: url("https://cdn.esawebb.org/archives/images/wallpaper5/weic2425c.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
