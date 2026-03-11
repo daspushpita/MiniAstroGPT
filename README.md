@@ -81,21 +81,49 @@ Parallel production track:
 ```mermaid
 flowchart LR
   subgraph D["Distillation Track (main)"]
-    A["arXiv Abstracts"] --> B["Teacher LLM"]
-    B --> C["Validation + Judge Filter"]
-    C --> E["Curated JSONL Supervision"]
-    E --> F["Student Fine-Tuning (GPT-2 + LoRA)"]
-    F --> G["Compact Explainer Model"]
+    direction LR
+
+    subgraph D1["Column 1"]
+      direction TB
+      A["arXiv Abstracts"] --> B["Teacher LLM"]
+    end
+
+    subgraph D2["Column 2"]
+      direction TB
+      C["Validation + Judge Filter"] --> E["Curated JSONL Supervision"]
+    end
+
+    subgraph D3["Column 3"]
+      direction TB
+      F["Student Fine-Tuning (GPT-2 + LoRA)"] --> G["Compact Explainer Model"]
+    end
+
+    B --> C
+    E --> F
   end
 ```
 ```mermaid
 flowchart LR
   subgraph P["Production Track (agentic_pipeline)"]
-    X["Abstract Input"] --> Y["Plan"]
-    Y --> Z["Draft"]
-    Z --> U["Validate"]
-    U --> V["Critic + Revise"]
-    V --> W["Gradio UI (HF Space)"]
+    direction LR
+
+    subgraph P1["Column 1"]
+      direction TB
+      X["Abstract Input"] --> Y["Plan"]
+    end
+
+    subgraph P2["Column 2"]
+      direction TB
+      Z["Draft"] --> U["Validate"]
+    end
+
+    subgraph P3["Column 3"]
+      direction TB
+      V["Critic + Revise"] --> W["Gradio UI (HF Space)"]
+    end
+
+    Y --> Z
+    U --> V
   end
 ```
 
