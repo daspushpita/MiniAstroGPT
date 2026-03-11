@@ -79,9 +79,9 @@ Parallel production track:
 ```
 
 ```mermaid
-flowchart LR
+flowchart TB
   subgraph D["Distillation Track (main)"]
-    direction LR
+    direction TB
 
     subgraph D1["Column 1"]
       direction TB
@@ -100,12 +100,16 @@ flowchart LR
 
     B --> C
     E --> F
+    A ~~~ C
+    C ~~~ F
+    B ~~~ E
+    E ~~~ G
   end
 ```
 ```mermaid
-flowchart LR
+flowchart TB
   subgraph P["Production Track (agentic_pipeline)"]
-    direction LR
+    direction TB
 
     subgraph P1["Column 1"]
       direction TB
@@ -124,6 +128,10 @@ flowchart LR
 
     Y --> Z
     U --> V
+    X ~~~ Z
+    Z ~~~ V
+    Y ~~~ U
+    U ~~~ W
   end
 ```
 
