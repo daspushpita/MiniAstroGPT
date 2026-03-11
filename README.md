@@ -85,21 +85,15 @@ flowchart LR
 
     subgraph D1["Column 1"]
       direction TB
-      A["arXiv Abstracts"] --> B["Teacher LLM"]
+      A["arXiv Abstracts"] --> B["Teacher LLM"] --> C["Validation + Judge Filter"]
     end
 
     subgraph D2["Column 2"]
       direction TB
-      C["Validation + Judge Filter"] --> E["Curated JSONL Supervision"]
+      E["Curated JSONL Supervision"] --> F["Student Fine-Tuning (GPT-2 + LoRA)"] --> G["Compact Explainer Model"]
     end
 
-    subgraph D3["Column 3"]
-      direction TB
-      F["Student Fine-Tuning (GPT-2 + LoRA)"] --> G["Compact Explainer Model"]
-    end
-
-    B --> C
-    E --> F
+    C --> E
   end
 ```
 ```mermaid
@@ -109,21 +103,15 @@ flowchart LR
 
     subgraph P1["Column 1"]
       direction TB
-      X["Abstract Input"] --> Y["Plan"]
+      X["Abstract Input"] --> Y["Plan"] --> Z["Draft"]
     end
 
     subgraph P2["Column 2"]
       direction TB
-      Z["Draft"] --> U["Validate"]
+      U["Validate"] --> V["Critic + Revise"] --> W["Gradio UI (HF Space)"]
     end
 
-    subgraph P3["Column 3"]
-      direction TB
-      V["Critic + Revise"] --> W["Gradio UI (HF Space)"]
-    end
-
-    Y --> Z
-    U --> V
+    Z --> U
   end
 ```
 
