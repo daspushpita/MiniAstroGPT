@@ -54,8 +54,9 @@ The system starts from raw astrophysics abstracts and gradually builds a reliabl
 5. A compact student model is trained on the filtered supervision.
 
 Alongside this training pipeline, an **agentic inference system** produces explanations in stages:  
+```
 plan -> draft -> validate -> critic -> revise
-
+```
 The full generation trace is exposed in the UI for transparency.
 
 ---
