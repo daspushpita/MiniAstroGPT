@@ -1,0 +1,14 @@
+# Full dependency set for local development and all providers.
+requests>=2.31,<3
+pandas>=2.2,<3
+python-dotenv>=1,<2
+openai>=1,<2
+gradio>=5.0,<6
+
+# Provider dependencies:
+transformers>=4.40,<5
+torch>=2.2,<3
+sentencepiece>=0.1.99,<1
+safetensors>=0.4,<1
+accelerate>=0.28,<1
+llama-cpp-python>=0.2.90,<1
