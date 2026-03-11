@@ -1,7 +1,7 @@
-# AstroGPT / MiniAstroLM
+# AstroGPT
 ### Distillation + Agentic Pipelines for Astrophysics Explanation Generation
 
-AstroGPT is an experiment in building **reliable explanations of astrophysics papers**.
+AstroGPT is an experiment in building **reliable explanations of astrophysics abstracts**.
 
 Instead of treating this as generic summarization, the project treats explanation as a **controlled generation problem**. The system combines two complementary approaches:
 
@@ -23,10 +23,10 @@ Try the deployed version:
 
 The interface lets users:
 
-- browse astronomy papers
+- browse astronomy abstracts
 - read simplified explanations
 - inspect the generation trace (plan -> draft -> critic)
-- explore glossary terms extracted from the paper
+- explore glossary terms extracted from the abstracts
 
 ---
 
@@ -47,7 +47,7 @@ can produce explanations that remain both **readable and scientifically grounded
 
 The system starts from raw astrophysics abstracts and gradually builds a reliable explanation pipeline.
 
-1. Papers are ingested and cleaned.
+1. Abstracts are ingested and cleaned.
 2. A teacher model generates candidate explanations.
 3. A judge model filters and scores outputs.
 4. Accepted samples form a curated training dataset.
@@ -85,15 +85,21 @@ flowchart LR
 
     subgraph D1["Column 1"]
       direction TB
-      A["arXiv Abstracts"] --> B["Teacher LLM"] --> C["Validation + Judge Filter"]
+      A["arXiv Abstracts"] --> B["Teacher LLM"]
     end
 
     subgraph D2["Column 2"]
       direction TB
-      E["Curated JSONL Supervision"] --> F["Student Fine-Tuning (GPT-2 + LoRA)"] --> G["Compact Explainer Model"]
+      C["Validation + Judge Filter"] --> E["Curated JSONL Supervision"]
     end
 
-    C --> E
+    subgraph D3["Column 3"]
+      direction TB
+      F["Student Fine-Tuning (GPT-2 + LoRA)"] --> G["Compact Explainer Model"]
+    end
+
+    B --> C
+    E --> F
   end
 ```
 ```mermaid
@@ -103,22 +109,28 @@ flowchart LR
 
     subgraph P1["Column 1"]
       direction TB
-      X["Abstract Input"] --> Y["Plan"] --> Z["Draft"]
+      X["Abstract Input"] --> Y["Plan"]
     end
 
     subgraph P2["Column 2"]
       direction TB
-      U["Validate"] --> V["Critic + Revise"] --> W["Gradio UI (HF Space)"]
+      Z["Draft"] --> U["Validate"]
     end
 
-    Z --> U
+    subgraph P3["Column 3"]
+      direction TB
+      V["Critic + Revise"] --> W["Gradio UI (HF Space)"]
+    end
+
+    Y --> Z
+    U --> V
   end
 ```
 
 ## Repository Structure
 
 ```text
-MiniAstroLM/
+AstroGPT/
 ├── src/miniastrolm/
 │   ├── data_scripts/        # ingestion, cleaning, dataset shaping
 │   ├── llm/                 # teacher + validation/regeneration
