@@ -13,6 +13,18 @@ def read_papers(path: Path):
         return [json.loads(line) for line in f_in if line.strip()]
 
 
+def empty_outputs():
+    return (
+        "",
+        "## No papers found",
+        "",
+        "No paper data is available yet.",
+        "<em>No glossary available for this paper.</em>",
+        "### Plan\n\n_No plan available._",
+        "### Draft\n\n_No draft available._",
+        "### Critic\n\n_No critic available._",
+    )
+    
 def format_glossary_markdown(glossary_data) -> str:
     if not glossary_data:
         return "<em>No glossary available for this paper.</em>"
@@ -66,7 +78,7 @@ def initial_paper():
     data = read_papers(DATA_PATH)
     if not data:
         return "", "No papers found", "", "", "", "", "", ""
-    initial_paper = data[20]
+    initial_paper = data[19]
     return format_paper(initial_paper)
 
 def load_random():
@@ -78,6 +90,7 @@ def load_random():
     paper = random.choice(data)
     return format_paper(paper)
 
+startup_paper_id, startup_title, startup_abstract, startup_explanation, startup_glossary, startup_plan, startup_draft, startup_critic = initial_paper()
 
 css = f"""
 html, body {{
@@ -120,6 +133,22 @@ body::after {{
 .gradio-container .main,
 .gradio-container .block {{
     background: transparent !important;
+}}
+
+#hero_box {{
+    max-width: 900px;
+    margin: 0 auto 16px auto;
+    padding: 10px 6px;
+}}
+
+#hero_box h1 {{
+    margin-bottom: 0.2rem;
+}}
+
+#hero_box h3 {{
+    margin-top: 0;
+    color: #dbeafe;
+    font-weight: 500;
 }}
 
 #paper_card {{
@@ -177,29 +206,29 @@ footer {{
 """
 
 with gr.Blocks(css=css) as demo:
-    # gr.HTML("<div id='app_bg'></div>")
+    with gr.Column(elem_id="hero_box"):
+        gr.Markdown("""
+# AstroGPT
+### Astronomy papers explained in plain language
+""")
 
-    gr.Markdown("""
-    # AstroGPT
-    ### Daily astronomy arXiv
-    """)    
-    state_paper_id = gr.State("")
+        with gr.Row():
+            btn_random = gr.Button("Discover another paper")
 
-    with gr.Row():
-        btn_random = gr.Button("Discover another paper")
+    state_paper_id = gr.State(startup_paper_id)
 
     with gr.Column(elem_id="paper_card"):
-        title_box = gr.Markdown()
-        out_box = gr.Markdown()
-        glossary_box = gr.HTML(label="Glossary")
+        title_box = gr.Markdown(value=startup_title)
+        out_box = gr.Markdown(value=startup_explanation)
+        glossary_box = gr.HTML(value=startup_glossary, label="Glossary")
 
         with gr.Accordion("Abstract", open=False):
-            abstract_box = gr.Markdown()
+            abstract_box = gr.Markdown(value=startup_abstract)
 
         with gr.Accordion("Generation Trace", open=False):
-            plan_box = gr.Markdown()
-            draft_box = gr.Markdown()
-            critic_box = gr.Markdown()
+            plan_box = gr.Markdown(value=startup_plan)
+            draft_box = gr.Markdown(value=startup_draft)
+            critic_box = gr.Markdown(value=startup_critic)
 
     btn_random.click(
         fn=load_random,
