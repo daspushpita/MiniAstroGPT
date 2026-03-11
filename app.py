@@ -3,15 +3,9 @@ import random
 import html
 from pathlib import Path
 import gradio as gr
-import base64
 
 BASE_DIR = Path(__file__).parent
 DATA_PATH = BASE_DIR / "data" / "cache" / "papers.jsonl"
-ASSETS_DIR = BASE_DIR / "assets"
-BG_FILE = ASSETS_DIR / "NGC602.jpg"
-
-with open(BG_FILE, "rb") as f:
-    bg_base64 = base64.b64encode(f.read()).decode("utf-8")
 
 
 def read_papers(path: Path):
@@ -159,8 +153,6 @@ footer {{
 }}
 
 """
-
-print("Background exists:", BG_FILE.exists(), BG_FILE)
 
 with gr.Blocks(css=css) as demo:
     gr.HTML("<div id='app_bg'></div>")
