@@ -17,7 +17,7 @@ jobs:
           fetch-depth: 0
           lfs: true
 
-      - name: Push branch contents to Hugging Face Space
+      - name: Push Space app files to Hugging Face Space
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
           HF_SPACE_REPO: pudas96/AstroGPT
@@ -32,15 +32,27 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
 
-          git clone "https://user:${HF_TOKEN}@huggingface.co/spaces/${HF_SPACE_REPO}" hf_space
+          git clone "https://user:${HF_TOKEN}@huggingface.co/spaces/${HF_SPACE_REPO}" /tmp/hf_space
 
-          rsync -av --delete \
-            --exclude ".git" \
-            --exclude ".github" \
-            ./ hf_space/
+          find /tmp/hf_space -mindepth 1 -maxdepth 1 \
+            ! -name ".git" \
+            -exec rm -rf {} +
 
-          cd hf_space
-          git add .
+          mkdir -p /tmp/hf_space/assets
+          mkdir -p /tmp/hf_space/data/cache
+
+          cp app.py /tmp/hf_space/app.py
+          cp requirements.txt /tmp/hf_space/requirements.txt
+
+          if [ -f README.md ]; then
+            cp README.md /tmp/hf_space/README.md
+          fi
+
+          cp assets/NGC602.jpg /tmp/hf_space/assets/NGC602.jpg
+          cp data/cache/papers.jsonl /tmp/hf_space/data/cache/papers.jsonl
+
+          cd /tmp/hf_space
+          git add -A
 
           if git diff --cached --quiet; then
             echo "No changes to commit"

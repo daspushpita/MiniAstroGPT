@@ -194,4 +194,5 @@ with gr.Blocks(css=css) as demo:
                 glossary_box, plan_box, draft_box, critic_box,],
         )
 
-demo.launch(share=True,show_error=True)
+if __name__ == "__main__":
+    demo.launch(show_error=True)

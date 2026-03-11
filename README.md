@@ -1,4 +1,15 @@
-# AstroGPT / MiniAstroLM
+---
+title: MiniAstroLM
+emoji: 🔭
+colorFrom: blue
+colorTo: indigo
+sdk: gradio
+app_file: app.py
+python_version: 3.10
+sdk_version: 5.49.1
+---
+
+# AstroGPT
 ### Two LLM Systems in One Repo: Distilled (`main`) + Agentic (`agentic-astrogpt`)
 
 Builds scientific explanations for astrophysics abstracts with two complementary approaches:
