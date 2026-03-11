@@ -1,153 +1,196 @@
 # AstroGPT / MiniAstroLM
-### Two LLM Systems in One Repo: Distilled (`main`) + Agentic (`agentic-astrogpt`)
+### Distillation + Agentic Pipelines for Astrophysics Explanation Generation
 
-Builds scientific explanations for astrophysics abstracts with two complementary approaches:
-- `main`: fine-tuned compact model via controlled distillation
-- `agentic-astrogpt`: staged agent pipeline with validation + artifacts
+AstroGPT is an experiment in building **reliable explanations of astrophysics papers**.
 
----
+Instead of treating this as generic summarization, the project treats explanation as a **controlled generation problem**. The system combines two complementary approaches:
 
-## Brief Overview
+- **Distillation:** train compact language models to reproduce high-quality explanation style
+- **Agentic generation:** staged reasoning pipelines that expose intermediate steps
 
-| Branch | What It Is | Why It Matters |
-|---|---|---|
-| `main` | Teacher -> Judge -> Student (GPT-2 family fine-tune) | Low-cost, repeatable, style-constrained generation |
-| `agentic-astrogpt` | Planner -> Writer -> Validator -> Critic -> Reviser | Inspectable reasoning flow with quality gates |
+The goal is simple:
+
+> Generate explanations that are understandable to non-experts **without losing scientific grounding.**
 
 ---
 
-## System Schematics
+## Live Demo
 
-### Distilled Track (`main`)
+Try the deployed version:
 
-```mermaid
-flowchart TD
-  A["arXiv Abstracts"] --> B["Teacher LLM"]
-  B --> C["Judge Filter"]
-  C --> D["Curated Dataset"]
-  D --> E["Student Fine-tune"]
-  E --> F["Compact Model"]
+🔭 **Hugging Face Space:**  
+[![Open In Hugging Face](https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-sm.svg)](https://huggingface.co/spaces/pudas96/AstroGPT)
+The interface lets users:
+
+- browse astronomy papers
+- read simplified explanations
+- inspect the generation trace (plan -> draft -> critic)
+- explore glossary terms extracted from the paper
+
+---
+
+## Why This Project Exists
+
+Scientific papers are often difficult for non-specialists to understand. Large language models can help, but uncontrolled summarization often produces **hallucinations or shallow explanations**.
+
+This project explores whether combining:
+
+- **controlled supervision (distillation)**
+- **inspectable generation pipelines (agentic workflows)**
+
+can produce explanations that remain both **readable and scientifically grounded**.
+
+---
+
+## System Overview
+
+The system starts from raw astrophysics abstracts and gradually builds a reliable explanation pipeline.
+
+1. Papers are ingested and cleaned.
+2. A teacher model generates candidate explanations.
+3. A judge model filters and scores outputs.
+4. Accepted samples form a curated training dataset.
+5. A compact student model is trained on the filtered supervision.
+
+Alongside this training pipeline, an **agentic inference system** produces explanations in stages:  
+plan -> draft -> validate -> critic -> revise
+
+The full generation trace is exposed in the UI for transparency.
+
+---
+
+## Architecture
+
+```text
+Astrophysics abstracts
+-> Data cleaning + storage
+-> Teacher generation under strict prompt constraints
+-> Judge scoring + acceptance filtering
+-> Curated supervision dataset
+-> Student fine-tuning (compact LM)
+-> Fast inference
+
+Parallel production track:
+-> Agentic staged generation
+-> Validation + critique loop
+-> Gradio app
+-> Hugging Face Space deployment
 ```
 
----
-
-### Agentic Track (`agentic-astrogpt`)
-
 ```mermaid
-flowchart TD
-  A["arXiv Fetch"] --> B["Clean JSONL"]
-  B --> C["Plan"]
-  C --> D["Write"]
-  D --> E["Validate"]
-  E --> F["Critic"]
-  F --> G["Glossary"]
-  G --> H["Revise"]
-  H --> I["JSONL and MD Outputs"]
+flowchart LR
+  subgraph D["Distillation Track (main)"]
+    A["arXiv Abstracts"] --> B["Teacher LLM"]
+    B --> C["Validation + Judge Filter"]
+    C --> E["Curated JSONL Supervision"]
+    E --> F["Student Fine-Tuning (GPT-2 + LoRA)"]
+    F --> G["Compact Explainer Model"]
+  end
+
+  subgraph P["Production Track (agentic_pipeline)"]
+    X["Abstract Input"] --> Y["Plan"]
+    Y --> Z["Draft"]
+    Z --> U["Validate"]
+    U --> V["Critic + Revise"]
+    V --> W["Gradio UI (HF Space)"]
+  end
 ```
 
-Outputs written per run:
-- `agent_data/output/agent_runs_YYYYMMDD.jsonl`
-- `agent_data/output/agent_runs_YYYYMMDD.md`
+## Repository Structure
+
+```text
+MiniAstroLM/
+├── src/miniastrolm/
+│   ├── data_scripts/        # ingestion, cleaning, dataset shaping
+│   ├── llm/                 # teacher + validation/regeneration
+│   ├── eval/                # judge schema + evaluation utilities
+│   ├── training/            # student training loop
+│   └── student/             # inference pipeline
+├── prompts/
+│   ├── teacher/
+│   └── judge/
+├── data/
+│   ├── teacher/
+│   └── evals/
+└── README.md
+```
+
+## Project Tracks
+
+This repository contains two connected development tracks.
+
+### Distillation Track (main)
+
+Focuses on training a compact explanation model.
+
+- teacher -> judge -> student distillation pipeline
+- curated supervision datasets
+- GPT-2 fine-tuning with LoRA
+- prefix-masked training
+
+### Agentic Track (agentic_pipeline)
+
+Focuses on deployable generation workflows.
+
+- staged generation (plan -> draft -> critique)
+- structured validation
+- Gradio interface
+- Hugging Face Space deployment
 
 ---
 
-## Quick Start
+## Technical Focus
 
-### 1) Install
+This project explores several aspects of modern LLM system design.
+
+### LLM Systems
+
+- teacher-judge-student distillation architecture
+- agentic multi-stage generation pipelines
+
+### Prompt & Output Control
+
+- structured prompt templates
+- schema-constrained JSON outputs
+- strict explanation formatting rules
+- retry/repair strategies for malformed outputs
+
+### Data Pipelines
+
+- automated arXiv ingestion
+- JSONL dataset curation
+- SQLite intermediate storage
+
+### Model Training
+
+- GPT-2 fine-tuning
+- LoRA / PEFT adaptation
+- prefix-masked supervision
+- gradient accumulation for limited hardware
+
+### Deployment
+
+- Gradio interface
+- Hugging Face Spaces deployment
+- GitHub-based CI workflow
+
+---
+
+## Running the App Locally
+
 ```bash
 pip install -r requirements.txt
+python app.py
 ```
 
-### 2) Run agentic smoke test
-```bash
-python3 -m src.cli.pipeline --provider mock --max-abstracts 1 --delete-raw
-```
-
-### 3) Run with real provider
-```bash
-python3 -m src.cli.pipeline --provider openai --max-abstracts 5 --delete-raw
-```
-
-Provider options: `mock`, `openai`, `hf`, `llama`
-
----
-
-## Fine-Tuned Track (`main` branch)
-
-```bash
-git checkout main
-python -m miniastrolm.student.train --config configs/student_train.yaml
-python -m miniastrolm.student.infer --config configs/generation.yaml --model_dir data/student/checkpoint --abstract "Abstract text"
-```
-
----
-
-## Technical Highlights
-
-### 1. Explicit Supervision Construction
-Teacher outputs follow a strict JSON schema:
-
-- `id`
-- `title`
-- `abstract`
-- `target_explanation`
-- `judge_feedback`
-- `accepted`
-
-Only samples meeting scoring thresholds are used for student training.  
-This keeps supervision high-signal and reduces style drift before fine-tuning.
-
-### 2. Masked Causal LM Training
-Training format:
-
-```text
-[prompt tokens] -> masked (-100)
-[target tokens] -> supervised
-```
-
-The student learns conditional explanation generation without being penalized on prefix tokens.
-
-### 3. Agentic Writing Pipeline with Validation Gates
-Implemented a staged generation flow:
-
-`plan -> write -> validate -> critic -> glossary -> revise`
-
-Validation is enforced as an explicit control point (word count, paragraph structure, forbidden phrasing), with a structured `validation_failed` path instead of silent failure.
-
-### 4. Production-Ready Pipeline Controls and Artifacts
-- Loop-level agent reuse (single initialization across abstracts)
-- Run controls: `--max-abstracts`, `--delete-raw`
-- Machine-readable outputs: `agent_runs_YYYYMMDD.jsonl`
-- Human-review outputs: `agent_runs_YYYYMMDD.md`
-
-This supports reproducible runs, lightweight ops, and fast debugging.
-
-### 5. Provider-Agnostic LLM Integration
-The same pipeline supports multiple backends:
-
-- `mock` (smoke tests)
-- `openai`
-- `hf`
-- `llama`
-
-This enables easy model/backend swapping without changing core orchestration logic.
-
----
-
-## Repo Layout
-
-```text
-src/
-  agent/      # prompts, orchestration, validators
-  cli/        # app + end-to-end pipeline runners
-  data/       # arXiv ingest, cleaning, optional SQLite utilities
-  llm/        # provider abstraction and adapters
-  tools/      # external tools (search)
-```
-
----
+Then open:  
+http://localhost:7860
 
 ## Author
 
-**Pushpita Das**  
-Computational Astrophysicist -> Generative AI Systems Research
+Pushpita Das
+
+Computational astrophysicist transitioning into Generative AI systems research.
+
+Background in large-scale numerical simulations, HPC, and scientific computing.  
+Currently focused on building reliable LLM systems for scientific domains.
