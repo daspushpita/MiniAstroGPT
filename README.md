@@ -89,59 +89,35 @@ Parallel production track:
 ```
 
 ```mermaid
-flowchart TB
+flowchart LR
   subgraph D["Distillation Track (main)"]
-    direction TB
+    direction LR
 
-    subgraph D1["Column 1"]
-      direction TB
-      A["arXiv Abstracts"] --> B["Teacher LLM"]
-    end
-
-    subgraph D2["Column 2"]
-      direction TB
-      C["Validation + Judge Filter"] --> E["Curated JSONL Supervision"]
-    end
-
-    subgraph D3["Column 3"]
-      direction TB
-      F["Student Fine-Tuning (GPT-2 + LoRA)"] --> G["Compact Explainer Model"]
-    end
+    A["arXiv Abstracts"] --> B["Teacher LLM"]
+    C["Validation + Judge Filter"] --> E["Curated JSONL Supervision"]
+    F["Student Fine-Tuning (GPT-2 + LoRA)"] --> G["Compact Explainer Model"]
 
     B --> C
     E --> F
-    A ~~~ C
-    C ~~~ F
-    B ~~~ E
-    E ~~~ G
+
+    A ~~~ C ~~~ F
+    B ~~~ E ~~~ G
   end
 ```
 ```mermaid
-flowchart TB
+flowchart LR
   subgraph P["Production Track (agentic_pipeline)"]
-    direction TB
+    direction LR
 
-    subgraph P1["Column 1"]
-      direction TB
-      X["Abstract Input"] --> Y["Plan"]
-    end
-
-    subgraph P2["Column 2"]
-      direction TB
-      Z["Draft"] --> U["Validate"]
-    end
-
-    subgraph P3["Column 3"]
-      direction TB
-      V["Critic + Revise"] --> W["Gradio UI (HF Space)"]
-    end
+    X["Abstract Input"] --> Y["Plan"]
+    Z["Draft"] --> U["Validate"]
+    V["Critic + Revise"] --> W["Gradio UI (HF Space)"]
 
     Y --> Z
     U --> V
-    X ~~~ Z
-    Z ~~~ V
-    Y ~~~ U
-    U ~~~ W
+
+    X ~~~ Z ~~~ V
+    Y ~~~ U ~~~ W
   end
 ```
 
@@ -243,4 +219,3 @@ Computational astrophysicist transitioning into Generative AI systems research.
 
 Background in large-scale numerical simulations, HPC, and scientific computing.  
 Currently focused on building reliable LLM systems for scientific domains.
-
