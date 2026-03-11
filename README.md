@@ -1,8 +1,8 @@
 ---
-title: MiniAstroLM
+title: AstroGPT
 emoji: 🔭
-colorFrom: blue
-colorTo: indigo
+colorFrom: black
+colorTo: black
 sdk: gradio
 app_file: app.py
 python_version: "3.12.12"
