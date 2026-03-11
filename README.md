@@ -55,7 +55,7 @@ The system starts from raw astrophysics abstracts and gradually builds a reliabl
 
 Alongside this training pipeline, an **agentic inference system** produces explanations in stages:  
 ```
-plan -> draft -> validate -> critic -> revise
+plan -> draft -> tool call -> validate -> critic -> revise
 ```
 The full generation trace is exposed in the UI for transparency.
 
