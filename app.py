@@ -96,10 +96,10 @@ css = f"""
 html, body {{
     margin: 0;
     min-height: 100%;
+    background: #020617;
 }}
 
-body::before {{
-    content: "";
+#app_bg {{
     position: fixed;
     inset: 0;
     z-index: 0;
@@ -108,15 +108,13 @@ body::before {{
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    transform: translateZ(0);
 }}
 
-body::after {{
+#app_bg::after {{
     content: "";
-    position: fixed;
+    position: absolute;
     inset: 0;
-    z-index: 0;
-    pointer-events: none;
     background: rgba(2, 6, 23, 0.28);
 }}
 
@@ -206,6 +204,8 @@ footer {{
 """
 
 with gr.Blocks(css=css) as demo:
+    gr.HTML("<div id='app_bg'></div>")
+
     with gr.Column(elem_id="hero_box"):
         gr.Markdown("""
 # AstroGPT
