@@ -65,11 +65,28 @@ arXiv: <a href="{arxiv_url}" target="_blank" style="color:#93c5fd; text-decorati
 
     critic_raw = str(paper.get("critic", ""))
     try:
-        critic_pretty = json.dumps(json.loads(critic_raw), indent=2)
+        critic_payload = json.loads(critic_raw)
+        critic_pretty = json.dumps(critic_payload, indent=2)
     except Exception:
+        critic_payload = None
         critic_pretty = critic_raw
 
-    critic = f"### Critic\n\n```json\n{critic_pretty}\n```"
+    critic_summary = ""
+    if isinstance(critic_payload, dict):
+        scores = critic_payload.get("scores", {})
+        if isinstance(scores, dict):
+            hallucination = scores.get("hallucination", "n/a")
+            structure = scores.get("structure", "n/a")
+            clarity = scores.get("clarity", "n/a")
+            critic_summary = (
+                "| Metric | Score |\n"
+                "|---|---:|\n"
+                f"| Hallucination | {hallucination}/5 |\n"
+                f"| Structure | {structure}/5 |\n"
+                f"| Clarity | {clarity}/5 |\n\n"
+            )
+
+    critic = f"### Critic Scores\n\n{critic_summary}```json\n{critic_pretty}\n```"
 
     return paper_id, title, abstract, explanation, glossary, plan, draft, critic
 

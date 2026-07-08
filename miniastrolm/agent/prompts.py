@@ -90,25 +90,27 @@ class Prompts:
 
         SCORING (integers 0-5):
         - scores.hallucination: 0 = fully supported by abstract, 5 = many unsupported claims
-        - scores.structure: 0 = excellent problem→method→findings→implications flow, 5 = poor or jumbled flow
-        - scores.clarity: 0 = very clear and accessible, 5 = confusing or too technical
+        - scores.structure: 5 = excellent problem→method→findings→implications flow, 0 = poor or jumbled flow
+        - scores.clarity: 5 = very clear and accessible, 0 = confusing or too technical
 
         If the draft contains any non-trivial statement not clearly supported by the abstract, list it in hallucinated_claims and increase scores.hallucination.
 
         OUTPUT:
         Return ONLY valid JSON. No markdown. No code fences. No extra keys.
+        You must evaluate the draft and choose integer scores; do not copy a template.
+        Use 0 only when that dimension has no meaningful issue.
         If there are no hallucinated claims, return an empty list [].
         If no fixes are needed, return an empty list [].
 
-        JSON SCHEMA (must match exactly):
+        Required JSON shape:
         {{
-        "scores": {{
-            "hallucination": 0,
-            "structure": 0,
-            "clarity": 0
-        }},
-        "fix_instructions": [],
-        "hallucinated_claims": []
+          "scores": {{
+            "hallucination": <integer from 0 to 5>,
+            "structure": <integer from 0 to 5>,
+            "clarity": <integer from 0 to 5>
+          }},
+          "fix_instructions": [<strings, or [] if no fixes are needed>],
+          "hallucinated_claims": [<strings, or [] if none>]
         }}
         """
         return prompt
@@ -242,4 +244,3 @@ class Prompts:
         {abstract}
         """
         return prompt
-

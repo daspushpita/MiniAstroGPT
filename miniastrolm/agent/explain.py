@@ -128,6 +128,9 @@ class AstroAgent:
         if (hall >= 3 or struct >= 3 or clar >= 3) and len(fix_instructions) == 0:
             return False, "Critic must provide fix_instructions when any score >= 3."
 
+        if hall == 0 and struct == 0 and clar == 0 and not hallucinated_claims and not fix_instructions:
+            return False, "Critic appears to have copied the empty score template."
+
         return True, ""
 
     def _extract_first_json_object(self, text: str) -> dict[str, Any] | None:
