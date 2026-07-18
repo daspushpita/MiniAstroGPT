@@ -38,6 +38,7 @@ jobs:
           fi
 
           hf auth login --token "$HF_TOKEN"
+          hf repo info "$HF_SPACE_REPO" --repo-type space
 
           hf upload "$HF_SPACE_REPO" . \
             --repo-type space \
