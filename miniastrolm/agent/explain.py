@@ -125,8 +125,11 @@ class AstroAgent:
         if not isinstance(fix_instructions, list) or any(not isinstance(x, str) for x in fix_instructions):
             return False, "Critic key 'fix_instructions' must be a list of strings."
 
-        if (hall >= 3 or struct >= 3 or clar >= 3) and len(fix_instructions) == 0:
-            return False, "Critic must provide fix_instructions when any score >= 3."
+        if (hall >= 3 or struct <= 2 or clar <= 2) and len(fix_instructions) == 0:
+            return False, (
+                "Critic must provide fix_instructions when hallucination risk is high "
+                "or structure/clarity quality is low."
+            )
 
         if hall == 0 and struct == 0 and clar == 0 and not hallucinated_claims and not fix_instructions:
             return False, "Critic appears to have copied the empty score template."
@@ -293,14 +296,14 @@ class AstroAgent:
     def _critic_passes(self, critic_payload: dict[str, Any]) -> bool:
         scores = critic_payload.get("scores", {})
         hallucination = int(scores.get("hallucination", 5))
-        structure = int(scores.get("structure", 5))
-        clarity = int(scores.get("clarity", 5))
-        return (hallucination <= 1) and (structure <= 2) and (clarity <= 2)
+        structure = int(scores.get("structure", 0))
+        clarity = int(scores.get("clarity", 0))
+        return (hallucination <= 1) and (structure >= 4) and (clarity >= 4)
     
     def _validator_to_critic(self, v) -> dict[str, Any]:
     # v is your ValidatorResult
         return {
-            "scores": {"hallucination": 0, "structure": 3, "clarity": 1},
+            "scores": {"hallucination": 0, "structure": 2, "clarity": 4},
             "fix_instructions": [
                 f"Fix formatting/constraint failures: {', '.join(v.failures)}.",
                 f"Keep exactly 4 paragraphs and 180–250 words (current: {v.word_count} words, {v.paragraph_count} paragraphs).",
