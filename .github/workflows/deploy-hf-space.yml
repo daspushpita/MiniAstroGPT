@@ -38,7 +38,7 @@ jobs:
           fi
 
           hf auth login --token "$HF_TOKEN"
-          hf repo info "$HF_SPACE_REPO" --repo-type space
+          python -c "from huggingface_hub import HfApi; info = HfApi(token='$HF_TOKEN').repo_info(repo_id='$HF_SPACE_REPO', repo_type='space'); print(f'Found Space: {info.id}')"
 
           hf upload "$HF_SPACE_REPO" . \
             --repo-type space \
