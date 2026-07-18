@@ -1,8 +1,8 @@
-name: Deploy demo-ui to Hugging Face Space
+name: Deploy agentic_pipeline to Hugging Face Space
 
 on:
   push:
-    branches: [demo-ui]
+    branches: [agentic_pipeline]
   workflow_dispatch:
 
 jobs:
@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout demo-ui
+      - name: Checkout agentic_pipeline
         uses: actions/checkout@v4
         with:
-          ref: demo-ui
+          ref: agentic_pipeline
           fetch-depth: 0
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -50,4 +50,4 @@ jobs:
             --exclude ".env" \
             --exclude "logs/*" \
             --delete "*" \
-            --commit-message "Deploy from GitHub demo-ui"
+            --commit-message "Deploy from GitHub agentic_pipeline"
